@@ -1,4 +1,4 @@
-package com.example.test;
+package anu.cookcompass;
 
 import org.junit.Test;
 

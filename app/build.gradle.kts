@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.test"
+    namespace = "anu.cookcompass"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.test"
+        applicationId = "anu.cookcompass"
         minSdk = 33
         targetSdk = 34
         versionCode = 1
