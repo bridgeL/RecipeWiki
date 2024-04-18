@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
 import anu.cookcompass.model.Global;
-import anu.cookcompass.model.Ingredient;
+import anu.cookcompass.model.Recipe;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,7 +25,8 @@ public class LoginActivity extends AppCompatActivity {
         // switch night mode
         global.config.setNight(this, true); // TODO: BUG: When config.setNight(!config.isNight()), the app will drop in restart loop.
 
-        // search ingredients
-        List<Ingredient> ingredients = global.database.searchIngredients("test...");
+        // search recipes
+        List<Recipe> recipes = global.database.searchRecipes("test...");
+        System.out.println(recipes.get(0).title);
     }
 }

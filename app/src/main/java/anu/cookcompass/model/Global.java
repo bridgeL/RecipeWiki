@@ -25,10 +25,10 @@ public class Global {
         File configFile = Utils.copyFileFromAssets(context, "config.json");
         config = Config.load(configFile);
 
-        // load database (ingredients and users)
-        File ingredientFile = Utils.copyFileFromAssets(context, "ingredients.json");
+        // load database (recipes and users)
+        File recipeFile = Utils.copyFileFromAssets(context, "recipes.json");
         File userFile = Utils.copyFileFromAssets(context, "users.json");
-        database = new LocalDatabase(ingredientFile, userFile);
+        database = new LocalDatabase(recipeFile, userFile);
     }
 
     /**

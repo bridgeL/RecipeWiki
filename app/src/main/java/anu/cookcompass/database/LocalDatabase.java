@@ -7,20 +7,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import anu.cookcompass.Utils;
-import anu.cookcompass.model.Ingredient;
+import anu.cookcompass.model.Recipe;
 import anu.cookcompass.model.User;
 
 public class LocalDatabase {
-    List<Ingredient> ingredients;
+    List<Recipe> recipes;
     List<User> users;
-    transient File ingredientFile;
+    transient File recipeFile;
     transient File userFile;
 
-    public LocalDatabase(File ingredientFile, File userFile) {
-        // load ingredients
-        ingredients = Utils.readJson(ingredientFile, new TypeToken<List<Ingredient>>() {
+    public LocalDatabase(File recipeFile, File userFile) {
+        // load recipes
+        recipes = Utils.readJson(recipeFile, new TypeToken<List<Recipe>>() {
         });
-        this.ingredientFile = ingredientFile;
+        this.recipeFile = recipeFile;
 
         // load users
         users = Utils.readJson(userFile, new TypeToken<List<User>>() {
@@ -28,9 +28,9 @@ public class LocalDatabase {
         this.userFile = userFile;
     }
 
-    public Ingredient getIngredientById(int id){
-        for (Ingredient ingredient : ingredients) {
-            if(ingredient.id == id) return ingredient;
+    public Recipe getRecipeById(int id){
+        for (Recipe recipe : recipes) {
+            if(recipe.id == id) return recipe;
         }
         return null;
     }
@@ -43,20 +43,20 @@ public class LocalDatabase {
     }
 
     public void save(){
-        Utils.saveJson(ingredientFile, ingredients);
+        Utils.saveJson(recipeFile, recipes);
         Utils.saveJson(userFile, users);
     }
 
-    public List<Ingredient> searchIngredients(String searchString){
+    public List<Recipe> searchRecipes(String searchString){
         // 1. use tokenizer get tokens
 
         // 2. use tokens search ingredients
 
         // 3. return ingredients
-        return easySearchIngredients(new String[]{"apple", "cream"}, new String[]{"bread", "pineapple"});
+        return easySearchRecipes(new String[]{"apple", "cream"}, new String[]{"bread", "pineapple"});
     }
 
-    public List<Ingredient> easySearchIngredients(String[] includes, String[] excludes){
+    public List<Recipe> easySearchRecipes(String[] includes, String[] excludes){
         for (int i = 0; i < includes.length; i++) {
             includes[i] = includes[i].toLowerCase();
         }
@@ -64,7 +64,7 @@ public class LocalDatabase {
             excludes[i] = excludes[i].toLowerCase();
         }
 
-        return ingredients.stream().filter(e->{
+        return recipes.stream().filter(e->{
             String title = e.title.toLowerCase();
             for (String include : includes) {
                 if(!title.contains(include)) return false;
