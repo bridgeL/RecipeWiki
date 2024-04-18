@@ -26,6 +26,6 @@ public class LoginActivity extends AppCompatActivity {
         global.config.setNight(this, true); // TODO: BUG: When config.setNight(!config.isNight()), the app will drop in restart loop.
 
         // search ingredients
-        List<Ingredient> ingredients = global.database.searchIngredients(new String[]{"apple", "cream"}, new String[]{"bread", "pineapple"});
+        List<Ingredient> ingredients = global.database.searchIngredients("test...");
     }
 }

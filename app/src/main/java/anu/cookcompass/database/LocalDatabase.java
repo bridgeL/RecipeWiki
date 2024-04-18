@@ -47,7 +47,16 @@ public class LocalDatabase {
         Utils.saveJson(userFile, users);
     }
 
-    public List<Ingredient> searchIngredients(String[] includes, String[] excludes){
+    public List<Ingredient> searchIngredients(String searchString){
+        // 1. use tokenizer get tokens
+
+        // 2. use tokens search ingredients
+
+        // 3. return ingredients
+        return easySearchIngredients(new String[]{"apple", "cream"}, new String[]{"bread", "pineapple"});
+    }
+
+    public List<Ingredient> easySearchIngredients(String[] includes, String[] excludes){
         for (int i = 0; i < includes.length; i++) {
             includes[i] = includes[i].toLowerCase();
         }
