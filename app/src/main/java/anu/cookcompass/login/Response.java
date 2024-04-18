@@ -1,10 +1,10 @@
 package anu.cookcompass.login;
 
-public class RegisterMessage {
+public class Response {
     public boolean successful;
     public String message;
 
-    public RegisterMessage(boolean successful, String message){
+    public Response(boolean successful, String message){
         this.successful = successful;
         this.message = message;
     }
