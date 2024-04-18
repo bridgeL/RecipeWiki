@@ -26,7 +26,7 @@ public class Global {
         config = Config.load(configFile);
 
         // load database (ingredients and users)
-        File ingredientFile = Utils.copyFileFromAssets(context, "ingredients.json");
+        File ingredientFile = Utils.copyFileFromAssets(context, "recipes.json");
         File userFile = Utils.copyFileFromAssets(context, "users.json");
         database = new LocalDatabase(ingredientFile, userFile);
     }

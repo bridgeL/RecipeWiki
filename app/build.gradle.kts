@@ -38,6 +38,7 @@ dependencies {
 
     implementation("com.opencsv:opencsv:5.9")
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
