@@ -13,7 +13,7 @@ import java.util.List;
 import anu.cookcompass.login.Login;
 import anu.cookcompass.login.Response;
 import anu.cookcompass.model.Global;
-import anu.cookcompass.model.Ingredient;
+import anu.cookcompass.model.Recipe;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText accountEditText;
@@ -34,6 +34,9 @@ public class LoginActivity extends AppCompatActivity {
         // switch night mode
         global.config.setNight(this, true); // TODO: BUG: When config.setNight(!config.isNight()), the app will drop in restart loop.
 
+        // search recipes
+        List<Recipe> recipes = global.database.searchRecipes("test...");
+        System.out.println(recipes.get(0).title);
         //login message
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
