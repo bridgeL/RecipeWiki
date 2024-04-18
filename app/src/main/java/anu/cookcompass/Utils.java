@@ -18,6 +18,12 @@ import java.util.List;
 
 
 public class Utils {
+    /**
+     * @param context activity
+     * @param fileName filepath
+     * @return File
+     * Copy file from assets to /data/data/anu.cookcompass/files
+     */
     public static File copyFileFromAssets(Context context, String fileName) {
         File file = new File(context.getFilesDir(), fileName);
         if (!file.exists()) {
@@ -39,6 +45,11 @@ public class Utils {
         return file;
     }
 
+    /**
+     * @param file csv file
+     * @return List
+     * read csv file
+     */
     public static List<String[]> readCsv(File file) {
         List<String[]> data = null;
         try {
@@ -53,6 +64,13 @@ public class Utils {
         return data;
     }
 
+    /**
+     * @param file json file
+     * @param tClass type of object
+     * @param <T> type of object
+     * @return data
+     * Read Json file and convert it to relative object
+     */
     public static <T> T readJson(File file, Class<T> tClass){
         T data = null;
         try (FileReader fileReader = new FileReader(file)) {
@@ -65,6 +83,13 @@ public class Utils {
         return data;
     }
 
+    /**
+     * @param file json file
+     * @param typeToken type of list of object
+     * @param <T> type of list of object
+     * @return List of data
+     * Read Json file and convert it to an array of relative object
+     */
     public static <T> T readJson(File file, TypeToken<T> typeToken) {
         T data = null;
         try (FileReader fileReader = new FileReader(file)) {
@@ -77,6 +102,11 @@ public class Utils {
         return data;
     }
 
+    /**
+     * @param file json file
+     * @param data data
+     * Convert object to json and save it into a file
+     */
     public static void saveJson(File file, Object data){
         try (FileWriter fileWriter = new FileWriter(file)) {
             Gson gson = new Gson();
