@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".RegisterActivity">
-
+<!--Back button-->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/round_arrow_back_24"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="16dp"/>
     <!--    Register in text-->
     <TextView
         android:layout_width="match_parent"
@@ -18,7 +23,7 @@
         android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:textColor="#333"
-        android:text="Register"/>
+        android:text="@string/register"/>
     <!--   box contain edit text for account and password -->
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -36,7 +41,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/baseline_account_box_24" />
             <!--Register in edit text with id account-->
@@ -47,7 +52,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@null"
-                android:hint="Please input your account"
+                android:hint="@string/please_input_your_account"
                 android:textSize="14sp"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -60,7 +65,7 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/lock_image"/>
             <!--password editText with id password-->
@@ -72,7 +77,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@null"
                 android:inputType="textPassword"
-                android:hint="Please input your password"
+                android:hint="@string/please_input_your_password"
                 android:textSize="14sp"
                 />
 
@@ -97,7 +102,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@null"
                 android:inputType="textPassword"
-                android:hint="Please input your password again"
+                android:hint="@string/please_input_your_password_again"
                 android:textSize="14sp"
                 />
 
@@ -109,7 +114,7 @@
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
-            android:text="Register"
+            android:text="@string/register"
             android:layout_height="match_parent"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
