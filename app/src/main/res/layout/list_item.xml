@@ -32,24 +32,11 @@
             android:layout_alignBottom="@id/listImage"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@id/listTime"
             android:layout_toEndOf="@id/listImage"
             android:text="@string/search_result"
             android:textColor="@color/lavender"
             android:textSize="16sp"
             android:gravity="center_vertical"/>
 
-        <TextView
-            android:id="@+id/listTime"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:text="time"
-            android:textColor="@color/lavender"
-            android:textSize="16sp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:layout_alignTop="@id/listImage"
-            android:layout_alignBottom="@id/listImage"
-            android:gravity="center_vertical"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
