@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CookCompass</string>
     <string name="log_in">Log In</string>
     <string name="please_input_your_account">Please input your account</string>
 </resources>

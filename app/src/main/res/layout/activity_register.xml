@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
-<!--the top image showed in the UI-->
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/login_photo"/>
-<!--    log in text-->
+    tools:context=".RegisterActivity">
+
+    <!--    Register in text-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,8 +18,8 @@
         android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:textColor="#333"
-        android:text="@string/log_in"/>
-<!--   box contain edit text for account and password -->
+        android:text="Register"/>
+    <!--   box contain edit text for account and password -->
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_marginTop="26dp"
@@ -30,32 +27,31 @@
         android:layout_marginRight="10dp"
         android:orientation="vertical"
         android:layout_height="wrap_content">
-<!-- account edit box and icon-->
+        <!-- account edit box and icon-->
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/login_bg">
-<!--log in icon-->
+            <!--Register in icon-->
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/baseline_account_box_24"/>
-<!--log in edit text with id account-->
+                android:src="@drawable/baseline_account_box_24" />
+            <!--Register in edit text with id account-->
             <EditText
-                android:id="@+id/account"
+                android:id="@+id/registerAccount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@null"
-                android:hint="@string/please_input_your_account"
-                android:textSize="14sp"
-                 />
+                android:hint="Please input your account"
+                android:textSize="14sp"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-<!--password edittext and icon-->
+        <!--password edittext and icon-->
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -64,12 +60,12 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/lock_image"/>
-<!--password editText with id password-->
+            <!--password editText with id password-->
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/firstRegisterPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -81,26 +77,40 @@
                 />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-<!--        hint to register-->
-        <TextView
-            android:id="@+id/notRegisteredTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="right"
-            android:text="Not registered?"
-            android:textColor="@color/my_light_primary"
-            android:layout_marginRight="5dp"
-            android:clickable="true"
-            android:focusable="true"
-            />
-<!--        login button-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/login_bg">
+            <!-- password icon -->
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/lock_image"/>
+            <!--password editText with id password-->
+            <EditText
+                android:id="@+id/secondRegisterPassword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@null"
+                android:inputType="textPassword"
+                android:hint="Please input your password again"
+                android:textSize="14sp"
+                />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <!--        register button-->
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
-            android:text="Log In"
+            android:text="Register"
             android:layout_height="match_parent"/>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

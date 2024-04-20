@@ -1,9 +1,10 @@
 package anu.cookcompass;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +24,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // TODO: main entrance, initialization code write down here
         Button loginButton = findViewById(R.id.loginButton);
         accountEditText=findViewById(R.id.account);
         passwordEditText=findViewById((R.id.password));
+        TextView notRegisteredTextView=findViewById(R.id.notRegisteredTextView);
 
         // init global module
         Global.init(this);
@@ -37,27 +40,31 @@ public class LoginActivity extends AppCompatActivity {
         // search recipes
         List<Recipe> recipes = global.database.searchRecipes("test...");
         System.out.println(recipes.get(0).title);
-        //login message
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String account= accountEditText.getText().toString();
-                String password=passwordEditText.getText().toString();
-                Login loginModule=new Login();
-                Response res=loginModule.login(account,password);
-                if (true){
-                    //if successful, show the search page (main page)
-                    Toast.makeText(LoginActivity.this, res.message, Toast.LENGTH_SHORT).show();
 
-                }
-                else {// if not correct, depends on the message, show the error hint
-                    Toast.makeText(LoginActivity.this,res.message,Toast.LENGTH_LONG).show();
+        //login click event
+        loginButton.setOnClickListener(v -> {
+            String account= accountEditText.getText().toString();
+            String password=passwordEditText.getText().toString();
+            Login loginModule=new Login();
+            Response res=loginModule.login(account,password);
+            if (res.successful){
+                //if successful, show the search page (main page)
+                Toast.makeText(LoginActivity.this, res.message, Toast.LENGTH_SHORT).show();
 
-                }
+            }
+            else {// if not correct, depends on the message, show the error hint
+                Toast.makeText(LoginActivity.this,res.message,Toast.LENGTH_LONG).show();
+
             }
         });
 
+        //register click event
+        notRegisteredTextView.setOnClickListener(v -> {
+            Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+            startActivity(intent);
+        });
+
         // search ingredients
-                List<Ingredient> ingredients = global.database.searchIngredients("test...");
+                List<Recipe> ingredients = global.database.searchRecipes("test...");
     }
 }
