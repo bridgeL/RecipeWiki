@@ -42,6 +42,12 @@ public class LocalDatabase {
         return null;
     }
 
+    //New method for adding user to user list in database (May be removed if incorrect)
+    public void addUser(User newUser) {
+        users.add(newUser);
+        save();
+    }
+
     public void save(){
         Utils.saveJson(recipeFile, recipes);
         Utils.saveJson(userFile, users);

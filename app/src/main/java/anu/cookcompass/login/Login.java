@@ -1,5 +1,6 @@
 package anu.cookcompass.login;
 
+import anu.cookcompass.database.LocalDatabase;
 import anu.cookcompass.model.Global;
 import anu.cookcompass.model.User;
 
@@ -27,7 +28,7 @@ public class Login {
         //Searches the database for the user with the given username
         User user = Global.getInstance().database.getUserByUsername(username);
 
-        //Check if the username is null or not
+        //Check if the user is null or not (Check if the user exists in the database)
         if (user == null) {
             return new Response(false, "Username does not exist!");
         }
@@ -48,17 +49,40 @@ public class Login {
     }
 
     public static Response register(String username, String password) {
-        // TODO: finish this module
+        // 1. Check username and password format
 
-        // 1. check username and password format
+        /*
+        Regex breakdown:
+        a) (?=.{3}@) : Positive lookbehind assertion making sure there are at least 3 characters before @
+        b) [a-zA-Z0-9]+ : One or more numbers and/or letters
+        c) [a-zA-Z0-9!#$%&*-_=+/]+ : One or more numbers and/or letters and/or special characters
+        d) [a-zA-Z0-9.]+ : One or more numbers and/or letters and/or periods
+         */
 
-        // 2. check if username is used
+        if (username.isEmpty() || username == null || password.isEmpty() || password == null ||
+                username.contains(" ") || password.contains(" ") ||
+                !username.matches("^(?=.{3}@)[a-zA-Z0-9]+[a-zA-Z0-9!#$%&*-_=+/]+@[a-zA-Z0-9.]+$")
+                || username.contains("..")) {
+            return new Response(false, "Wrong username or password format!");
+        }
 
-        // 3. create user and update database
+        // 2. Check if username is used
 
-        // 4. return useful register message
-
+        //Searches the database for the user with the given username
         User user = Global.getInstance().database.getUserByUsername(username);
-        return new Response(false, "existed username");
+
+        //Check if the user is null or not (Check if the user exists in the database)
+        if (user != null) {
+            return new Response(false, "Username already exists!");
+        }
+
+        // 3. Create user and update database
+        if (user == null) {
+            user = new User();
+            Global.getInstance().database.addUser(user);
+        }
+
+        // 4. Return successful register message
+        return new Response(true, "Registration successful!");
     }
 }
