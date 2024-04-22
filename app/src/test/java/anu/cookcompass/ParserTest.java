@@ -15,6 +15,7 @@ import anu.cookcompass.TokenizerAndParser.Tokenizer;
 public class ParserTest {
     static String simple_query1 = "ingredients = apple, orange;  title = apple pie;";
     static String simple_query2 = "ingredients = apple";
+    static String simple_query3 = "like > 3; collect < 10";
     static String simple_query_fail1 = "ingredients = ,";
     static String simple_query_fail2 = "ingredients = apple,";
     static String simple_query_fail3 = "ingredients = apple; ingredients = apple";
@@ -28,6 +29,11 @@ public class ParserTest {
         assertNull(parseResult.errorMessage);
         assertArrayEquals(new String[]{"apple", "orange"},parseResult.ingredient_keywords);
         assertArrayEquals(new String[]{"apple pie"}, parseResult.title_keywords);
+
+        QueryObject parseResult2 = parseQuery(simple_query3);
+        assertFalse(parseResult2.queryInvalid);
+        assertArrayEquals(new int[]{3,-1}, parseResult2.like_range);
+        assertArrayEquals(new int[]{0,10}, parseResult2.collect_range);
     }
 
     @Test

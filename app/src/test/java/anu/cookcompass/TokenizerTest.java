@@ -15,6 +15,7 @@ import anu.cookcompass.TokenizerAndParser.Tokenizer;
  */
 public class TokenizerTest {
     static String simple_query1 = "ingredients = apple, orange; title = apple for day";
+    static String simple_q2 = "like > 15";
     @Test
     public void test_simple_case(){
         Tokenizer tokenizer = new Tokenizer(simple_query1);

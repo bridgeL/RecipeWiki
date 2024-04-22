@@ -32,6 +32,11 @@ public class QueryObject {
     public QueryObject(String err_msg){
         queryInvalid = true;
         errorMessage = err_msg;
+
+        title_keywords = new String[]{};
+        ingredient_keywords = new String[]{};
+        like_range = new int[]{-1, -1};
+        collect_range = new int[]{-1, -1};
     }
 
     /**
@@ -40,5 +45,10 @@ public class QueryObject {
      */
     public QueryObject(){
         queryInvalid = false;
+
+        title_keywords = new String[]{};
+        ingredient_keywords = new String[]{};
+        like_range = new int[]{-1, -1};
+        collect_range = new int[]{-1, -1};
     }
 }

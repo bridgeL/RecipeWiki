@@ -1,5 +1,7 @@
 package anu.cookcompass.TokenizerAndParser;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.ArrayList;
 
 /**
@@ -55,7 +57,7 @@ public class Parser {
                     includes_ingr = true;
                     // check format correctness
                     tokenizer.next();
-                    if(tokenizer.current().getType() != Token.Type.BOOL_EQ)
+                    if(!tokenizer.hasNext() || tokenizer.current().getType() != Token.Type.BOOL_EQ)
                         return new QueryObject("Invalid search: Keyword \"ingredients\" not followed by \"=\".");
                     tokenizer.next();
                     // start parsing
@@ -75,7 +77,7 @@ public class Parser {
                     includes_titl = true;
                     // check format correctness
                     tokenizer.next();
-                    if(tokenizer.current().getType() != Token.Type.BOOL_EQ)
+                    if(!tokenizer.hasNext() || tokenizer.current().getType() != Token.Type.BOOL_EQ)
                         return new QueryObject("Invalid search: Keyword \"title\" not followed by \"=\".");
                     tokenizer.next();
                     // start parsing
@@ -93,22 +95,34 @@ public class Parser {
                     if(includes_like)
                         return new QueryObject("Invalid search: Keyword \"like\" duplicated.");
                     includes_like = true;
-                    // check format correctness
                     tokenizer.next();
-                    if(tokenizer.current().getType() != Token.Type.BOOL_EQ)
-                        return new QueryObject("Invalid search: Keyword \"like\" not followed by \"=\".");
-                    tokenizer.next();
+                    // parse
+                    ArrayList<Integer> like_range = parseStat();
+                    if(like_range.size() == 0){
+                        return new QueryObject("Invalid search: invalid range for keyword \"like\".");
+                    }
+                    else{
+                        Integer[] array = new Integer[like_range.size()];
+                        like_range.toArray(array);
+                        result.like_range = ArrayUtils.toPrimitive(array);
+                    }
                 }
                 case COLLECT -> {
                     // no duplicated query keyword allowed
                     if(includes_collect)
                         return new QueryObject("Invalid search: Keyword \"collect\" duplicated.");
                     includes_collect = true;
-                    // check format correctness
                     tokenizer.next();
-                    if(tokenizer.current().getType() != Token.Type.BOOL_EQ)
-                        return new QueryObject("Invalid search: Keyword \"collect\" not followed by \"=\".");
-                    tokenizer.next();
+                    // parse
+                    ArrayList<Integer> collect_range = parseStat();
+                    if(collect_range.size() == 0){
+                        return new QueryObject("Invalid search: invalid range for keyword \"like\".");
+                    }
+                    else{
+                        Integer[] array = new Integer[collect_range.size()];
+                        collect_range.toArray(array);
+                        result.collect_range = ArrayUtils.toPrimitive(array);
+                    }
                 }
                 default ->{
                     return new QueryObject("Invalid search: unexpected keyword.");
@@ -126,7 +140,7 @@ public class Parser {
      */
     ArrayList<String> parseValues(){
         // the beginning of a query must be a string
-        if(tokenizer.current().getType() != Token.Type.STRING)
+        if(!tokenizer.hasNext() || tokenizer.current().getType() != Token.Type.STRING)
             return new ArrayList<>();
 
         ArrayList<String> result = new ArrayList<>();
@@ -154,6 +168,45 @@ public class Parser {
         }
         // move to the next token if there is still tokens left
         if(tokenizer.hasNext()) tokenizer.next();
+        return result;
+    }
+
+    ArrayList<Integer> parseStat(){
+        // if the value list is empty or first token is not a boolean operator, this part is invalid.
+        if(!tokenizer.hasNext()
+            || (tokenizer.current().getType() != Token.Type.BOOL_EQ
+            &&tokenizer.current().getType() != Token.Type.BOOL_GT
+            &&tokenizer.current().getType() != Token.Type.BOOL_LT) ){
+            return new ArrayList<>();
+        }
+        Token.Type operator = tokenizer.current().getType();
+        ArrayList<Integer> result = new ArrayList<>();
+        tokenizer.next();
+        // if no value is following the operator, or the next token is not an integer, this part is invalid.
+        if(!tokenizer.hasNext() || tokenizer.current().getType() != Token.Type.INT){
+            return new ArrayList<>();
+        }
+        int range = Integer.parseInt(tokenizer.current().getToken());
+        // format and return the result
+        if(operator == Token.Type.BOOL_EQ){
+            result.add(range);
+            result.add(range);
+        }
+        else if(operator == Token.Type.BOOL_LT){
+            result.add(0);
+            result.add(range);
+        } else if(operator == Token.Type.BOOL_GT) {
+            result.add(range);
+            result.add(-1);
+        }
+        else{
+            result.add(-1);
+            result.add(-1); // usually unreachable
+        }
+        tokenizer.next();
+        if(tokenizer.hasNext() && tokenizer.current().getType() == Token.Type.SEMI){
+            tokenizer.next();
+        }
         return result;
     }
 
