@@ -6,8 +6,8 @@ import java.util.Scanner;
  * The tokenizer for tokenize user search input. Similar to the tokenizer used in the lab.
  */
 public class Tokenizer {
-    String buffer;
-    Token currentToken;
+    private String buffer;
+    private Token currentToken;
 
     /**
      * Tokenizer constructor. Initialize the tokenizer with search input. Should be called by
