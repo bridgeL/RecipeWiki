@@ -9,12 +9,12 @@ import java.util.ArrayList;
  * The grammar is shown as follow: <br>
  * < Query > :== < Reci-Query > | < Stat-Query > | < Reci-Query > ; < Stat-Query > | < Stat-Query > ; < Reci-Query ><br>
  * < Reci-Query > :== < Ingr-Query > | < Titl-Query ><br>
- * < Ingr-Query > :== ingredients = < Value ><br>
- * < Titl-Query > :== title = < Value ><br>
+ * < Ingr-Query > :== ingredients = < Names ><br>
+ * < Titl-Query > :== title = < Names ><br>
  * < Stat-Query > :== < Like-Query > | < Collect-Query ><br>
- * < Like-Query > :== like < BoolOperator > < Value ><br>
- * < Collect-Query > :== collect < BoolOperator > < Value ><br>
- * < Value > :== STRING | STRING , < Value ><br>
+ * < Like-Query > :== like < BoolOperator > INTEGER<br>
+ * < Collect-Query > :== collect < BoolOperator > INTEGER<br>
+ * < Names > :== STRING | STRING , < Names ><br>
  * < BoolOperator > :==  > | <  | = <br>
  */
 public class Parser {
