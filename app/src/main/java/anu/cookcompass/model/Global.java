@@ -2,10 +2,15 @@ package anu.cookcompass.model;
 
 import android.content.Context;
 
+import com.google.firebase.appcheck.FirebaseAppCheck;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+
 import java.io.File;
 
 import anu.cookcompass.Utils;
 import anu.cookcompass.database.LocalDatabase;
+import anu.cookcompass.firebase.Storage;
 
 /**
  * Design Pattern: Singleton
@@ -18,6 +23,10 @@ public class Global {
     public User currentUser = null;  // the user who login this app
     public LocalDatabase database;
 
+    private FirebaseAuth mAuth;
+    public Storage storage;
+
+
     private static Global instance = null;
 
     private Global(Context context) {
@@ -29,6 +38,9 @@ public class Global {
         File recipeFile = Utils.copyFileFromAssets(context, "recipes.json");
         File userFile = Utils.copyFileFromAssets(context, "users.json");
         database = new LocalDatabase(recipeFile, userFile);
+
+        mAuth = FirebaseAuth.getInstance();
+        storage = new Storage();
     }
 
     /**
