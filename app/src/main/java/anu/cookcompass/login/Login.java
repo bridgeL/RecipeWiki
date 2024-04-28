@@ -16,10 +16,11 @@ public class Login {
 
         /*
         Regex breakdown:
-        a) (?=.{3}@) : Positive lookbehind assertion making sure there are at least 3 characters before @
-        b) [a-zA-Z0-9]+ : One or more numbers and/or letters
-        c) [a-zA-Z0-9!#$%&*-_=+/]+ : One or more numbers and/or letters and/or special characters
-        d) [a-zA-Z0-9.]+ : One or more numbers and/or letters and/or periods
+        a) [A-Za-z0-9._%+-]+ : One or more numbers and/or letters and/or special characters
+        b) @ : @ symbol in emails
+        c) [A-Za-z0-9.-]+ : One or more numbers, letters, dots, and/or hyphens
+        d) \\. : A dot
+        e) [A-Za-z]{2,} : Two or more letters
          */
         if (Objects.isNull(username) || username.isEmpty() || !username.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
             return CompletableFuture.completedFuture(new Response(false, "Wrong username format!"));
