@@ -1,5 +1,4 @@
 package anu.cookcompass.database;
-
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
@@ -40,6 +39,12 @@ public class LocalDatabase {
             if(user.username.equals(username)) return user;
         }
         return null;
+    }
+
+    //New method for adding user to user list in database (May be removed if incorrect)
+    public void addUser(User newUser) {
+        users.add(newUser);
+        save();
     }
 
     public void save(){

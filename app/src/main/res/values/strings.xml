@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CookCompass</string>
+    <string name="log_in">Log In</string>
+    <string name="please_input_your_account">Please input your account</string>
+    <string name="register">Register</string>
+    <string name="please_input_your_password">Please input your password</string>
+    <string name="please_input_your_password_again">Please input your password again</string>
+    <string name="search_hint">Enter a recipe name…</string>
+    <string name="search">Search</string>
+    <string name="search_result">Roasted Chicken</string>
 </resources>
