@@ -14,12 +14,14 @@ import anu.cookcompass.TokenizerAndParser.Tokenizer;
  */
 public class ParserTest {
     static String simple_query1 = "ingredients = apple, orange;  title = apple pie;";
-    static String simple_query2 = "ingredients = apple";
-    static String simple_query3 = "like > 3; collect < 10";
+    static String simple_query4 = "ingredients = pe   ar;";
+    static String simple_query3 = "like > 3; collect < 10;";
     static String simple_query_fail1 = "ingredients = ,";
     static String simple_query_fail2 = "ingredients = apple,";
     static String simple_query_fail3 = "ingredients = apple; ingredients = apple";
     static String simple_query_fail4 = "ing = apple";
+    static String simple_query_fail5 = "like >3; like < 3";
+    static String simple_query_fail6 = "ingredients = apple";
     @Test
     public void test_simple_case(){
         Tokenizer tokenizer = new Tokenizer(simple_query1);
@@ -34,17 +36,21 @@ public class ParserTest {
         assertFalse(parseResult2.queryInvalid);
         assertArrayEquals(new int[]{3,-1}, parseResult2.like_range);
         assertArrayEquals(new int[]{0,10}, parseResult2.collect_range);
+
+        QueryObject parseResult4 = parseQuery(simple_query4);
+        assertFalse(parseResult.queryInvalid);
+        assertArrayEquals(new String[]{"pe   ar"}, parseResult4.ingredient_keywords);
     }
 
     @Test
     public void simple_query_fail_case(){
         QueryObject parseResult1 = parseQuery(simple_query_fail1);
         assertTrue(parseResult1.queryInvalid);
-        assertEquals("Invalid search: invalid value list for keyword \"ingredients\".",parseResult1.errorMessage);
+        assertEquals("Invalid search: invalid value list for keyword \"ingredients\" or missing semicolon at the end.",parseResult1.errorMessage);
 
         QueryObject parseResult2 = parseQuery(simple_query_fail2);
         assertTrue(parseResult2.queryInvalid);
-        assertEquals("Invalid search: invalid value list for keyword \"ingredients\".",parseResult2.errorMessage);
+        assertEquals("Invalid search: invalid value list for keyword \"ingredients\" or missing semicolon at the end.",parseResult2.errorMessage);
 
         QueryObject parseResult3 = parseQuery(simple_query_fail3);
         assertTrue(parseResult3.queryInvalid);
@@ -53,6 +59,14 @@ public class ParserTest {
         QueryObject parseResult4 = parseQuery(simple_query_fail4);
         assertTrue(parseResult4.queryInvalid);
         assertEquals("Invalid search: unexpected keyword.",parseResult4.errorMessage);
+
+        QueryObject parseResult5 = parseQuery(simple_query_fail5);
+        assertTrue(parseResult5.queryInvalid);
+        assertEquals("Invalid search: Keyword \"like\" duplicated.",parseResult5.errorMessage);
+
+        QueryObject parseResult6 = parseQuery(simple_query_fail6);
+        assertTrue(parseResult6.queryInvalid);
+        assertEquals("Invalid search: invalid value list for keyword \"ingredients\" or missing semicolon at the end.",parseResult6.errorMessage);
     }
 
     static QueryObject parseQuery(String query){

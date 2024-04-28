@@ -7,15 +7,15 @@ import java.util.ArrayList;
 /**
  * A parser for parsing the result of a query from the user input to a search tree. <br>
  * The grammar is shown as follow: <br>
- * < Query > :== < Reci-Query > | < Stat-Query > | < Reci-Query > ; < Stat-Query > | < Stat-Query > ; < Reci-Query ><br>
- * < Reci-Query > :== < Ingr-Query > | < Titl-Query ><br>
- * < Ingr-Query > :== ingredients = < Names ><br>
- * < Titl-Query > :== title = < Names ><br>
- * < Stat-Query > :== < Like-Query > | < Collect-Query ><br>
- * < Like-Query > :== like < BoolOperator > INTEGER<br>
- * < Collect-Query > :== collect < BoolOperator > INTEGER<br>
+ * < Query > :== < Ingr-Query > < Titl-Query > < Like-Query > < Collect-Query > <br>
+ * < Ingr-Query > :== ingredients = < Names >; | EMPTY <br>
+ * < Titl-Query > :== title = < Names >; | EMPTY<br>
+ * < Like-Query > :== like < BoolOperator > INTEGER ; | EMPTY<br>
+ * < Collect-Query > :== collect < BoolOperator > INTEGER ; | EMPTY<br>
  * < Names > :== STRING | STRING , < Names ><br>
  * < BoolOperator > :==  > | <  | = <br>
+ * <br>
+ * IMPORTANT: in this grammar, we don't allow any query (e.g., < Reci-Query >) to appear more than once.
  */
 public class Parser {
     /**
@@ -28,6 +28,7 @@ public class Parser {
     Tokenizer tokenizer;
     // boolean variables that states which part has already been read.
     boolean includes_ingr, includes_titl, includes_like, includes_collect;
+    int currentProgress = 0;    // marks which keyword the parser is now in
 
     public Parser(Tokenizer tokenizer) {
         this.tokenizer = tokenizer;
@@ -54,6 +55,8 @@ public class Parser {
                     // no duplicated query keyword allowed
                     if(includes_ingr)
                         return new QueryObject("Invalid search: Keyword \"ingredients\" duplicated.");
+                    else if(includes_titl || includes_like || includes_collect)
+                        return new QueryObject("Invalid search: Incorrect position for keyword \"ingredients\".");
                     includes_ingr = true;
                     // check format correctness
                     tokenizer.next();
@@ -63,7 +66,7 @@ public class Parser {
                     // start parsing
                     ArrayList<String> ingr_values = parseValues();
                     if(ingr_values.size() == 0)
-                        return new QueryObject("Invalid search: invalid value list for keyword \"ingredients\".");
+                        return new QueryObject("Invalid search: invalid value list for keyword \"ingredients\" or missing semicolon at the end.");
                     else {
                         String[] array = new String[ingr_values.size()];
                         ingr_values.toArray(array);
@@ -74,6 +77,8 @@ public class Parser {
                     // no duplicated query keyword allowed
                     if(includes_titl)
                         return new QueryObject("Invalid search: Keyword \"title\" duplicated.");
+                    else if(includes_like || includes_collect)
+                        return new QueryObject("Invalid search: Incorrect position for keyword \"title\".");
                     includes_titl = true;
                     // check format correctness
                     tokenizer.next();
@@ -83,7 +88,7 @@ public class Parser {
                     // start parsing
                     ArrayList<String> titl_values = parseValues();
                     if(titl_values.size() == 0)
-                        return new QueryObject("Invalid search: invalid value list for keyword \"title\".");
+                        return new QueryObject("Invalid search: invalid value list for keyword \"title\" or missing semicolon at the end.");
                     else {
                         String[] array = new String[titl_values.size()];
                         titl_values.toArray(array);
@@ -94,12 +99,14 @@ public class Parser {
                     // no duplicated query keyword allowed
                     if(includes_like)
                         return new QueryObject("Invalid search: Keyword \"like\" duplicated.");
+                    else if(includes_collect)
+                        return new QueryObject("Invalid search: Incorrect position for keyword \"like\".");
                     includes_like = true;
                     tokenizer.next();
                     // parse
                     ArrayList<Integer> like_range = parseStat();
                     if(like_range.size() == 0){
-                        return new QueryObject("Invalid search: invalid range for keyword \"like\".");
+                        return new QueryObject("Invalid search: invalid range for keyword \"like\" or missing semicolon at the end.");
                     }
                     else{
                         Integer[] array = new Integer[like_range.size()];
@@ -116,7 +123,7 @@ public class Parser {
                     // parse
                     ArrayList<Integer> collect_range = parseStat();
                     if(collect_range.size() == 0){
-                        return new QueryObject("Invalid search: invalid range for keyword \"like\".");
+                        return new QueryObject("Invalid search: invalid range for keyword \"collect\" or missing semicolon at the end.");
                     }
                     else{
                         Integer[] array = new Integer[collect_range.size()];
@@ -167,7 +174,10 @@ public class Parser {
             }
         }
         // move to the next token if there is still tokens left
-        if(tokenizer.hasNext()) tokenizer.next();
+        if(!tokenizer.hasNext() || tokenizer.current().getType() != Token.Type.SEMI)
+            return new ArrayList<>();   // if the query does not end with a semi, it is a wrong expression
+        else
+            tokenizer.next();
         return result;
     }
 
@@ -204,9 +214,11 @@ public class Parser {
             result.add(-1); // usually unreachable
         }
         tokenizer.next();
-        if(tokenizer.hasNext() && tokenizer.current().getType() == Token.Type.SEMI){
+        // move to the next token if there is still tokens left
+        if(!tokenizer.hasNext() || tokenizer.current().getType() != Token.Type.SEMI)
+            return new ArrayList<>();   // if the query does not end with a semi, it is a wrong expression
+        else
             tokenizer.next();
-        }
         return result;
     }
 
