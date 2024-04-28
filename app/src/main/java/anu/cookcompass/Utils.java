@@ -1,12 +1,19 @@
 package anu.cookcompass;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.opencsv.CSVReader;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -17,9 +24,31 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
+
 public class Utils {
+    public static void switchPage(Activity first, Class<? extends Activity> secondClass){
+        Intent intent = new Intent(first, secondClass);
+        first.startActivity(intent);
+    }
+
+    public static void showShortToast(Context context, String message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showLongToast(Context context, String message){
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    }
+
+    public static byte[] getImageBytesFromImageView(ImageView imageView){
+        // Get the data from an ImageView as bytes
+        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
+    }
+
+
     /**
-     * @param context activity
      * @param fileName filepath
      * @return File
      * Copy file from assets to /data/data/anu.cookcompass/files

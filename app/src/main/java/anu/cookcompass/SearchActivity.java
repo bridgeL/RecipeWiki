@@ -32,17 +32,14 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Global.init(getApplicationContext());
-        Global global = Global.getInstance();
 
         searchView = findViewById(R.id.search_view);
         listView = findViewById(R.id.results_listview);
 
         setupSearchView();
 
-        List<Recipe> recipes = global.database.searchRecipes(""); // Initial load with empty search
-        adapter = new RecipeAdapter(this, recipes);
-        listView.setAdapter(adapter);
+//        adapter = new RecipeAdapter(this, recipes);
+//        listView.setAdapter(adapter);
 
     }
 
@@ -65,9 +62,9 @@ public class SearchActivity extends AppCompatActivity {
     private void updateSearchResults(String query) {
         Global global = Global.getInstance();
 
-        List<Recipe> searchResults = global.database.searchRecipes(query);
-        adapter.clear();
-        adapter.addAll(searchResults);
-        adapter.notifyDataSetChanged();
+//        List<Recipe> searchResults = global.database.searchRecipes(query);
+//        adapter.clear();
+//        adapter.addAll(searchResults);
+//        adapter.notifyDataSetChanged();
     }
 }
