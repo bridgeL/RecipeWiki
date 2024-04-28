@@ -4,7 +4,7 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.concurrent.CompletableFuture;
 
-import anu.cookcompass.login.Response;
+import anu.cookcompass.model.Response;
 
 public class Authority {
     static String TAG = "Authority";

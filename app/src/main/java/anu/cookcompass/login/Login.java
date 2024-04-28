@@ -2,12 +2,9 @@ package anu.cookcompass.login;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
-import anu.cookcompass.database.LocalDatabase;
 import anu.cookcompass.firebase.Authority;
-import anu.cookcompass.model.Global;
-import anu.cookcompass.model.User;
+import anu.cookcompass.model.Response;
 
 
 public class Login {

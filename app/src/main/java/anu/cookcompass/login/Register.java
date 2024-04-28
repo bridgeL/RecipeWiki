@@ -3,9 +3,9 @@ package anu.cookcompass.login;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import anu.cookcompass.firebase.Authority;
+import anu.cookcompass.model.Response;
 
 public class Register {
     public static CompletableFuture<Response> register(String username, String password1, String password2) {
