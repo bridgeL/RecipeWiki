@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,8 +23,18 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import anu.cookcompass.model.Global;
+
 
 public class Utils {
+    public static void switchPage(AppCompatActivity first, AppCompatActivity second){
+        Global.getInstance().currentActivity = second;
+    }
+
+    public static void toastMessage(String message){
+        Toast.makeText(Global.getInstance().currentActivity, message, Toast.LENGTH_SHORT).show();
+    }
+
     public static byte[] getImageBytesFromImageView(ImageView imageView){
         // Get the data from an ImageView as bytes
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();

@@ -2,6 +2,8 @@ package anu.cookcompass.model;
 
 import android.content.Context;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.appcheck.FirebaseAppCheck;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
@@ -25,7 +27,7 @@ public class Global {
 
     private FirebaseAuth mAuth;
     public Storage storage;
-
+    public AppCompatActivity currentActivity = null;
 
     private static Global instance = null;
 
