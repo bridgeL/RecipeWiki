@@ -1,22 +1,12 @@
 package anu.cookcompass;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.storage.internal.Util;
-
-import java.util.List;
-
 import anu.cookcompass.login.Login;
-import anu.cookcompass.login.Response;
-import anu.cookcompass.model.Global;
-import anu.cookcompass.model.Recipe;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText accountEditText;
