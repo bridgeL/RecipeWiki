@@ -9,7 +9,7 @@ import anu.cookcompass.model.Response;
 
 public class Login {
     public static CompletableFuture<Response> login(String username, String password) {
-        // 1. Check username and password format
+        //Check username and password format
 
         /*
         Regex breakdown:
@@ -27,8 +27,7 @@ public class Login {
             return CompletableFuture.completedFuture(new Response(false, "Empty password!"));
         }
 
-        // 2. Search user and check if it is null
-        //Searches the database for the user with the given username
-        return Authority.signIn(username, password);
+        //Return CompletableFuture<Response> based on the success or failure of the login attempt
+        return Authority.logIn(username, password);
     }
 }

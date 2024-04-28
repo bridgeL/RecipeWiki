@@ -9,7 +9,7 @@ import anu.cookcompass.model.Response;
 
 public class Register {
     public static CompletableFuture<Response> register(String username, String password1, String password2) {
-        // 1. Check username and password format
+        //Check username format
 
         /*
         Regex breakdown:
@@ -23,16 +23,17 @@ public class Register {
             return CompletableFuture.completedFuture(new Response(false, "Wrong username format!"));
         }
 
+        //Make sure password is not null or empty
         if (Objects.isNull(password1) || password1.isEmpty()) {
             return CompletableFuture.completedFuture(new Response(false, "Empty password!"));
         }
 
+        //Make sure rewritten password matches the first password
         if (!password1.equals(password2)) {
-            return CompletableFuture.completedFuture(new Response(false, "Second password doesn't match!"));
+            return CompletableFuture.completedFuture(new Response(false, "Second password doesn't match the first!"));
         }
 
-        // 2. Check if username is used
-        //Searches the database for the user with the given username
+        //Return CompletableFuture<Response> based on the success or failure of the register attempt
         return Authority.createAccount(username, password1);
     }
 }
