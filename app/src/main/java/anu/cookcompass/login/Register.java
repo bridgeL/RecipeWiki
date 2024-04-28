@@ -1,17 +1,14 @@
 package anu.cookcompass.login;
 
+
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import anu.cookcompass.database.LocalDatabase;
 import anu.cookcompass.firebase.Authority;
-import anu.cookcompass.model.Global;
-import anu.cookcompass.model.User;
 
-
-public class Login {
-    public static CompletableFuture<Response> login(String username, String password) {
+public class Register {
+    public static CompletableFuture<Response> register(String username, String password1, String password2) {
         // 1. Check username and password format
 
         /*
@@ -25,12 +22,16 @@ public class Login {
             return CompletableFuture.completedFuture(new Response(false, "Wrong username format!"));
         }
 
-        if (Objects.isNull(password) || password.isEmpty()) {
+        if (Objects.isNull(password1) || password1.isEmpty()) {
             return CompletableFuture.completedFuture(new Response(false, "Empty password!"));
         }
 
-        // 2. Search user and check if it is null
+        if (!password1.equals(password2)) {
+            return CompletableFuture.completedFuture(new Response(false, "Second password doesn't match!"));
+        }
+
+        // 2. Check if username is used
         //Searches the database for the user with the given username
-        return Authority.signIn(username, password);
+        return Authority.createAccount(username, password1);
     }
 }

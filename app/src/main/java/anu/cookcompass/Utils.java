@@ -1,12 +1,12 @@
 package anu.cookcompass;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -23,16 +23,20 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import anu.cookcompass.model.Global;
 
 
 public class Utils {
-    public static void switchPage(AppCompatActivity first, AppCompatActivity second){
-        Global.getInstance().currentActivity = second;
+    public static void switchPage(Activity first, Class<? extends Activity> secondClass){
+        Intent intent = new Intent(first, secondClass);
+        first.startActivity(intent);
     }
 
-    public static void toastMessage(String message){
-        Toast.makeText(Global.getInstance().currentActivity, message, Toast.LENGTH_SHORT).show();
+    public static void showShortToast(Context context, String message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showLongToast(Context context, String message){
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
     public static byte[] getImageBytesFromImageView(ImageView imageView){
@@ -45,7 +49,6 @@ public class Utils {
 
 
     /**
-     * @param context activity
      * @param fileName filepath
      * @return File
      * Copy file from assets to /data/data/anu.cookcompass/files
