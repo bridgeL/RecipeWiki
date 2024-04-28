@@ -11,6 +11,34 @@ class RecipeIdComparator implements Comparator<Recipe> {
     }
 }
 
+class RecipeTitleComparator implements Comparator<Recipe> {
+    @Override
+    public int compare(Recipe recipe1, Recipe recipe2) {
+        return recipe1.title.compareTo(recipe2.title); //Alphabetical order
+    }
+}
+
+class RecipeViewComparator implements Comparator<Recipe> {
+    @Override
+    public int compare(Recipe recipe1, Recipe recipe2) {
+        return recipe2.view - recipe1.view; //Larger view count appears first
+    }
+}
+
+class RecipeLikeComparator implements Comparator<Recipe> {
+    @Override
+    public int compare(Recipe recipe1, Recipe recipe2) {
+        return recipe2.like - recipe1.like; //Larger like count appears first
+    }
+}
+
+class RecipeCollectionComparator implements Comparator<Recipe> {
+    @Override
+    public int compare(Recipe recipe1, Recipe recipe2) {
+        return recipe2.collect - recipe1.collect; //Larger collection count appears first
+    }
+}
+
 public class SearchFilter { //Using heap sort
 
     //Logic for building max heap
