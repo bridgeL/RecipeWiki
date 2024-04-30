@@ -1,5 +1,6 @@
 package anu.cookcompass.searchfilter;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 import anu.cookcompass.model.Recipe;
@@ -68,7 +69,8 @@ public class SearchFilter { //Using heap sort
         }
     }
 
-    public static void heapSort (Recipe[] recipeArray, Comparator<Recipe> comparatorType) {
+    //Sort the recipes using heap sort
+    public static void heapSort(Recipe[] recipeArray, Comparator<Recipe> comparatorType) {
         int length = recipeArray.length;
 
         //Actually build the max heap using the array
@@ -89,5 +91,77 @@ public class SearchFilter { //Using heap sort
 
         //Rebuild max heap after extraction
         heapify(recipeArray, length, 0, comparatorType);
+    }
+
+    //Return top N recipes according to order defined by id/title/view/like/collect comparator
+    public static ArrayList<Recipe> filterTopNRecipes(Recipe[] recipeArray, Comparator<Recipe> comparatorType, int topN) {
+        //Sort recipes according to the chosen comparator using the heapSort() method
+        heapSort(recipeArray, comparatorType);
+
+        ArrayList<Recipe> topRecipeArray = new ArrayList<>();
+
+        for (int i = 0; i < topN; i++) {
+            topRecipeArray.add(recipeArray[i]);
+        }
+
+        return topRecipeArray;
+    }
+
+    //Return top N recipes with at least K number of likes, views, or collections
+    public static ArrayList<Recipe> filterTopNMostLovedRecipes(Recipe[] recipeArray, Comparator<Recipe> comparatorType, int topN, int atLeastK) {
+
+        ArrayList<Recipe> topNMostLovedRecipeArray = new ArrayList<>();
+
+        if (!(comparatorType instanceof RecipeIdComparator) && !(comparatorType instanceof RecipeTitleComparator)) {
+            //Sort recipes according to the chosen comparator (like, view, or collection comparator) using the heapSort() method
+            heapSort(recipeArray, comparatorType);
+
+            int count = 0;
+
+            //Using like comparator
+            if (comparatorType instanceof RecipeLikeComparator) {
+                //Top N recipes with at least K likes (listed from most liked to least liked)
+                while (count < topN) { //To control overall iteration / outer loop
+                    for (Recipe recipe : recipeArray) {
+                        if (recipe.like >= atLeastK) {
+                            topNMostLovedRecipeArray.add(recipe);
+                            count++;
+                            if (count == topN) {
+                                break; //Break current iteration if topN elements have been added (Early termination)
+                            }
+                        }
+                    }
+                }
+            //Using view comparator
+            } else if (comparatorType instanceof RecipeViewComparator) {
+                //Top N recipes with at least K views (listed from most viewed to least viewed)
+                while (count < topN) {
+                    for (Recipe recipe : recipeArray) {
+                        if (recipe.view >= atLeastK) {
+                            topNMostLovedRecipeArray.add(recipe);
+                            count++;
+                            if (count == topN) {
+                                break; //Break current iteration if topN elements have been added (Early termination)
+                            }
+                        }
+                    }
+                }
+            //Using collection comparator
+            } else if (comparatorType instanceof RecipeCollectionComparator) {
+                //Top N recipes with at least K collections (listed from most collected to least collected)
+                while (count < topN) {
+                    for (Recipe recipe : recipeArray) {
+                        if (recipe.collect >= atLeastK) {
+                            topNMostLovedRecipeArray.add(recipe);
+                            count++;
+                            if (count == topN) {
+                                break; //Break current iteration if topN elements have been added (Early termination)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return topNMostLovedRecipeArray;
     }
 }
