@@ -1,22 +1,20 @@
 package anu.cookcompass;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.storage.internal.Util;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.concurrent.CompletableFuture;
 
-import java.util.List;
-
+import anu.cookcompass.firebase.Storage;
 import anu.cookcompass.login.Login;
-import anu.cookcompass.login.Response;
-import anu.cookcompass.model.Global;
-import anu.cookcompass.model.Recipe;
+import anu.cookcompass.model.Response;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText accountEditText;
@@ -37,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> {
             String account = accountEditText.getText().toString();
             String password = passwordEditText.getText().toString();
+            account = "nightcat@test.com";
+            password = "nightcat";
 
             Login.login(account, password).thenAccept(res -> {
                 if (res.successful) {
@@ -50,7 +50,30 @@ public class LoginActivity extends AppCompatActivity {
 
         //register click event
         notRegisteredTextView.setOnClickListener(v -> {
-            Utils.switchPage(this, RegisterActivity.class);
+//            Utils.switchPage(this, RegisterActivity.class);
+            // test
+            String[] fileNames;
+            try {
+                fileNames = getAssets().list("Food Images");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Log.e("", fileNames[0]);
+
+            CompletableFuture<Response> future = CompletableFuture.completedFuture(null);
+            for (int i = 5; i < fileNames.length; i++) {
+                final int j = i;
+                future = future.thenCompose(res -> {
+                    Log.e("", "start upload: [" + j + "]" + fileNames[j]);
+                    InputStream inputStream;
+                    try {
+                        inputStream = getAssets().open("Food Images/" + fileNames[j]);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    return Storage.uploadStream("/Food Images/" + fileNames[j], inputStream);
+                });
+            }
         });
     }
 }

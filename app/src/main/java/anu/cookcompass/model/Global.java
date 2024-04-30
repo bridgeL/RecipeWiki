@@ -8,11 +8,9 @@ package anu.cookcompass.model;
  * </p>
  */
 public class Global {
-    public User currentUser = null;  // the user who login this app
     private static Global instance = null;
 
-    private Global() {
-    }
+    private Global() {}
 
     /**
      * @return Global instance

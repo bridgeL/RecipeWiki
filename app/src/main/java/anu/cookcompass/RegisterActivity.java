@@ -4,20 +4,10 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import anu.cookcompass.login.Login;
 import anu.cookcompass.login.Register;
-import anu.cookcompass.login.Response;
-import anu.cookcompass.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
 

@@ -3,35 +3,37 @@ package anu.cookcompass.login;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import anu.cookcompass.firebase.Authority;
+import anu.cookcompass.model.Response;
 
 public class Register {
     public static CompletableFuture<Response> register(String username, String password1, String password2) {
-        // 1. Check username and password format
+        //Check username format
 
         /*
         Regex breakdown:
-        a) (?=.{3}@) : Positive lookbehind assertion making sure there are at least 3 characters before @
-        b) [a-zA-Z0-9]+ : One or more numbers and/or letters
-        c) [a-zA-Z0-9!#$%&*-_=+/]+ : One or more numbers and/or letters and/or special characters
-        d) [a-zA-Z0-9.]+ : One or more numbers and/or letters and/or periods
+        a) [A-Za-z0-9._%+-]+ : One or more numbers and/or letters and/or special characters
+        b) @ : @ symbol in emails
+        c) [A-Za-z0-9.-]+ : One or more numbers, letters, dots, and/or hyphens
+        d) \\. : A dot
+        e) [A-Za-z]{2,} : Two or more letters
          */
         if (Objects.isNull(username) || username.isEmpty() || !username.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
             return CompletableFuture.completedFuture(new Response(false, "Wrong username format!"));
         }
 
+        //Make sure password is not null or empty
         if (Objects.isNull(password1) || password1.isEmpty()) {
             return CompletableFuture.completedFuture(new Response(false, "Empty password!"));
         }
 
+        //Make sure rewritten password matches the first password
         if (!password1.equals(password2)) {
-            return CompletableFuture.completedFuture(new Response(false, "Second password doesn't match!"));
+            return CompletableFuture.completedFuture(new Response(false, "Second password doesn't match the first!"));
         }
 
-        // 2. Check if username is used
-        //Searches the database for the user with the given username
+        //Return CompletableFuture<Response> based on the success or failure of the register attempt
         return Authority.createAccount(username, password1);
     }
 }
