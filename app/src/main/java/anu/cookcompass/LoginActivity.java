@@ -34,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
             String account = accountEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
-            account = "comp6442@anu.edu.au";
-            password = "comp6442";
+//            account = "comp6442@anu.edu.au";
+//            password = "comp6442";
 
             Login.login(account, password).thenAccept(res -> {
                 if (res.successful) {

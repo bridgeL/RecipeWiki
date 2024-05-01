@@ -89,6 +89,7 @@ public class Database {
     }
 
     public void loadRecipes() {
+        // TODO: Local cache
 //        File timestampFile = new File(context.getFilesDir(), "recipe_timestamp.txt");
 //        File recipeFile = new File(context.getFilesDir(), "recipe.json");
 //        if (!timestampFile.exists() || !recipeFile.exists()) {
