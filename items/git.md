@@ -43,13 +43,13 @@ every commit should start with a [git-emoji](https://gitmoji.dev/) and the label
 
 `:emoji: [type name] what I do`
 
-| git-emoji      | label name  | description example                                        |
-|----------------|-------------|------------------------------------------------------------|
-| :sparkles:     | feat        | user login                                                 |
-| :memo:         | docs        | team meeting                                               |
-| :bug:          | fix         | fix the bug: certain usernames will cause the app to crash |
-| :recycle:      | refactor    | refactor user login module for better performance          |
-| :construction: | going       | working on the feature: user login                         |
+| git-emoji                       | label name  | description example                                        |
+|---------------------------------|-------------|------------------------------------------------------------|
+| :sparkles: `:sparkles:`         | feat        | user login                                                 |
+| :memo: `:memo:`                 | docs        | team meeting                                               |
+| :bug: `:bug:`                   | fix         | fix the bug: certain usernames will cause the app to crash |
+| :recycle: `:recycle:`           | refactor    | refactor user login module for better performance          |
+| :construction: `:construction:` | going       | working on the feature: user login                         |
 
 Please avoid using `going`. This label is useful when you're working on a temporary device and need to save your code before completing all tasks.
 
