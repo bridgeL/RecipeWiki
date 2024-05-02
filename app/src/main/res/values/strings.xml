@@ -8,4 +8,7 @@
     <string name="search_hint">Enter a recipe name…</string>
     <string name="search">Search</string>
     <string name="search_result">Roasted Chicken</string>
+    <string name="title_Search">Search</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profile</string>
 </resources>
