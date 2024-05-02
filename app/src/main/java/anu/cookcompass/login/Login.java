@@ -1,25 +1,29 @@
 package anu.cookcompass.login;
 
+import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
-import anu.cookcompass.database.LocalDatabase;
-import anu.cookcompass.firebase.Authority;
-import anu.cookcompass.model.Global;
-import anu.cookcompass.model.User;
+import anu.cookcompass.model.Response;
 
 
 public class Login {
+    static FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    static String TAG = "Authority";
+
     public static CompletableFuture<Response> login(String username, String password) {
-        // 1. Check username and password format
+        //Check username and password format
 
         /*
         Regex breakdown:
-        a) (?=.{3}@) : Positive lookbehind assertion making sure there are at least 3 characters before @
-        b) [a-zA-Z0-9]+ : One or more numbers and/or letters
-        c) [a-zA-Z0-9!#$%&*-_=+/]+ : One or more numbers and/or letters and/or special characters
-        d) [a-zA-Z0-9.]+ : One or more numbers and/or letters and/or periods
+        a) [A-Za-z0-9._%+-]+ : One or more numbers and/or letters and/or special characters
+        b) @ : @ symbol in emails
+        c) [A-Za-z0-9.-]+ : One or more numbers, letters, dots, and/or hyphens
+        d) \\. : A dot
+        e) [A-Za-z]{2,} : Two or more letters
          */
         if (Objects.isNull(username) || username.isEmpty() || !username.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
             return CompletableFuture.completedFuture(new Response(false, "Wrong username format!"));
@@ -29,8 +33,22 @@ public class Login {
             return CompletableFuture.completedFuture(new Response(false, "Empty password!"));
         }
 
-        // 2. Search user and check if it is null
-        //Searches the database for the user with the given username
-        return Authority.signIn(username, password);
+        //Return CompletableFuture<Response> based on the success or failure of the login attempt
+        return logIn(username, password);
+    }
+
+    public static CompletableFuture<Response> logIn(String email, String password) {
+        CompletableFuture<Response> future = new CompletableFuture<>();
+        mAuth
+                .signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener(unused->{
+                    Log.d(TAG, "Login successful!");
+                    future.complete(new Response(true, "Login successful!"));
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Login failed!", e);
+                    future.complete(new Response(false, e.getMessage()));
+                });
+        return future;
     }
 }

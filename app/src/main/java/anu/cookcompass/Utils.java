@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,25 +22,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class Utils {
-    public static void switchPage(Activity first, Class<? extends Activity> secondClass){
+    public static Bitmap byteToBitmap(byte[] bytes) {
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    public static void switchPage(Activity first, Class<? extends Activity> secondClass) {
         Intent intent = new Intent(first, secondClass);
         first.startActivity(intent);
     }
 
-    public static void showShortToast(Context context, String message){
+    public static void showShortToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
-    public static void showLongToast(Context context, String message){
+    public static void showLongToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
-    public static byte[] getImageBytesFromImageView(ImageView imageView){
+    public static byte[] getImageBytesFromImageView(ImageView imageView) {
         // Get the data from an ImageView as bytes
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -93,14 +98,31 @@ public class Utils {
         return data;
     }
 
+    public static List<String> readTxt(File file) {
+        List<String> data = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader br = new BufferedReader(fileReader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                data.add(line);
+            }
+            br.close();
+            fileReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
     /**
-     * @param file json file
+     * @param file   json file
      * @param tClass type of object
-     * @param <T> type of object
+     * @param <T>    type of object
      * @return data
      * Read Json file and convert it to relative object
      */
-    public static <T> T readJson(File file, Class<T> tClass){
+    public static <T> T readJson(File file, Class<T> tClass) {
         T data = null;
         try (FileReader fileReader = new FileReader(file)) {
             Gson gson = new Gson();
@@ -113,9 +135,9 @@ public class Utils {
     }
 
     /**
-     * @param file json file
+     * @param file      json file
      * @param typeToken type of list of object
-     * @param <T> type of list of object
+     * @param <T>       type of list of object
      * @return List of data
      * Read Json file and convert it to an array of relative object
      */
@@ -134,9 +156,9 @@ public class Utils {
     /**
      * @param file json file
      * @param data data
-     * Convert object to json and save it into a file
+     *             Convert object to json and save it into a file
      */
-    public static void saveJson(File file, Object data){
+    public static void saveJson(File file, Object data) {
         try (FileWriter fileWriter = new FileWriter(file)) {
             Gson gson = new Gson();
             fileWriter.write(gson.toJson(data));

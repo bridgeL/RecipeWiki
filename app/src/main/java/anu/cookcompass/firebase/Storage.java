@@ -1,71 +1,47 @@
 package anu.cookcompass.firebase;
 
-import androidx.annotation.NonNull;
+import android.util.Log;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.storage.UploadTask.TaskSnapshot;
 
 import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
 
+import anu.cookcompass.model.Response;
+
 public class Storage {
-    FirebaseStorage storage;
+    static StorageReference ref = FirebaseStorage.getInstance().getReference();
 
-    public Storage() {
-        storage = FirebaseStorage.getInstance();
-    }
 
-    public CompletableFuture<String> uploadBytes(String cloudPath, byte[] data) {
-        // async task
-        CompletableFuture<String> future = new CompletableFuture<>();
-
-        // cloud storage ref
-        StorageReference ref = storage.getReference().child(cloudPath);
-
-        // start an async task
-        UploadTask uploadTask = ref.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-                future.completeExceptionally(exception);
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                future.complete("upload successfully!");
-            }
-        });
-
+    public static CompletableFuture<TaskSnapshot> uploadBytes(String cloudPath, byte[] data) {
+        CompletableFuture<TaskSnapshot> future = new CompletableFuture<>();
+        ref
+                .child(cloudPath)
+                .putBytes(data)
+                .addOnSuccessListener(future::complete)
+                .addOnFailureListener(future::completeExceptionally);
         return future;
     }
 
-    public CompletableFuture<String> uploadStream(String cloudPath, InputStream stream) {
-        // async task
-        CompletableFuture<String> future = new CompletableFuture<>();
+    public static CompletableFuture<TaskSnapshot> uploadStream(String cloudPath, InputStream stream) {
+        CompletableFuture<TaskSnapshot> future = new CompletableFuture<>();
+        ref
+                .child(cloudPath)
+                .putStream(stream)
+                .addOnSuccessListener(future::complete)
+                .addOnFailureListener(future::completeExceptionally);
+        return future;
+    }
 
-        // cloud storage ref
-        StorageReference ref = storage.getReference().child(cloudPath);
-
-        // start an async task
-        UploadTask uploadTask = ref.putStream(stream);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-                future.completeExceptionally(exception);
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                future.complete("upload successfully!");
-            }
-        });
+    public static CompletableFuture<byte[]> downloadBytes(String cloudPath) {
+        CompletableFuture<byte[]> future = new CompletableFuture<>();
+        ref
+                .child(cloudPath)
+                .getBytes(1024*1024)
+                .addOnSuccessListener(future::complete)
+                .addOnFailureListener(future::completeExceptionally);
         return future;
     }
 }

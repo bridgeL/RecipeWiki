@@ -6,6 +6,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import anu.cookcompass.database.Database;
 import anu.cookcompass.login.Login;
 
 public class LoginActivity extends AppCompatActivity {
@@ -16,6 +18,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // initial code
+        Database.getInstance();
+
 
         // TODO: main entrance, initialization code write down here
         Button loginButton = findViewById(R.id.loginButton);
@@ -28,10 +34,14 @@ public class LoginActivity extends AppCompatActivity {
             String account = accountEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
+//            account = "comp6442@anu.edu.au";
+//            password = "comp6442";
+
             Login.login(account, password).thenAccept(res -> {
                 if (res.successful) {
                     //if successful, show the search page (main page)
                     Utils.showShortToast(this, res.message);
+                    Utils.switchPage(this, SearchActivity.class);
                 } else {// if not correct, depends on the message, show the error hint
                     Utils.showLongToast(this, res.message);
                 }

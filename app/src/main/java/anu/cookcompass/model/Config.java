@@ -20,11 +20,11 @@ public class Config {
      * @return configuration
      * Load a config from given file
      */
-    public static Config load(File file) {
-        Config config = Utils.readJson(file, Config.class);
-        config.file = file;
-        return config;
-    }
+//    public static Config load(File file) {
+//        Config config = Utils.readJson(file, Config.class);
+//        config.file = file;
+//        return config;
+//    }
 
     /**
      * Save the config back to its storage
