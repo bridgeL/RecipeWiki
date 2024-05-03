@@ -1,6 +1,8 @@
 package anu.cookcompass;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,9 +13,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * This function is the main activity which aims to control the switch between pages
- * @bottomNavigationView This is the navigation bar to control the switch
- * @searchFragment This is the fragment of search page
- * @profileFragment This is the fragment of profile page
+ * {@code @bottomNavigationView} This is the navigation bar to control the switch
+ * {@code @searchFragment} This is the fragment of search page
+ * {@code @profileFragment} This is the fragment of profile page
  */
 public class MainActivity extends AppCompatActivity {//after login ,the application will turn to this page
     private BottomNavigationView bottomNavigationView;
@@ -44,5 +46,9 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container,fragment);
         transaction.commit();
+    }
+    public void changeBackgroundColor(String colorValue){
+        View mainView = findViewById(android.R.id.content);
+        mainView.setBackgroundColor(Color.parseColor(colorValue));
     }
 }
