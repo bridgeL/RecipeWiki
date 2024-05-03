@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (res.successful) {
                     //if successful, show the search page (main page)
                     Utils.showShortToast(this, res.message);
-                    Utils.switchPage(this, SearchActivity.class);
+                    Utils.switchPage(this, MainActivity.class);
                 } else {// if not correct, depends on the message, show the error hint
                     Utils.showLongToast(this, res.message);
                 }

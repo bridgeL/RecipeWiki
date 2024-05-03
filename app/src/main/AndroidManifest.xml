@@ -12,10 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CookCompass">
         <activity
+            android:name=".ProfileFragment"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".BottomBarActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".SearchFragment"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"

@@ -2,10 +2,13 @@ package anu.cookcompass;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,31 +18,26 @@ import anu.cookcompass.TokenizerAndParser.Parser;
 import anu.cookcompass.TokenizerAndParser.QueryObject;
 import anu.cookcompass.TokenizerAndParser.Tokenizer;
 import anu.cookcompass.database.Database;
-import anu.cookcompass.model.Global;
 import anu.cookcompass.model.Recipe;
 import anu.cookcompass.search.RecipeAdapter;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchFragment extends Fragment {
 
     private SearchView searchView;
     private ListView listView;
     private RecipeAdapter adapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-
-        searchView = findViewById(R.id.search_view);
-        listView = findViewById(R.id.results_listview);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle saveInstanceState){
+        View view=inflater.inflate(R.layout.fragment_search,container,false);
+        searchView=view.findViewById(R.id.search_view);
+        listView=view.findViewById(R.id.results_listview);
         setupSearchView();
-
-        List<Recipe> recipes = Database.getInstance().getRecipes();
-        adapter = new RecipeAdapter(this, recipes);
+        List<Recipe>recipes=Database.getInstance().getRecipes();
+        adapter=new RecipeAdapter(getActivity(),recipes);
         listView.setAdapter(adapter);
-
+        return view;
     }
+
 
     private void setupSearchView() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -66,7 +64,7 @@ public class SearchActivity extends AppCompatActivity {
         List<Recipe> searchResults = new ArrayList<>();
 
         if(queryObject.queryInvalid){
-            Utils.showLongToast(this, queryObject.errorMessage);
+            Utils.showLongToast(getActivity(), queryObject.errorMessage);
             Log.e("query", queryObject.errorMessage);
         }
         else{
