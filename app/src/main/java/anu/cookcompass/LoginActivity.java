@@ -7,8 +7,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import anu.cookcompass.database.Database;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.io.File;
+
+import anu.cookcompass.firebase.Database;
 import anu.cookcompass.login.Login;
+import anu.cookcompass.login.Register;
+import anu.cookcompass.model.Global;
+import anu.cookcompass.model.User;
+import anu.cookcompass.recipe.RecipeManager;
+import anu.cookcompass.user.UserManager;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText accountEditText;
@@ -20,8 +31,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // initial code
+        // compulsory
+        Global.getInstance(this);
         Database.getInstance();
+        RecipeManager.getInstance();
+        UserManager.getInstance();
 
+        // optional
+        Login.getInstance();
+        Register.getInstance();
+        FirebaseAuth.getInstance();
+        FirebaseDatabase.getInstance();
+        FirebaseStorage.getInstance();
 
         // TODO: main entrance, initialization code write down here
         Button loginButton = findViewById(R.id.loginButton);
@@ -34,10 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             String account = accountEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
-//            account = "comp6442@anu.edu.au";
-//            password = "comp6442";
-
-            Login.login(account, password).thenAccept(res -> {
+            Login.getInstance().login(account, password).thenAccept(res -> {
                 if (res.successful) {
                     //if successful, show the search page (main page)
                     Utils.showShortToast(this, res.message);

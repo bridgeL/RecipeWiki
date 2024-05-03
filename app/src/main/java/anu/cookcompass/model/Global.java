@@ -1,6 +1,11 @@
 package anu.cookcompass.model;
 
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
+import java.io.File;
+
 /**
  * Design Pattern: Singleton
  * <p>
@@ -10,18 +15,22 @@ package anu.cookcompass.model;
 public class Global {
     private static Global instance = null;
 
-    private Global() {}
+    public File filesDir;
+    public AssetManager assetManager;
 
-    /**
-     * @return Global instance
-     * <p>
-     * this function can only be called after init()
-     * </p>
-     */
+    private Global(Context context) {
+        filesDir = context.getFilesDir();
+        assetManager = context.getAssets();
+    }
+
+    public static Global getInstance(Context context) {
+        assert instance == null;
+        instance = new Global(context);
+        return instance;
+    }
+
     public static Global getInstance() {
-        if (instance == null) {
-            instance = new Global();
-        }
+        assert instance != null;
         return instance;
     }
 }

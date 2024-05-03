@@ -16,11 +16,13 @@ import com.opencsv.CSVReader;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,16 +64,21 @@ public class Utils {
         File file = new File(context.getFilesDir(), fileName);
         if (!file.exists()) {
             try {
+                // make sure parent folder exists
+                file.getParentFile().mkdirs();
+
+                // copy file
                 InputStream inputStream = context.getAssets().open(fileName);
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                FileWriter fileWriter = new FileWriter(file);
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    fileWriter.write(line + "\n");
+                OutputStream outputStream = new FileOutputStream(file);
+
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
                 }
-                fileWriter.flush();
-                fileWriter.close();
-                bufferedReader.close();
+
+                inputStream.close();
+                outputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -166,4 +173,5 @@ public class Utils {
             e.printStackTrace();
         }
     }
+
 }

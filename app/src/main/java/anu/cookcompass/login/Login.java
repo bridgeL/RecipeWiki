@@ -11,10 +11,17 @@ import anu.cookcompass.model.Response;
 
 
 public class Login {
-    static FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    static String TAG = "Authority";
+    String TAG = getClass().getSimpleName();
+    private static Login instance;
 
-    public static CompletableFuture<Response> login(String username, String password) {
+    private Login() {}
+
+    public static Login getInstance() {
+        if (instance == null) instance = new Login();
+        return instance;
+    }
+
+    public CompletableFuture<Response> login(String username, String password) {
         //Check username and password format
 
         /*
@@ -34,14 +41,10 @@ public class Login {
         }
 
         //Return CompletableFuture<Response> based on the success or failure of the login attempt
-        return logIn(username, password);
-    }
-
-    public static CompletableFuture<Response> logIn(String email, String password) {
         CompletableFuture<Response> future = new CompletableFuture<>();
-        mAuth
-                .signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener(unused->{
+        FirebaseAuth.getInstance()
+                .signInWithEmailAndPassword(username, password)
+                .addOnSuccessListener(unused -> {
                     Log.d(TAG, "Login successful!");
                     future.complete(new Response(true, "Login successful!"));
                 })

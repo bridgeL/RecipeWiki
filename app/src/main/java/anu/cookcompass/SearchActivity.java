@@ -14,9 +14,8 @@ import java.util.stream.Collectors;
 import anu.cookcompass.TokenizerAndParser.Parser;
 import anu.cookcompass.TokenizerAndParser.QueryObject;
 import anu.cookcompass.TokenizerAndParser.Tokenizer;
-import anu.cookcompass.database.Database;
-import anu.cookcompass.model.Global;
 import anu.cookcompass.model.Recipe;
+import anu.cookcompass.recipe.RecipeManager;
 import anu.cookcompass.search.RecipeAdapter;
 
 public class SearchActivity extends AppCompatActivity {
@@ -35,10 +34,9 @@ public class SearchActivity extends AppCompatActivity {
 
         setupSearchView();
 
-        List<Recipe> recipes = Database.getInstance().getRecipes();
+        List<Recipe> recipes = RecipeManager.getInstance().getRecipes();
         adapter = new RecipeAdapter(this, recipes);
         listView.setAdapter(adapter);
-
     }
 
     private void setupSearchView() {
@@ -58,25 +56,28 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void updateSearchResults(String query) {
-        List<Recipe> recipes = Database.getInstance().getRecipes();
+        List<Recipe> recipes = RecipeManager.getInstance().getRecipes();
         Tokenizer tokenizer = new Tokenizer(query);
         Parser parser = new Parser(tokenizer);
         QueryObject queryObject = parser.parseQuery();
 
         List<Recipe> searchResults = new ArrayList<>();
 
-        if(queryObject.queryInvalid){
+        if (queryObject.queryInvalid) {
             Utils.showLongToast(this, queryObject.errorMessage);
             Log.e("query", queryObject.errorMessage);
-        }
-        else{
-            searchResults = recipes.stream().filter(r->{
-                if(queryObject.queryInvalid) return false;
+        } else {
+            searchResults = recipes.stream().filter(r -> {
+                if (queryObject.queryInvalid) return false;
                 for (String keyword : queryObject.title_keywords) {
-                    if(!r.title.contains(keyword)) return false;
+                    if (!r.title.contains(keyword)) return false;
                 }
 
-                // TODO: Ingredient keywords search
+                String ingredientsString = String.join(" ", r.ingredients);
+                for (String keyword : queryObject.ingredient_keywords) {
+                    if (!ingredientsString.contains(keyword)) return false;
+                }
+
                 // TODO: Like range filter
                 // TODO: Collect range filter
 
