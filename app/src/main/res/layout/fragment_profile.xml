@@ -42,4 +42,27 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.151" />
 
+    <TextView
+        android:id="@+id/colorSettingText"
+        android:layout_width="118dp"
+        android:layout_height="25dp"
+        android:text="Theme Color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.218"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage"
+        app:layout_constraintVertical_bias="0.177" />
+
+    <Spinner
+        android:id="@+id/colorSpinner"
+        android:layout_width="265dp"
+        android:layout_height="29dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/colorSettingText"
+        app:layout_constraintVertical_bias="0.044" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
