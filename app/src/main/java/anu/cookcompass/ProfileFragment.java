@@ -6,8 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -119,26 +117,25 @@ public class ProfileFragment extends Fragment {
         // check permission
         if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // single updates
-            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    // if not null ,decode country information
-                    System.out.println("Net location  " + location);
-                    if (location != null) {
-                        Geocoder geocoder = new Geocoder(requireActivity(), Locale.getDefault());
-                        try {
-                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                            if (!addresses.isEmpty()) {
-                                String countryName = addresses.get(0).getCountryName();
-                                ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
-                                themeConfig.setAddress(countryName);
-                                TextView countryAddressTextView = rootView.findViewById(R.id.countryAddressTextView);
-                                countryAddressTextView.setText(countryName);
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, location -> {
+                // if not null ,decode country information
+                System.out.println("Net location  " + location);
+                Geocoder geocoder = new Geocoder(requireActivity(), Locale.getDefault());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    assert addresses != null;
+                    if (!addresses.isEmpty()) {
+                        String countryName = addresses.get(0).getCountryName();
+                        String adminArea = addresses.get(0).getAdminArea();
+                        String formattedAddress = String.format(requireActivity().getString(R.string.format_country_admin_area), countryName, adminArea);
+
+                        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
+                        themeConfig.setAddress(formattedAddress);
+                        TextView countryAddressTextView = rootView.findViewById(R.id.countryAddressTextView);
+                        countryAddressTextView.setText(formattedAddress);
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }, null);
         }
