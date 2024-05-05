@@ -1,13 +1,16 @@
 package anu.cookcompass;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -46,10 +49,20 @@ public class SearchFragment extends Fragment {
         adapter = new RecipeAdapter(getActivity(), RecipeManager.getInstance().getRecipes());
         listView.setAdapter(adapter);
 
+        // callback for viewing recipe page
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Recipe selectedRecipe = RecipeManager.getInstance().getRecipes().get(position);
+                Intent intent = new Intent(parent.getContext().getApplicationContext(), RecipeActivity.class);
+                intent.putExtra("RecipeID", position);
+                startActivity(intent);
+            }
+        });
+
         // set initial theme
         System.out.println("Set search fragment theme color to " + ThemeColor.getThemeColor());
         rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
-
 
         RecipeManager.getInstance().addListener(recipes -> {
             adapter.clear();
