@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Locale;
 
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
+import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
 
 public class ProfileFragment extends Fragment {
@@ -76,6 +77,8 @@ public class ProfileFragment extends Fragment {
                 }
                 rootView.setBackgroundColor(Color.parseColor(colorValue));
                 EventBus.getDefault().post(new ThemeUpdateEvent(colorValue));
+                ThemeColor.setThemeColor(colorValue);
+                ThemeColor.writeTheme();    // write new color value into file
 //                MainActivity mainActivity = (MainActivity) getActivity();
 //                assert mainActivity != null;
 //                ThemeConfig themeConfig = mainActivity.getThemeConfig();
