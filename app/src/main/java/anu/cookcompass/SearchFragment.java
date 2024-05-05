@@ -1,5 +1,6 @@
 package anu.cookcompass;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import anu.cookcompass.TokenizerAndParser.QueryObject;
 import anu.cookcompass.TokenizerAndParser.Tokenizer;
 import anu.cookcompass.database.Database;
 import anu.cookcompass.model.Recipe;
+import anu.cookcompass.model.ThemeConfig;
 import anu.cookcompass.search.RecipeAdapter;
 
 public class SearchFragment extends Fragment {
@@ -26,17 +28,23 @@ public class SearchFragment extends Fragment {
     private SearchView searchView;
     private ListView listView;
     private RecipeAdapter adapter;
+    private View rootView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle saveInstanceState){
-        View view=inflater.inflate(R.layout.fragment_search,container,false);
-        searchView=view.findViewById(R.id.search_view);
-        listView=view.findViewById(R.id.results_listview);
+        rootView=inflater.inflate(R.layout.fragment_search,container,false);
+        //change the color when create
+        ThemeConfig themeConfig=((MainActivity) requireActivity()).getThemeConfig();
+        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
+
+        searchView =rootView.findViewById(R.id.search_view);
+        listView=rootView.findViewById(R.id.results_listview);
         setupSearchView();
         List<Recipe>recipes=Database.getInstance().getRecipes();
         adapter=new RecipeAdapter(getActivity(),recipes);
         listView.setAdapter(adapter);
-        return view;
+        return rootView;
     }
+
 
 
     private void setupSearchView() {

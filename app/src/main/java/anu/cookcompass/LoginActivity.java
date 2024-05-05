@@ -1,5 +1,6 @@
 package anu.cookcompass;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import anu.cookcompass.database.Database;
 import anu.cookcompass.login.Login;
+import anu.cookcompass.model.ThemeConfig;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText accountEditText;
@@ -40,8 +42,12 @@ public class LoginActivity extends AppCompatActivity {
             Login.login(account, password).thenAccept(res -> {
                 if (res.successful) {
                     //if successful, show the search page (main page)
+                    ThemeConfig themeConfig=new ThemeConfig(account,"","#FFB241");
                     Utils.showShortToast(this, res.message);
-                    Utils.switchPage(this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("themeConfig", themeConfig);
+                    startActivity(intent);
+//                    Utils.switchPage(this, MainActivity.class);
                 } else {// if not correct, depends on the message, show the error hint
                     Utils.showLongToast(this, res.message);
                 }
