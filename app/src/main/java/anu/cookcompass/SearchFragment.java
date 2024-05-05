@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 import anu.cookcompass.TokenizerAndParser.Parser;
 import anu.cookcompass.TokenizerAndParser.QueryObject;
 import anu.cookcompass.TokenizerAndParser.Tokenizer;
-import anu.cookcompass.database.Database;
 import anu.cookcompass.model.Recipe;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
@@ -32,27 +31,32 @@ public class SearchFragment extends Fragment {
     private RecipeAdapter adapter;
     private View rootView;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle saveInstanceState){
-        rootView=inflater.inflate(R.layout.fragment_search,container,false);
 
-        searchView =rootView.findViewById(R.id.search_view);
-        listView=rootView.findViewById(R.id.results_listview);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        //change the color when create
+        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
+        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
+        System.out.println("theme config in search" + themeConfig.getTheme());
+
+        searchView = rootView.findViewById(R.id.search_view);
+        listView = rootView.findViewById(R.id.results_listview);
         setupSearchView();
-        List<Recipe>recipes=Database.getInstance().getRecipes();
-        adapter=new RecipeAdapter(getActivity(),recipes);
 
-        List<Recipe> recipes = RecipeManager.getInstance().getRecipes();
-        adapter = new RecipeAdapter(this, recipes);
+        adapter = new RecipeAdapter(getActivity(), RecipeManager.getInstance().getRecipes());
         listView.setAdapter(adapter);
 
         // set initial theme
         System.out.println("Set search fragment theme color to " + ThemeColor.getThemeColor());
         rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
 
+
+        RecipeManager.getInstance().addListener(recipes -> {
+            adapter.clear();
+            adapter.addAll(recipes);
+            adapter.notifyDataSetChanged();
+        });
         return rootView;
-    }
-
-
     }
 
     private void setupSearchView() {
@@ -80,32 +84,33 @@ public class SearchFragment extends Fragment {
         List<Recipe> searchResults = new ArrayList<>();
 
         if (queryObject.queryInvalid) {
-            Utils.showLongToast(this, queryObject.errorMessage);
-        if(queryObject.queryInvalid){
             Utils.showLongToast(getActivity(), queryObject.errorMessage);
-            Log.e("query", queryObject.errorMessage);
-        } else {
-            searchResults = recipes.stream().filter(r -> {
-                if (queryObject.queryInvalid) return false;
-                for (String keyword : queryObject.title_keywords) {
-                    if (!r.title.contains(keyword)) return false;
-                }
+            if (queryObject.queryInvalid) {
+                Utils.showLongToast(getActivity(), queryObject.errorMessage);
+                Log.e("query", queryObject.errorMessage);
+            } else {
+                searchResults = recipes.stream().filter(r -> {
+                    if (queryObject.queryInvalid) return false;
+                    for (String keyword : queryObject.title_keywords) {
+                        if (!r.title.contains(keyword)) return false;
+                    }
 
-                String ingredientsString = String.join(" ", r.ingredients);
-                for (String keyword : queryObject.ingredient_keywords) {
-                    if (!ingredientsString.contains(keyword)) return false;
-                }
+                    String ingredientsString = String.join(" ", r.ingredients);
+                    for (String keyword : queryObject.ingredient_keywords) {
+                        if (!ingredientsString.contains(keyword)) return false;
+                    }
 
-                // TODO: Like range filter
-                // TODO: Collect range filter
+                    // TODO: Like range filter
+                    // TODO: Collect range filter
 
-                return true;
-            }).collect(Collectors.toList());
+                    return true;
+                }).collect(Collectors.toList());
+            }
+
+            adapter.clear();
+            adapter.addAll(searchResults);
+            adapter.notifyDataSetChanged();
         }
-
-        adapter.clear();
-        adapter.addAll(searchResults);
-        adapter.notifyDataSetChanged();
     }
 
     @Override
