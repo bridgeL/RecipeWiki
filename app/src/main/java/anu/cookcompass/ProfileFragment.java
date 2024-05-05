@@ -8,6 +8,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,8 @@ import java.util.Objects;
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
+import anu.cookcompass.user.UserManager;
+import anu.cookcompass.gps.LocationManagerClass;
 
 public class ProfileFragment extends Fragment {
     private View rootView;
@@ -45,12 +48,9 @@ public class ProfileFragment extends Fragment {
         //on create change the color
         ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
         rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
-        // check location permission
-        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_LOCATION);
-        } else {
-            getLocationAndUpdateAddress();
-        }
+
+        getLocationAndUpdateAddress();
+
         //email bind text view
         TextView emailAddressTextView = rootView.findViewById(R.id.emailAddressTextView);
         emailAddressTextView.setText(themeConfig.getAccount());
@@ -114,45 +114,16 @@ public class ProfileFragment extends Fragment {
         view.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
     }
 
-    @Override//check permission
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == PERMISSION_REQUEST_LOCATION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLocationAndUpdateAddress();
-            } else {
-                Toast.makeText(requireActivity(), "Location permission denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     //get location
     private void getLocationAndUpdateAddress() {
-        LocationManager locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
-        // check permission
-        if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // single updates
-            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, location -> {
-                // if not null ,decode country information
-                System.out.println("Net location  " + location);
-                Geocoder geocoder = new Geocoder(requireActivity(), Locale.getDefault());
-                try {
-                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                    assert addresses != null;
-                    if (!addresses.isEmpty()) {
-                        String countryName = addresses.get(0).getCountryName();
-                        String adminArea = addresses.get(0).getAdminArea();
-                        String formattedAddress = String.format(requireActivity().getString(R.string.format_country_admin_area), countryName, adminArea);
-
-                        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
-                        themeConfig.setAddress(formattedAddress);
-                        TextView countryAddressTextView = rootView.findViewById(R.id.countryAddressTextView);
-                        countryAddressTextView.setText(formattedAddress);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }, null);
-        }
+        LocationManagerClass locationManager = new LocationManagerClass((LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE));
+        locationManager.getLocation(getActivity(), location -> {
+            String locationString = locationManager.decodeLocation(getActivity(), location);
+            TextView countryAddressTextView = rootView.findViewById(R.id.countryAddressTextView);
+            Log.e("TETS", locationString);
+            countryAddressTextView.setText(locationString);
+        });
     }
 
 
