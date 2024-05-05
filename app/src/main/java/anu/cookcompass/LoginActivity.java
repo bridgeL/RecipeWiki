@@ -3,10 +3,8 @@ package anu.cookcompass;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +16,6 @@ import anu.cookcompass.login.Login;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
 import anu.cookcompass.recipe.RecipeManager;
-import anu.cookcompass.user.UserManager;
 
 public class LoginActivity extends AppCompatActivity {
     String TAG = getClass().getSimpleName();
@@ -42,11 +39,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //login click event
         loginButton.setOnClickListener(v -> {
-//            String account = accountEditText.getText().toString();
-//            String password = passwordEditText.getText().toString();
-
-            String account = "test@163.com";
-            String password = "test1234";
+            String account = accountEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
 
             Login.getInstance().login(account, password, res -> {
                 if (res.successful) {

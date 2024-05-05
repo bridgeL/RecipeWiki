@@ -13,10 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.Objects;
-
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
-import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
 
 /**

@@ -1,11 +1,7 @@
 package anu.cookcompass;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,27 +12,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
-import anu.cookcompass.user.UserManager;
-import anu.cookcompass.gps.LocationManagerClass;
+import anu.cookcompass.gps.UserLocationManager;
 
 public class ProfileFragment extends Fragment {
     private View rootView;
@@ -117,7 +106,7 @@ public class ProfileFragment extends Fragment {
 
     //get location
     private void getLocationAndUpdateAddress() {
-        LocationManagerClass locationManager = new LocationManagerClass((LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE));
+        UserLocationManager locationManager = new UserLocationManager((LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE));
         locationManager.getLocation(getActivity(), location -> {
             String locationString = locationManager.decodeLocation(getActivity(), location);
             TextView countryAddressTextView = rootView.findViewById(R.id.countryAddressTextView);

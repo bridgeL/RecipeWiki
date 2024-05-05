@@ -1,7 +1,5 @@
 package anu.cookcompass.model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
