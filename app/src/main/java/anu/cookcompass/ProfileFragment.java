@@ -23,11 +23,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.model.ThemeConfig;
 
 public class ProfileFragment extends Fragment {
@@ -49,6 +52,7 @@ public class ProfileFragment extends Fragment {
         //email bind text view
         TextView emailAddressTextView = rootView.findViewById(R.id.emailAddressTextView);
         emailAddressTextView.setText(themeConfig.getAccount());
+        System.out.println(getActivity());
 
         // initialize spinner
         colorSelector = rootView.findViewById(R.id.colorSpinner);
@@ -64,24 +68,20 @@ public class ProfileFragment extends Fragment {
                 // change theme color
                 String colorValue = null;
                 switch (ThemeType.values()[position]) {
-                    case Default -> //                        printMsg("Case: default");
-                            colorValue = "#FFB241";
+                    case Default -> colorValue = "#FFB241";
                     case White -> colorValue = "#FFFFFF";
-//                        printMsg("Case: white");
                     case Gold -> colorValue = "#FFD700";
-//                        printMsg("Case: gold");
                     default ->
                             printMsg("Some problem may have occurred when selecting theme colour.");
                 }
                 rootView.setBackgroundColor(Color.parseColor(colorValue));
-                MainActivity mainActivity = (MainActivity) getActivity();
-                assert mainActivity != null;
-                ThemeConfig themeConfig = mainActivity.getThemeConfig();
-                themeConfig.setTheme(colorValue);
-                mainActivity.updateTheme(colorValue);
-                System.out.println("theme config in profile" + themeConfig.getTheme());
-
-
+                EventBus.getDefault().post(new ThemeUpdateEvent(colorValue));
+//                MainActivity mainActivity = (MainActivity) getActivity();
+//                assert mainActivity != null;
+//                ThemeConfig themeConfig = mainActivity.getThemeConfig();
+//                themeConfig.setTheme(colorValue);
+//                mainActivity.updateTheme(colorValue);
+//                System.out.println("theme config in profile" + themeConfig.getTheme());
             }
 
             @Override

@@ -47,6 +47,7 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
     implementation("androidx.activity:activity:1.7.2"){
     }
+    implementation ("org.greenrobot:eventbus:3.2.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
