@@ -35,6 +35,7 @@ public class SearchFragment extends Fragment {
         //change the color when create
         ThemeConfig themeConfig=((MainActivity) requireActivity()).getThemeConfig();
         rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
+        System.out.println("theme config in search"+themeConfig.getTheme());
 
         searchView =rootView.findViewById(R.id.search_view);
         listView=rootView.findViewById(R.id.results_listview);
@@ -93,5 +94,14 @@ public class SearchFragment extends Fragment {
         adapter.clear();
         adapter.addAll(searchResults);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // switch color when visiable
+        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
+        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
+        System.out.println("theme config in search" + themeConfig.getTheme());
     }
 }
