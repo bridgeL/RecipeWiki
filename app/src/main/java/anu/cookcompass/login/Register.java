@@ -11,10 +11,17 @@ import java.util.concurrent.CompletableFuture;
 import anu.cookcompass.model.Response;
 
 public class Register {
-    static FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    static String TAG = "Authority";
+    String TAG = getClass().getSimpleName();
+    private static Register instance;
 
-    public static CompletableFuture<Response> register(String username, String password1, String password2) {
+    private Register() {}
+
+    public static Register getInstance() {
+        if (instance == null) instance = new Register();
+        return instance;
+    }
+
+    public CompletableFuture<Response> register(String username, String password1, String password2) {
         //Check username format
 
         /*
@@ -40,13 +47,9 @@ public class Register {
         }
 
         //Return CompletableFuture<Response> based on the success or failure of the register attempt
-        return createAccount(username, password1);
-    }
-
-    public static CompletableFuture<Response> createAccount(String email, String password) {
         CompletableFuture<Response> future = new CompletableFuture<>();
-        mAuth
-                .createUserWithEmailAndPassword(email, password)
+        FirebaseAuth.getInstance()
+                .createUserWithEmailAndPassword(username, password1)
                 .addOnSuccessListener(unused -> {
                     Log.d(TAG, "Account registration successful!");
                     future.complete(new Response(true, "Account registration successful!"));

@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
             String password1 = firstPassword.getText().toString();
             String password2 = secondPassword.getText().toString();
 
-            Register.register(account, password1, password2).thenAccept(res -> {
+            Register.getInstance().register(account, password1, password2).thenAccept(res -> {
                 Utils.showLongToast(this, res.message);
                 if (res.successful)
                     finish(); // Destroy the current activity and return to login page

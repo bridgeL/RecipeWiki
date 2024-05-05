@@ -1,47 +1,42 @@
 package anu.cookcompass.firebase;
 
-import android.util.Log;
+import android.net.Uri;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask.TaskSnapshot;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
 
-import anu.cookcompass.model.Response;
 
 public class Storage {
-    static StorageReference ref = FirebaseStorage.getInstance().getReference();
+    String TAG = getClass().getSimpleName();
+    StorageReference ref;
+    static Storage instance = null;
 
-
-    public static CompletableFuture<TaskSnapshot> uploadBytes(String cloudPath, byte[] data) {
-        CompletableFuture<TaskSnapshot> future = new CompletableFuture<>();
-        ref
-                .child(cloudPath)
-                .putBytes(data)
-                .addOnSuccessListener(future::complete)
-                .addOnFailureListener(future::completeExceptionally);
-        return future;
+    private Storage() {
+        ref = FirebaseStorage.getInstance().getReference();
     }
 
-    public static CompletableFuture<TaskSnapshot> uploadStream(String cloudPath, InputStream stream) {
-        CompletableFuture<TaskSnapshot> future = new CompletableFuture<>();
-        ref
-                .child(cloudPath)
-                .putStream(stream)
-                .addOnSuccessListener(future::complete)
-                .addOnFailureListener(future::completeExceptionally);
-        return future;
+    public static Storage getInstance() {
+        if (instance == null) instance = new Storage();
+        return instance;
     }
 
-    public static CompletableFuture<byte[]> downloadBytes(String cloudPath) {
-        CompletableFuture<byte[]> future = new CompletableFuture<>();
-        ref
-                .child(cloudPath)
-                .getBytes(1024*1024)
-                .addOnSuccessListener(future::complete)
+    public CompletableFuture<String> uploadFile(String cloudParentPath, File localFile) {
+        CompletableFuture<String> future = new CompletableFuture<>();
+        Uri file = Uri.fromFile(localFile);
+
+        ref.child(cloudParentPath).child(file.getLastPathSegment()).putFile(file)
+                .addOnSuccessListener(taskSnapshot -> {
+                    taskSnapshot.getStorage().getDownloadUrl()
+                            .addOnSuccessListener(uri -> future.complete(uri.toString()))
+                            .addOnFailureListener(future::completeExceptionally);
+                })
                 .addOnFailureListener(future::completeExceptionally);
+
         return future;
     }
 }
