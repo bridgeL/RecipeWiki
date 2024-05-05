@@ -20,4 +20,16 @@ public class ThemeConfig implements Serializable {
     public String getTheme() {
         return this.theme;
     }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String countryName) {
+        this.address=countryName;
+    }
 }
