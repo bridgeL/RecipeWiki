@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         // initial code
         // compulsory
         RecipeManager.getInstance().loadRecipes(this);
-        UserManager.getInstance().loadUsers();
 
         // TODO: main entrance, initialization code write down here
         Button loginButton = findViewById(R.id.loginButton);
@@ -49,11 +48,9 @@ public class LoginActivity extends AppCompatActivity {
             String account = "test@163.com";
             String password = "test1234";
 
-            Login.getInstance().login(account, password).thenAccept(res -> {
+            Login.getInstance().login(account, password, res -> {
                 if (res.successful) {
                     //if successful, show the search page (main page)
-                    UserManager.getInstance().start();
-
                     ThemeConfig themeConfig = new ThemeConfig(account, "", "#FFB241");
                     Utils.showShortToast(this, res.message);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -62,9 +59,6 @@ public class LoginActivity extends AppCompatActivity {
                 } else {// if not correct, depends on the message, show the error hint
                     Utils.showLongToast(this, res.message);
                 }
-            }).exceptionally(e -> {
-                Log.e(TAG, e.getMessage());
-                return null;
             });
         });
 
@@ -91,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * The function that updates the theme color of this page when receiving event from
      * the EventBus.
+     *
      * @param event The event object from EventBus
      */
     @Subscribe

@@ -28,6 +28,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
         root = insertRecursive(root, val);
     }
 
+    public void insertAll(List<T> vals) {
+        for (T val : vals) {
+            insert(val);
+        }
+    }
+
     private TreeNode<T> insertRecursive(TreeNode<T> root, T val) {
         if (root == null) {
             root = new TreeNode<>(val);
@@ -63,7 +69,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
-    public List<T>  inOrderTraversal() {
+    public List<T> inOrderTraversal() {
         List<T> dataArray = new ArrayList<>();
         inOrderTraversalRecursive(root, dataArray);
         return dataArray;
