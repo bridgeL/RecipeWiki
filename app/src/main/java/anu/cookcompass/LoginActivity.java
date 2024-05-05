@@ -3,6 +3,7 @@ package anu.cookcompass;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,24 +14,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
-import anu.cookcompass.database.Database;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-
-import java.io.File;
-
-import anu.cookcompass.firebase.Database;
 import anu.cookcompass.login.Login;
 import anu.cookcompass.model.ThemeColor;
-import anu.cookcompass.login.Register;
-import anu.cookcompass.model.Global;
-import anu.cookcompass.model.User;
+import anu.cookcompass.model.ThemeConfig;
 import anu.cookcompass.recipe.RecipeManager;
 import anu.cookcompass.user.UserManager;
-import anu.cookcompass.model.ThemeConfig;
 
 public class LoginActivity extends AppCompatActivity {
+    String TAG = getClass().getSimpleName();
     private EditText accountEditText;
     private EditText passwordEditText;
 
@@ -41,41 +32,39 @@ public class LoginActivity extends AppCompatActivity {
 
         // initial code
         // compulsory
-        Global.getInstance(this);
-        Database.getInstance();
-        RecipeManager.getInstance();
-        UserManager.getInstance();
-
-        // optional
-        Login.getInstance();
-        Register.getInstance();
-        FirebaseAuth.getInstance();
-        FirebaseDatabase.getInstance();
-        FirebaseStorage.getInstance();
+        RecipeManager.getInstance().loadRecipes(this);
+        UserManager.getInstance().loadUsers();
 
         // TODO: main entrance, initialization code write down here
         Button loginButton = findViewById(R.id.loginButton);
         accountEditText = findViewById(R.id.account);
         passwordEditText = findViewById((R.id.password));
-        TextView notRegisteredTextView = findViewById(R.id.notRegisteredTextView);
+        Button notRegisteredTextView = findViewById(R.id.registerButton);
 
         //login click event
         loginButton.setOnClickListener(v -> {
-            String account = accountEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
+//            String account = accountEditText.getText().toString();
+//            String password = passwordEditText.getText().toString();
+
+            String account = "test@163.com";
+            String password = "test1234";
 
             Login.getInstance().login(account, password).thenAccept(res -> {
                 if (res.successful) {
                     //if successful, show the search page (main page)
-                    ThemeConfig themeConfig=new ThemeConfig(account,"","#FFB241");
+                    UserManager.getInstance().start();
+
+                    ThemeConfig themeConfig = new ThemeConfig(account, "", "#FFB241");
                     Utils.showShortToast(this, res.message);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("themeConfig", themeConfig);
                     startActivity(intent);
-//                    Utils.switchPage(this, MainActivity.class);
                 } else {// if not correct, depends on the message, show the error hint
                     Utils.showLongToast(this, res.message);
                 }
+            }).exceptionally(e -> {
+                Log.e(TAG, e.getMessage());
+                return null;
             });
         });
 

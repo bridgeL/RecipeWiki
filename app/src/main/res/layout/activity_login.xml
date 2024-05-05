@@ -82,24 +82,20 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 <!--        hint to register-->
-        <TextView
-            android:id="@+id/notRegisteredTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="right"
-            android:text="Not registered?"
-            android:textColor="@color/my_light_primary"
-            android:layout_marginRight="5dp"
-            android:clickable="true"
-            android:focusable="true"
-            />
+
 <!--        login button-->
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:text="Log In"
+            android:layout_height="match_parent"/>
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="Register"
             android:layout_height="match_parent"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
