@@ -1,5 +1,6 @@
 package anu.cookcompass;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -7,7 +8,12 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.login.Register;
+import anu.cookcompass.model.ThemeColor;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -39,5 +45,29 @@ public class RegisterActivity extends AppCompatActivity {
                     finish(); // Destroy the current activity and return to login page
             });
         });
+
+        // register EventBus receiver
+        EventBus.getDefault().register(this);
+        // set theme
+        this.getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // destroy EventBus receiver
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * The function that updates the theme color of this page when receiving event from
+     * the EventBus.
+     * @param event The event object from EventBus
+     */
+    @Subscribe
+    public void onMessageEvent(ThemeUpdateEvent event) {
+        // extract color and set theme
+        String color = event.getColorValue();
+        this.getWindow().getDecorView().setBackgroundColor(Color.parseColor(color));
     }
 }

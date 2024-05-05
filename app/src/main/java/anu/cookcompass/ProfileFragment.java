@@ -23,11 +23,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
+import anu.cookcompass.broadcast.ThemeUpdateEvent;
+import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
 
 public class ProfileFragment extends Fragment {
@@ -49,13 +54,21 @@ public class ProfileFragment extends Fragment {
         //email bind text view
         TextView emailAddressTextView = rootView.findViewById(R.id.emailAddressTextView);
         emailAddressTextView.setText(themeConfig.getAccount());
+        System.out.println(getActivity());
 
         // initialize spinner
         colorSelector = rootView.findViewById(R.id.colorSpinner);
         String[] themeList = Arrays.stream(ThemeType.values()).map(Enum::toString).toArray(String[]::new);
         ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(this.requireActivity(), android.R.layout.simple_list_item_1, themeList);
         colorSelector.setAdapter(themeAdapter);
-
+        // set spinner: set the selected element being the current theme
+        for (int i = 0; i < themeAdapter.getCount(); i++) {
+            if (Objects.equals(themeAdapter.getItem(i), ThemeColor.getThemeName().toString())) {
+                //
+                colorSelector.setSelection(i);
+                break;
+            }
+        }
 
         // listeners of spinner
         colorSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -64,24 +77,23 @@ public class ProfileFragment extends Fragment {
                 // change theme color
                 String colorValue = null;
                 switch (ThemeType.values()[position]) {
-                    case Default -> //                        printMsg("Case: default");
-                            colorValue = "#FFB241";
+                    case Default -> colorValue = "#FFB241";
                     case White -> colorValue = "#FFFFFF";
-//                        printMsg("Case: white");
                     case Gold -> colorValue = "#FFD700";
-//                        printMsg("Case: gold");
                     default ->
                             printMsg("Some problem may have occurred when selecting theme colour.");
                 }
                 rootView.setBackgroundColor(Color.parseColor(colorValue));
+                EventBus.getDefault().post(new ThemeUpdateEvent(colorValue));
+                ThemeColor.setThemeColor(colorValue);
+                ThemeColor.writeTheme();    // write new color value into file
+                // for bug avoidance, still set ThemeConfig
                 MainActivity mainActivity = (MainActivity) getActivity();
                 assert mainActivity != null;
                 ThemeConfig themeConfig = mainActivity.getThemeConfig();
                 themeConfig.setTheme(colorValue);
-                mainActivity.updateTheme(colorValue);
-                System.out.println("theme config in profile" + themeConfig.getTheme());
-
-
+//                mainActivity.updateTheme(colorValue);
+//                System.out.println("theme config in profile" + themeConfig.getTheme());
             }
 
             @Override
@@ -90,6 +102,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        // set initial theme
+        rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
         return rootView;
     }
 
@@ -146,7 +160,7 @@ public class ProfileFragment extends Fragment {
         Utils.showLongToast(this.requireActivity(), msg);
     }
 
-    enum ThemeType {
+    public enum ThemeType {
         Default,
         Gold,
         White

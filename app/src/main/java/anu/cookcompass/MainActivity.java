@@ -1,5 +1,6 @@
 package anu.cookcompass;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.Objects;
+
+import anu.cookcompass.broadcast.ThemeUpdateEvent;
+import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
 
 /**
@@ -50,6 +58,27 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
 
         replaceFragment(searchFragment);
 
+        // register EventBus receiver
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // destroy EventBus receiver
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * The function that updates the theme color of this page when receiving event from
+     * the EventBus.
+     * @param event The event object from EventBus
+     */
+    @Subscribe
+    public void onMessageEvent(ThemeUpdateEvent event) {
+        // extract color and set theme
+        String color = event.getColorValue();
+        updateTheme(color);
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -66,8 +95,8 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
 
     public void updateTheme(String themeColor) {
         themeConfig.setTheme(themeColor);
-        replaceFragment(searchFragment);
-        replaceFragment(profileFragment);
+        searchFragment.requireView().setBackgroundColor(Color.parseColor(themeColor));
+        profileFragment.requireView().setBackgroundColor(Color.parseColor(themeColor));
     }
 
     public ThemeConfig getThemeConfig() {
