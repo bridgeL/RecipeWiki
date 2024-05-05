@@ -110,7 +110,6 @@ public class ProfileFragment extends Fragment {
         locationManager.getLocation(getActivity(), location -> {
             String locationString = locationManager.decodeLocation(getActivity(), location);
             TextView countryAddressTextView = rootView.findViewById(R.id.countryAddressTextView);
-            Log.e("TETS", locationString);
             countryAddressTextView.setText(locationString);
         });
     }

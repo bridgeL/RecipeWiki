@@ -95,10 +95,11 @@ public class CloudData<T> implements Subject<T> {
                     return;
                 }
 
-                // notify the listener
-                Log.d(TAG, "download data from \"" + path + "\" successfully! data: "
-                        + data.toString().substring(0, 100));
+                String dataString = data.toString();
+                dataString = dataString.length() > 100 ? dataString.substring(0, 100) : dataString;
 
+                // notify the listener
+                Log.d(TAG, "download data from \"" + path + "\" successfully! data: " + dataString);
                 notifyAllObservers(data);
             }
 
