@@ -9,6 +9,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 
+import anu.cookcompass.ProfileFragment;
+
 /**
  * A singleton class that stores the theme color of the application.
  */
@@ -23,7 +25,6 @@ public class ThemeColor {
     public static void init(Context context){
         instance = new ThemeColor();
         instance.context = context;
-        System.out.println(context);
     }
 
     public static void setThemeColor(String themeColor){
@@ -34,6 +35,23 @@ public class ThemeColor {
     public static String getThemeColor(){
         assert instance != null;
         return instance.themeColor;
+    }
+
+    public static ProfileFragment.ThemeType getThemeName(){
+        switch(instance.themeColor){
+            case "#FFB241" -> {
+                return ProfileFragment.ThemeType.Default;
+            }
+            case "#FFFFFF" -> {
+                return ProfileFragment.ThemeType.White;
+            }
+            case "#FFD700" ->{
+                return ProfileFragment.ThemeType.Gold;
+            }
+            default -> {
+                return ProfileFragment.ThemeType.Default;
+            }
+        }
     }
 
     /**
@@ -67,6 +85,7 @@ public class ThemeColor {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Theme color loaded: "+instance.themeColor);
     }
 
     /**

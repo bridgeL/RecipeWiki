@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.model.ThemeColor;
@@ -60,7 +61,14 @@ public class ProfileFragment extends Fragment {
         String[] themeList = Arrays.stream(ThemeType.values()).map(Enum::toString).toArray(String[]::new);
         ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(this.requireActivity(), android.R.layout.simple_list_item_1, themeList);
         colorSelector.setAdapter(themeAdapter);
-
+        // set spinner: set the selected element being the current theme
+        for (int i = 0; i < themeAdapter.getCount(); i++) {
+            if (Objects.equals(themeAdapter.getItem(i), ThemeColor.getThemeName().toString())) {
+                //
+                colorSelector.setSelection(i);
+                break;
+            }
+        }
 
         // listeners of spinner
         colorSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -79,10 +87,11 @@ public class ProfileFragment extends Fragment {
                 EventBus.getDefault().post(new ThemeUpdateEvent(colorValue));
                 ThemeColor.setThemeColor(colorValue);
                 ThemeColor.writeTheme();    // write new color value into file
-//                MainActivity mainActivity = (MainActivity) getActivity();
-//                assert mainActivity != null;
-//                ThemeConfig themeConfig = mainActivity.getThemeConfig();
-//                themeConfig.setTheme(colorValue);
+                // for bug avoidance, still set ThemeConfig
+                MainActivity mainActivity = (MainActivity) getActivity();
+                assert mainActivity != null;
+                ThemeConfig themeConfig = mainActivity.getThemeConfig();
+                themeConfig.setTheme(colorValue);
 //                mainActivity.updateTheme(colorValue);
 //                System.out.println("theme config in profile" + themeConfig.getTheme());
             }
@@ -93,6 +102,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        // set initial theme
+        rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
         return rootView;
     }
 
@@ -149,7 +160,7 @@ public class ProfileFragment extends Fragment {
         Utils.showLongToast(this.requireActivity(), msg);
     }
 
-    enum ThemeType {
+    public enum ThemeType {
         Default,
         Gold,
         White

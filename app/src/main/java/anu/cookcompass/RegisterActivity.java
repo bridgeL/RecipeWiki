@@ -13,6 +13,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.login.Register;
+import anu.cookcompass.model.ThemeColor;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -47,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         // register EventBus receiver
         EventBus.getDefault().register(this);
+        // set theme
+        this.getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
     }
 
     @Override

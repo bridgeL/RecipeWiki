@@ -20,6 +20,7 @@ import anu.cookcompass.TokenizerAndParser.QueryObject;
 import anu.cookcompass.TokenizerAndParser.Tokenizer;
 import anu.cookcompass.database.Database;
 import anu.cookcompass.model.Recipe;
+import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
 import anu.cookcompass.search.RecipeAdapter;
 
@@ -32,10 +33,6 @@ public class SearchFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle saveInstanceState){
         rootView=inflater.inflate(R.layout.fragment_search,container,false);
-        //change the color when create
-        ThemeConfig themeConfig=((MainActivity) requireActivity()).getThemeConfig();
-        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
-        System.out.println("theme config in search"+themeConfig.getTheme());
 
         searchView =rootView.findViewById(R.id.search_view);
         listView=rootView.findViewById(R.id.results_listview);
@@ -43,6 +40,11 @@ public class SearchFragment extends Fragment {
         List<Recipe>recipes=Database.getInstance().getRecipes();
         adapter=new RecipeAdapter(getActivity(),recipes);
         listView.setAdapter(adapter);
+
+        // set initial theme
+        System.out.println("Set search fragment theme color to " + ThemeColor.getThemeColor());
+        rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
+
         return rootView;
     }
 
@@ -100,8 +102,7 @@ public class SearchFragment extends Fragment {
     public void onResume() {
         super.onResume();
         // switch color when visiable
-        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
-        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
-        System.out.println("theme config in search" + themeConfig.getTheme());
+        rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
+        System.out.println("theme config in search" + ThemeColor.getThemeColor());
     }
 }
