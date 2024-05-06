@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,7 @@ public class NotificationFragment extends Fragment {
     private ListView NotiListView;
     private NotificationAdapter adapter;
     private List<PopMsg> notificationList = new ArrayList<>();
+    private Button testButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,15 +35,28 @@ public class NotificationFragment extends Fragment {
         System.out.println("theme config in notification" + themeConfig.getTheme());
 
         NotiListView = rootView.findViewById(R.id.notification_listview);
-
-        // TODO: don't work
-        PopMsg popMsg = new PopMsg();
-        popMsg.uid = "uid";
-        popMsg.location = "location";
-        popMsg.rid = 1;
-        popMsg.username = "username";
-        popMsg.title = "title";
-        notificationList.add(popMsg);
+        testButton=rootView.findViewById(R.id.testButton);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopMsg popMsg = new PopMsg();
+                popMsg.uid = "uid";
+                popMsg.location = "location";
+                popMsg.rid = 1;
+                popMsg.username = "username";
+                popMsg.title = "title";
+                notificationList.add(popMsg);
+                adapter.notifyDataSetChanged();
+                NotiListView.smoothScrollToPosition(notificationList.size() - 1);
+            }});
+//        // TODO: don't work
+//        PopMsg popMsg = new PopMsg();
+//        popMsg.uid = "uid";
+//        popMsg.location = "location";
+//        popMsg.rid = 1;
+//        popMsg.username = "username";
+//        popMsg.title = "title";
+//        notificationList.add(popMsg);
         // TODO: don't work
 
         adapter = new NotificationAdapter(requireContext(), notificationList);
@@ -62,4 +77,6 @@ public class NotificationFragment extends Fragment {
         adapter.notifyDataSetChanged();
         NotiListView.smoothScrollToPosition(0);
     }
+
+
 }

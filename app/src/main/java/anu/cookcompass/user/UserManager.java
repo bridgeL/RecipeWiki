@@ -103,6 +103,7 @@ public class UserManager implements Subject<User> {
                 user.imageUrl = url;
                 // upload user data to cloud
                 cloudUser.upload(user);
+                notifyAllObservers(user);
             }).addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
         }).addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
     }

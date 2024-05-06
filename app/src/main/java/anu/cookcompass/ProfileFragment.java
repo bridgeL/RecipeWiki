@@ -1,14 +1,23 @@
 package anu.cookcompass;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,6 +27,7 @@ import androidx.fragment.app.Fragment;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -25,11 +35,15 @@ import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.gps.UserLocationManager;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
+import anu.cookcompass.model.User;
+import anu.cookcompass.pattern.Observer;
+import anu.cookcompass.user.UserManager;
 
 public class ProfileFragment extends Fragment {
     private View rootView;
     private Spinner colorSelector;
-    private static final int PERMISSION_REQUEST_LOCATION = 1001;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private ImageView imageView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -38,7 +52,14 @@ public class ProfileFragment extends Fragment {
         rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
 
         getLocationAndUpdateAddress();
-
+//Image view bind
+        imageView=rootView.findViewById(R.id.profileImage);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showImageOptions();
+            }
+        });
         //email bind text view
         TextView emailAddressTextView = rootView.findViewById(R.id.emailAddressTextView);
         emailAddressTextView.setText(themeConfig.getAccount());
@@ -96,6 +117,24 @@ public class ProfileFragment extends Fragment {
         return rootView;
     }
 
+    private void showImageOptions() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Choose");
+        builder.setItems(new String[]{"upload image", "close"}, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        openImagePicker();
+                        break;
+                    case 1:
+                        dialog.dismiss();
+                        break;
+                }
+            }
+        });
+        builder.show();
+    }
 
 
     @Override
@@ -103,6 +142,15 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
         view.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
+        UserManager.getInstance().addObserver(new Observer<User>() {
+            @Override
+            public void onDataChange(User user) {
+                if (user.imageUrl != null) {
+                    updateLocalImageView(Uri.parse(user.imageUrl));
+                }
+            }
+        });
+
     }
 
 
@@ -120,6 +168,51 @@ public class ProfileFragment extends Fragment {
     void printMsg(String msg) {
         Utils.showLongToast(this.requireActivity(), msg);
     }
+
+
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getActivity();
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            String imagePath=getFilePath(imageUri);
+            Log.i("image path", String.valueOf(imagePath));
+
+            assert imagePath != null;
+            File imageFile=new File(imagePath);
+            imageView.setImageURI(imageUri);
+            Log.i("image url", String.valueOf(imageUri));
+            UserManager.getInstance().uploadProfileImage(imageFile);
+            updateLocalImageView(imageUri);
+        }
+    }
+
+    private void updateLocalImageView(Uri imageUri) {
+        imageView.setImageURI(imageUri);
+    }
+
+    /**
+     * @param imageUri the image uri generated by image selection
+     * @return a file path
+     */
+    private String getFilePath(Uri imageUri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver().query(imageUri, projection, null, null, null);
+        if (cursor != null) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String filePath = cursor.getString(columnIndex);
+            cursor.close();
+            return filePath;
+        }
+        return null;
+    }
+
 
     public enum ThemeType {
         Default,
