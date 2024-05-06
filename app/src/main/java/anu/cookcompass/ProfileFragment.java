@@ -58,6 +58,7 @@ public class ProfileFragment extends Fragment {
             }
         }
 
+
         // listeners of spinner
         colorSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

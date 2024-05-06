@@ -1,19 +1,12 @@
 package anu.cookcompass;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -22,6 +15,7 @@ import java.util.List;
 import anu.cookcompass.model.PopMsg;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
+import anu.cookcompass.popmsg.NotificationAdapter;
 
 public class NotificationFragment extends Fragment {
     private View rootView;
@@ -50,7 +44,7 @@ public class NotificationFragment extends Fragment {
         notificationList.add(popMsg);
         // TODO: don't work
 
-        adapter = new NotificationAdapter(requireContext(),notificationList);
+        adapter = new NotificationAdapter(requireContext(), notificationList);
         NotiListView.setAdapter(adapter);
 
         // set initial theme
@@ -65,45 +59,7 @@ public class NotificationFragment extends Fragment {
 
     public void onNewNotification(PopMsg popMsg) {
         notificationList.add(0, popMsg);
-            adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
         NotiListView.smoothScrollToPosition(0);
     }
-
-    private class NotificationAdapter extends ArrayAdapter<PopMsg> {
-        public NotificationAdapter(Context context,List<PopMsg> dataSet) {
-            super(context, R.layout.notification_item, dataSet);
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.notification_item, parent, false);
-            }
-
-            PopMsg popMsg = getItem(position);
-            TextView notificationText = convertView.findViewById(R.id.notification_text);
-
-            String message = String.format("%s from %s just favorited the recipe %s.", popMsg.username, popMsg.location, popMsg.title);
-            notificationText.setText(message);
-
-            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) notificationText.getLayoutParams();
-            if (position % 2 == 0) {
-                params.gravity = Gravity.START;
-            } else {
-                params.gravity = Gravity.END;
-            }
-            notificationText.setLayoutParams(params);
-
-            convertView.setOnClickListener(v -> {
-                // Handle item click and dismissal
-                notificationList.remove(position);
-                notifyDataSetChanged();
-            });
-
-            return convertView;
-        }
-    }
-
-
 }
