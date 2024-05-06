@@ -25,6 +25,7 @@ public class RecipeManager implements Subject<List<Recipe>> {
     CloudData<List<Recipe>> cloudRecipesRef;
     BinarySearchTree<Recipe> recipeBST = new BinarySearchTree<>();
     List<Observer<List<Recipe>>> observers = new ArrayList<>();
+    public Recipe currentRecipe = null;
 
     @Override
     public List<Observer<List<Recipe>>> getObservers() {

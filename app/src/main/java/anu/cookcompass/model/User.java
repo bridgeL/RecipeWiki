@@ -2,14 +2,15 @@ package anu.cookcompass.model;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class User {
-    public String uid;
-    public String username;
-    public String imageUrl;
-    public List<Integer> collections;
+    public String uid = "";
+    public String username = "";
+    public String imageUrl = "";
+    public List<Integer> collections = new ArrayList<>();
 
     @NonNull
     @Override

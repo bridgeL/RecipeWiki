@@ -91,7 +91,7 @@ public class CloudData<T> implements Subject<T> {
 
                 // don't get data
                 if (data == null) {
-                    Log.w(TAG, "no data exists at \"" + path + "\"");
+                    Log.e(TAG, "no data exists at \"" + path + "\"");
                     return;
                 }
 
