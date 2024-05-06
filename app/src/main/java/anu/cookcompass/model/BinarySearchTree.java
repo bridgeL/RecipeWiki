@@ -1,7 +1,5 @@
 package anu.cookcompass.model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +24,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     public void insert(T val) {
         root = insertRecursive(root, val);
+    }
+
+    public void insertAll(List<T> vals) {
+        for (T val : vals) {
+            insert(val);
+        }
     }
 
     private TreeNode<T> insertRecursive(TreeNode<T> root, T val) {
@@ -63,7 +67,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
-    public List<T>  inOrderTraversal() {
+    public List<T> inOrderTraversal() {
         List<T> dataArray = new ArrayList<>();
         inOrderTraversalRecursive(root, dataArray);
         return dataArray;

@@ -11,7 +11,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.provider.Settings;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -21,13 +20,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class LocationManagerClass implements LocationService {
+public class UserLocationManager implements LocationService {
 
     LocationManager locationManager;
     LocationListener locationListener;
 
     //LocationManagerClass constructor taking in a LocationManager instance as a parameter
-    public LocationManagerClass(LocationManager locationManager) {
+    public UserLocationManager(LocationManager locationManager) {
         this.locationManager = locationManager;
     }
 

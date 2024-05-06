@@ -51,7 +51,7 @@ public class SearchFragment extends Fragment {
         rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
 
 
-        RecipeManager.getInstance().addListener(recipes -> {
+        RecipeManager.getInstance().addObserver(recipes -> {
             adapter.clear();
             adapter.addAll(recipes);
             adapter.notifyDataSetChanged();

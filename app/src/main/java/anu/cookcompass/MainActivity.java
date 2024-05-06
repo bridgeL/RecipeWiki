@@ -38,7 +38,9 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, searchFragment)
                 .add(R.id.fragment_container, profileFragment)
+                .add(R.id.fragment_container,notificationFragment)
                 .hide(profileFragment)
+                .hide(notificationFragment)
                 .commit();
 
         themeConfig=(ThemeConfig)getIntent().getSerializableExtra("themeConfig");
@@ -87,9 +89,12 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (fragment == searchFragment) {
-            transaction.hide(profileFragment).show(searchFragment);
+            transaction.hide(profileFragment).hide(notificationFragment).show(searchFragment);
         } else if (fragment == profileFragment) {
-            transaction.hide(searchFragment).show(profileFragment);
+            transaction.hide(searchFragment).hide(notificationFragment).show(profileFragment);
+        }
+        else if(fragment == notificationFragment) {
+            transaction.hide(searchFragment).hide(profileFragment).show(notificationFragment);
         }
         transaction.commit();
 
@@ -99,6 +104,7 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
         themeConfig.setTheme(themeColor);
         searchFragment.requireView().setBackgroundColor(Color.parseColor(themeColor));
         profileFragment.requireView().setBackgroundColor(Color.parseColor(themeColor));
+        notificationFragment.requireView().setBackgroundColor(Color.parseColor(themeColor));
     }
 
     public ThemeConfig getThemeConfig() {

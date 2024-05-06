@@ -1,7 +1,5 @@
 package anu.cookcompass.TokenizerAndParser;
 
-import java.util.Scanner;
-
 /**
  * The tokenizer for tokenize user search input. Similar to the tokenizer used in the lab.
  */

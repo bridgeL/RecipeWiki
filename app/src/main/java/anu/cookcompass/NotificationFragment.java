@@ -2,9 +2,11 @@ package anu.cookcompass;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +29,7 @@ public class NotificationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        rootView = inflater.inflate(R.layout.fragment_notification, container, false);
         //change the color when create
         ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
         rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
@@ -60,17 +62,17 @@ public class NotificationFragment extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_item, parent, false);
-            return new RecyclerView.ViewHolder(view);
+            return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             PopMsg popMsg = dataSet.get(position);
-            String message = String.format("%s from %s just favorite the recipe %s.", popMsg.getUsername(), popMsg.getLocation(), popMsg.getTitle());
+            String message = String.format("%s from %s just favorited the recipe %s.", popMsg.getUsername(), popMsg.getLocation(), popMsg.getTitle());
             holder.notificationText.setText(message);
 
             // Set the layout parameters to position the item on the left or right side
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) holder.itemView.getLayoutParams();
             if (position % 2 == 0) {
                 params.gravity = Gravity.START;
             } else {

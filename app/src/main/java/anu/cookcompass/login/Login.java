@@ -5,23 +5,25 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 
+import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.model.Response;
+import anu.cookcompass.user.UserManager;
 
 
 public class Login {
     String TAG = getClass().getSimpleName();
     private static Login instance;
 
-    private Login() {}
+    private Login() {
+    }
 
     public static Login getInstance() {
         if (instance == null) instance = new Login();
         return instance;
     }
 
-    public CompletableFuture<Response> login(String username, String password) {
+    public void login(String username, String password, Observer<Response> observer) {
         //Check username and password format
 
         /*
@@ -33,25 +35,29 @@ public class Login {
         e) [A-Za-z]{2,} : Two or more letters
          */
         if (Objects.isNull(username) || username.isEmpty() || !username.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
-            return CompletableFuture.completedFuture(new Response(false, "Wrong username format!"));
+            observer.onDataChange(new Response(false, "Wrong username format!"));
+            return;
         }
 
         if (Objects.isNull(password) || password.isEmpty()) {
-            return CompletableFuture.completedFuture(new Response(false, "Empty password!"));
+            observer.onDataChange(new Response(false, "Empty password!"));
+            return;
         }
 
         //Return CompletableFuture<Response> based on the success or failure of the login attempt
-        CompletableFuture<Response> future = new CompletableFuture<>();
         FirebaseAuth.getInstance()
                 .signInWithEmailAndPassword(username, password)
-                .addOnSuccessListener(unused -> {
+                .addOnSuccessListener(data -> {
                     Log.d(TAG, "Login successful!");
-                    future.complete(new Response(true, "Login successful!"));
+                    observer.onDataChange(new Response(true, "Login successful!"));
+
+                    // download user data from cloud
+                    String uid = data.getUser().getUid();
+                    UserManager.getInstance().downloadUserData(uid);
                 })
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Login failed!", e);
-                    future.complete(new Response(false, e.getMessage()));
+                    observer.onDataChange(new Response(false, e.getMessage()));
                 });
-        return future;
     }
 }
