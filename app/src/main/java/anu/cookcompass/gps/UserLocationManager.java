@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class UserLocationManager implements LocationService {
-
+private static UserLocationManager instance = null;
     LocationManager locationManager;
     LocationListener locationListener;
 

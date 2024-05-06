@@ -16,7 +16,7 @@ public class PopMsgManager implements Subject<List<PopMsg>> {
     String TAG = "PopMsgManager";
     static PopMsgManager instance = null;
 
-    List<PopMsg> popMsgs;
+    public List<PopMsg> popMsgs = new ArrayList<>();
     CloudData<List<PopMsg>> cloudPopmsgsRef;
     List<Observer<List<PopMsg>>> observers = new ArrayList<>();
 

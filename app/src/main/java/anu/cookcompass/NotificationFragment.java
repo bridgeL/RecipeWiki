@@ -9,19 +9,15 @@ import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import anu.cookcompass.model.PopMsg;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
 import anu.cookcompass.popmsg.NotificationAdapter;
+import anu.cookcompass.popmsg.PopMsgManager;
 
 public class NotificationFragment extends Fragment {
     private View rootView;
     private ListView NotiListView;
     private NotificationAdapter adapter;
-    private List<PopMsg> notificationList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,33 +29,16 @@ public class NotificationFragment extends Fragment {
         System.out.println("theme config in notification" + themeConfig.getTheme());
 
         NotiListView = rootView.findViewById(R.id.notification_listview);
-
-        // TODO: don't work
-        PopMsg popMsg = new PopMsg();
-        popMsg.uid = "uid";
-        popMsg.location = "location";
-        popMsg.rid = 1;
-        popMsg.username = "username";
-        popMsg.title = "title";
-        notificationList.add(popMsg);
-        // TODO: don't work
-
-        adapter = new NotificationAdapter(requireContext(), notificationList);
+        adapter = new NotificationAdapter(requireContext(), PopMsgManager.getInstance().popMsgs);
         NotiListView.setAdapter(adapter);
 
         // set initial theme
         rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
 
-//        PopMsgManager.getInstance().addObserver(popMsgs->{
-//            adapter.dataSet = popMsgs;
-//            adapter.notifyDataSetChanged();
-//        });
+        PopMsgManager.getInstance().addObserver(popMsgs -> {
+            adapter.setDataSet(popMsgs);
+            adapter.notifyDataSetChanged();
+        });
         return rootView;
-    }
-
-    public void onNewNotification(PopMsg popMsg) {
-        notificationList.add(0, popMsg);
-        adapter.notifyDataSetChanged();
-        NotiListView.smoothScrollToPosition(0);
     }
 }
