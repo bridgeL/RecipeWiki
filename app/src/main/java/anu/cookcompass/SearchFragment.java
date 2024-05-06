@@ -83,17 +83,42 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                updateSearchResults(newText);
-                return true;
+                // Check if the newText is empty and if it's considered as a submit action
+                if (newText.isEmpty()) {
+                    updateSearchResults(newText);
+                    return true;
+                }
+                return false;
             }
         });
     }
 
-    private void updateSearchResults(String query) {
-        List<Recipe> recipes = RecipeManager.getInstance().getRecipes();
+    QueryObject parseQuery(String query) {
         Tokenizer tokenizer = new Tokenizer(query);
         Parser parser = new Parser(tokenizer);
-        QueryObject queryObject = parser.parseQuery();
+        return parser.parseQuery();
+    }
+
+    private void updateSearchResults(String query) {
+        List<Recipe> recipes = RecipeManager.getInstance().getRecipes();
+
+        if (query.isEmpty()) {
+            adapter.clear();
+            adapter.addAll(recipes);
+            adapter.notifyDataSetChanged();
+            return;
+        }
+
+        // feature: search invalid
+        if (!query.contains(";")) query = query + ";";
+        QueryObject temp = parseQuery(query);
+
+        if (temp.queryInvalid) {
+            query = "title=" + query;
+            temp = parseQuery(query);
+        }
+
+        QueryObject queryObject = temp;
 
         List<Recipe> searchResults = new ArrayList<>();
 
@@ -102,7 +127,6 @@ public class SearchFragment extends Fragment {
             Log.e("query", queryObject.errorMessage);
         } else {
             searchResults = recipes.stream().filter(r -> {
-                if (queryObject.queryInvalid) return false;
                 for (String keyword : queryObject.title_keywords) {
                     if (!r.title.contains(keyword)) return false;
                 }
@@ -113,7 +137,6 @@ public class SearchFragment extends Fragment {
                 }
 
                 // TODO: Like range filter
-                // TODO: Collect range filter
 
                 return true;
             }).collect(Collectors.toList());
