@@ -41,4 +41,6 @@ public class NotificationFragment extends Fragment {
         });
         return rootView;
     }
+
+
 }
