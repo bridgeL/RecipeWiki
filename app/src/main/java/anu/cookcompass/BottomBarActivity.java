@@ -12,6 +12,4 @@ public class BottomBarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_bar);
     }
-
-
 }

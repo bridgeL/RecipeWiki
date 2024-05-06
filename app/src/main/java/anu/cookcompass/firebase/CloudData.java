@@ -35,7 +35,7 @@ public class CloudData<T> implements Subject<T> {
      * upload data to cloud
      * @param data new value
      */
-    public void upload(T data){
+    public void setValue(T data){
         ref.setValue(data).addOnSuccessListener(unused -> {
             Log.d(TAG, "upload data into \"" + path + "\" successfully!");
         }).addOnFailureListener(e->Log.e(TAG, e.getMessage()));

@@ -12,7 +12,6 @@ public class Recipe implements Comparable<Recipe> {
     public List<String> instructions;
     public int view;
     public int like;
-    public int collect;
 
     @Override
     public int compareTo(Recipe o) {

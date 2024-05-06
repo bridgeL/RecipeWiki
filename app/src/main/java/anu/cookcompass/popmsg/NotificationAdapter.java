@@ -40,7 +40,7 @@ public class NotificationAdapter extends ArrayAdapter<PopMsg> {
         PopMsg popMsg = getItem(position);
         TextView notificationText = convertView.findViewById(R.id.notification_text);
 
-        String message = String.format("%s from %s just favorited the recipe %s.", popMsg.username, popMsg.location, popMsg.title);
+        String message = String.format("%s (location: %s) just %s the recipe %s.", popMsg.username, popMsg.location, popMsg.type.value, popMsg.title);
         notificationText.setText(message);
 
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) notificationText.getLayoutParams();

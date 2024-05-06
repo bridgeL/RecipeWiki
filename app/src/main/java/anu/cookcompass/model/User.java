@@ -12,7 +12,6 @@ public class User {
     public String uid = "";
     public String username = "";
     public String imageUrl = "";
-    public List<Integer> collections = new ArrayList<>();
     public List<Integer> likes = new ArrayList<>();
 
     @NonNull
@@ -33,12 +32,11 @@ public class User {
         if(!uid.equals(user.uid)) return false;
         if(!username.equals(user.username)) return false;
         if(!imageUrl.equals(user.imageUrl)) return false;
-        if (!Utils.ArraysEqual(collections, user.collections)) return false;
         return Utils.ArraysEqual(likes, user.likes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, username, imageUrl, collections, likes);  // Generate hash code
+        return Objects.hash(uid, username, imageUrl, likes);  // Generate hash code
     }
 }

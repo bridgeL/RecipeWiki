@@ -14,9 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import anu.cookcompass.firebase.CloudData;
+import anu.cookcompass.model.PopMsg;
+import anu.cookcompass.model.PopMsgType;
+import anu.cookcompass.model.Recipe;
 import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.model.User;
+import anu.cookcompass.popmsg.PopMsgManager;
 
 public class UserManager implements Subject<User> {
     String TAG = "UserManager";
@@ -39,6 +43,42 @@ public class UserManager implements Subject<User> {
     }
 
     /**
+     * toggle current user's like on given recipe, return the like status now
+     *
+     * @param recipe   recipe
+     * @param location location
+     * @return like flag
+     */
+    public boolean toggleLike(Recipe recipe, String location) {
+        PopMsg popMsg = new PopMsg();
+        popMsg.uid = user.uid;
+        popMsg.username = user.username;
+        popMsg.rid = recipe.rid;
+        popMsg.title = recipe.title;
+        popMsg.location = location;
+
+        Integer rid = (Integer) recipe.rid;
+        boolean like;
+
+        if (user.likes.contains(rid)) {
+            user.likes.remove(rid);
+            popMsg.type = PopMsgType.UNLIKE;
+            recipe.like -= 1;
+            like = false;
+        } else {
+            user.likes.add(rid);
+            popMsg.type = PopMsgType.LIKE;
+            recipe.like += 1;
+            like = true;
+        }
+
+        uploadUser();
+        PopMsgManager.getInstance().pushPopMsg(popMsg);
+
+        return like;
+    }
+
+    /**
      * when user first registered an account, create a user data instance on cloud
      */
     public void createUserData(FirebaseUser firebaseUser) {
@@ -56,7 +96,7 @@ public class UserManager implements Subject<User> {
      * upload current user to cloud
      */
     public void uploadUser() {
-        cloudUser.upload(user);
+        cloudUser.setValue(user);
     }
 
     /**

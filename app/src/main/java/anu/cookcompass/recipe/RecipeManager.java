@@ -32,6 +32,12 @@ public class RecipeManager implements Subject<List<Recipe>> {
         return observers;
     }
 
+    public void setCurrentRecipe(Recipe recipe) {
+        currentRecipe = recipe;
+        currentRecipe.view += 1;
+        cloudRecipesRef.setValue(getRecipes());
+    }
+
     private RecipeManager() {
         cloudRecipesRef = new CloudData<>(
                 "v2/recipe",

@@ -43,4 +43,13 @@ public class PopMsgManager implements Subject<List<PopMsg>> {
         if (instance == null) instance = new PopMsgManager();
         return instance;
     }
+
+    /**
+     * add a pop message and upload it to cloud
+     * @param popMsg pop message
+     */
+    public void pushPopMsg(PopMsg popMsg){
+        popMsgs.add(0, popMsg);
+        cloudPopmsgsRef.setValue(popMsgs);
+    }
 }

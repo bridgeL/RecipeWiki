@@ -6,4 +6,5 @@ public class PopMsg {
     public int rid = 1;
     public String title = "title";
     public String location = "location";
+    public PopMsgType type = PopMsgType.LIKE;
 }

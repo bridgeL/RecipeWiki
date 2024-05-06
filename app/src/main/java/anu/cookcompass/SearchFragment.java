@@ -55,7 +55,7 @@ public class SearchFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Recipe selectedRecipe = RecipeManager.getInstance().getRecipes().get(position);
                 Intent intent = new Intent(parent.getContext().getApplicationContext(), RecipeActivity.class);
-                RecipeManager.getInstance().currentRecipe = adapter.getItem(position);
+                RecipeManager.getInstance().setCurrentRecipe(adapter.getItem(position));
                 startActivity(intent);
             }
         });
