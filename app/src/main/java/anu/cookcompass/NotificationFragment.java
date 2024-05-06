@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
@@ -19,8 +18,6 @@ public class NotificationFragment extends Fragment {
     private View rootView;
     private ListView NotiListView;
     private NotificationAdapter adapter;
-    private List<PopMsg> notificationList = new ArrayList<>();
-    private Button testButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

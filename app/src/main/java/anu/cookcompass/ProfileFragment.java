@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -44,6 +46,7 @@ public class ProfileFragment extends Fragment {
     private Spinner colorSelector;
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imageView;
+    private ActivityResultLauncher<Intent> imagePickerLauncher;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -54,17 +57,27 @@ public class ProfileFragment extends Fragment {
         getLocationAndUpdateAddress();
 //Image view bind
         imageView=rootView.findViewById(R.id.profileImage);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showImageOptions();
-            }
-        });
+        imageView.setOnClickListener(v -> showImageOptions());
         //email bind text view
         TextView emailAddressTextView = rootView.findViewById(R.id.emailAddressTextView);
         emailAddressTextView.setText(themeConfig.getAccount());
         System.out.println(getActivity());
+//initialize imagePickLauncher
+        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Uri imageUri = result.getData().getData();
+                        String imagePath = getFilePath(imageUri);
+                        Log.i("image path", String.valueOf(imagePath));
 
+                        assert imagePath != null;
+                        File imageFile = new File(imagePath);
+                        imageView.setImageURI(imageUri);
+                        Log.i("image url", String.valueOf(imageUri));
+                        UserManager.getInstance().uploadProfileImage(imageFile);
+                        updateLocalImageView(imageUri);
+                    }
+                });
         // initialize spinner
         colorSelector = rootView.findViewById(R.id.colorSpinner);
         String[] themeList = Arrays.stream(ThemeType.values()).map(Enum::toString).toArray(String[]::new);
@@ -142,7 +155,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
         view.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
-        UserManager.getInstance().addObserver(new Observer<User>() {
+        UserManager.getInstance().addObserver(new Observer<>() {
             @Override
             public void onDataChange(User user) {
                 if (user.imageUrl != null) {
@@ -172,24 +185,7 @@ public class ProfileFragment extends Fragment {
 
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        getActivity();
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            Uri imageUri = data.getData();
-            String imagePath=getFilePath(imageUri);
-            Log.i("image path", String.valueOf(imagePath));
-
-            assert imagePath != null;
-            File imageFile=new File(imagePath);
-            imageView.setImageURI(imageUri);
-            Log.i("image url", String.valueOf(imageUri));
-            UserManager.getInstance().uploadProfileImage(imageFile);
-            updateLocalImageView(imageUri);
-        }
+        imagePickerLauncher.launch(intent);
     }
 
     private void updateLocalImageView(Uri imageUri) {

@@ -82,8 +82,15 @@ public class RecipeManager implements Subject<List<Recipe>> {
         // load it from local file
         List<Recipe> recipes = Utils.readJson(file, new TypeToken<List<Recipe>>() {
         });
-        recipeBST.insertAll(recipes);
-        Log.d(TAG, "load recipes from local file successfully!");
+        if (recipes!=null){
+            recipeBST.insertAll(recipes);
+            Log.d(TAG, "load recipes from local file successfully!");
+        }
+        else{
+            Log.d(TAG,"NO results for recipes");
+        }
+
+
     }
 
     public List<Recipe> getRecipes() {
