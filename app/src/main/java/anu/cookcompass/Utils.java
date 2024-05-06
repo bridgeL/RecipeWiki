@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -29,7 +30,31 @@ import java.util.List;
 
 
 public class Utils {
-    public static <T> boolean ArraysEqual(List<T> array1, List<T> array2){
+
+    private static Toast mToast;
+
+    public static void showToast(Context mContext, String text, int duration) {
+        if (mToast == null) {
+            mToast = Toast.makeText(mContext, text, duration);
+        } else {
+            mToast.setText(text);
+//            mToast.setDuration(duration);
+        }
+        // no use for API 30 or higher
+//        // Positions the Toast at the top of the screen, centered horizontally, with 100px offset from the top
+//        mToast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
+        mToast.show();
+    }
+
+    public static void showShortToast(Context context, String message) {
+        showToast(context, message, Toast.LENGTH_SHORT);
+    }
+
+    public static void showLongToast(Context context, String message) {
+        showToast(context, message, Toast.LENGTH_LONG);
+    }
+
+    public static <T> boolean ArraysEqual(List<T> array1, List<T> array2) {
         HashSet<T> set1 = new HashSet<>(array1);
         HashSet<T> set2 = new HashSet<>(array2);
         return set1.containsAll(set2) && set2.containsAll(set1);
@@ -42,14 +67,6 @@ public class Utils {
     public static void switchPage(Activity first, Class<? extends Activity> secondClass) {
         Intent intent = new Intent(first, secondClass);
         first.startActivity(intent);
-    }
-
-    public static void showShortToast(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-    }
-
-    public static void showLongToast(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
     public static byte[] getImageBytesFromImageView(ImageView imageView) {
