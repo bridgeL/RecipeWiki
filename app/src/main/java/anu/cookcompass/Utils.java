@@ -31,6 +31,10 @@ import java.util.List;
 
 public class Utils {
 
+    public static int randInt(int start, int end) {
+        return (int) Math.floor(Math.random() * (end - start) + start);
+    }
+
     private static Toast mToast;
 
     public static void showToast(Context mContext, String text, int duration) {

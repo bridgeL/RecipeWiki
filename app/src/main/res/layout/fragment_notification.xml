@@ -21,14 +21,4 @@
 
     </ListView>
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="testButton"
-        app:layout_constraintBottom_toBottomOf="@+id/notification_listview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/notification_listview" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

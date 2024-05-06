@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
+import anu.cookcompass.datastream.UserSimulator;
 import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.model.Response;
 import anu.cookcompass.user.UserManager;
@@ -50,6 +51,9 @@ public class Login {
                 .addOnSuccessListener(data -> {
                     Log.d(TAG, "Login successful!");
                     observer.onDataChange(new Response(true, "Login successful!"));
+
+                    // start data stream
+                    UserSimulator.start();
 
                     // download user data from cloud
                     String uid = data.getUser().getUid();

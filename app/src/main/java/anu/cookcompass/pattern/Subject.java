@@ -1,5 +1,7 @@
 package anu.cookcompass.pattern;
 
+import android.util.Log;
+
 import java.util.List;
 
 public interface Subject<T> {
@@ -7,7 +9,11 @@ public interface Subject<T> {
 
     default void notifyAllObservers(T data) {
         for (Observer<T> observer : getObservers()) {
-            observer.onDataChange(data);
+            try {
+                observer.onDataChange(data);
+            } catch (Exception e) {
+                Log.e("Subject", e.getMessage());
+            }
         }
     }
 
