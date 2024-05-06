@@ -33,13 +33,6 @@ class RecipeLikeComparator implements Comparator<Recipe> {
     }
 }
 
-class RecipeCollectionComparator implements Comparator<Recipe> {
-    @Override
-    public int compare(Recipe recipe1, Recipe recipe2) {
-        return recipe2.collect - recipe1.collect; //Larger collection count appears first
-    }
-}
-
 public class SearchFilter { //Using heap sort
 
     //Logic for building max heap
@@ -93,7 +86,7 @@ public class SearchFilter { //Using heap sort
         heapify(recipeArray, length, 0, comparatorType);
     }
 
-    //Return top N recipes according to order defined by id/title/view/like/collect comparator
+    //Return top N recipes according to order defined by id/title/view/like comparator
     public static ArrayList<Recipe> filterTopNRecipes(Recipe[] recipeArray, Comparator<Recipe> comparatorType, int topN) {
         //Sort recipes according to the chosen comparator using the heapSort() method
         heapSort(recipeArray, comparatorType);
@@ -107,13 +100,13 @@ public class SearchFilter { //Using heap sort
         return topRecipeArray;
     }
 
-    //Return top N recipes with at least K number of likes, views, or collections
+    //Return top N recipes with at least K number of likes or views
     public static ArrayList<Recipe> filterTopNMostLovedRecipes(Recipe[] recipeArray, Comparator<Recipe> comparatorType, int topN, int atLeastK) {
 
         ArrayList<Recipe> topNMostLovedRecipeArray = new ArrayList<>();
 
         if (!(comparatorType instanceof RecipeIdComparator) && !(comparatorType instanceof RecipeTitleComparator)) {
-            //Sort recipes according to the chosen comparator (like, view, or collection comparator) using the heapSort() method
+            //Sort recipes according to the chosen comparator (like or view comparator) using the heapSort() method
             heapSort(recipeArray, comparatorType);
 
             int count = 0;
@@ -138,20 +131,6 @@ public class SearchFilter { //Using heap sort
                 while (count < topN) {
                     for (Recipe recipe : recipeArray) {
                         if (recipe.view >= atLeastK) {
-                            topNMostLovedRecipeArray.add(recipe);
-                            count++;
-                            if (count == topN) {
-                                break; //Break current iteration if topN elements have been added (Early termination)
-                            }
-                        }
-                    }
-                }
-            //Using collection comparator
-            } else if (comparatorType instanceof RecipeCollectionComparator) {
-                //Top N recipes with at least K collections (listed from most collected to least collected)
-                while (count < topN) {
-                    for (Recipe recipe : recipeArray) {
-                        if (recipe.collect >= atLeastK) {
                             topNMostLovedRecipeArray.add(recipe);
                             count++;
                             if (count == topN) {
