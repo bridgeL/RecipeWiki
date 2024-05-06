@@ -21,8 +21,8 @@ import anu.cookcompass.model.User;
 public class UserManager implements Subject<User> {
     String TAG = "UserManager";
     static UserManager instance = null;
-    User user = new User();
-    CloudData<User> cloudUser;
+    public User user = new User();
+    public CloudData<User> cloudUser;
     List<Observer<User>> observers = new ArrayList<>();
 
     @Override
@@ -48,38 +48,41 @@ public class UserManager implements Subject<User> {
         User user = new User();
         user.uid = uid;
         user.username = username;
-        getCloudUser(uid).upload(user);
+        initCloudUser(uid);
+        uploadUser();
+    }
+
+    /**
+     * upload current user to cloud
+     */
+    public void uploadUser() {
+        cloudUser.upload(user);
     }
 
     /**
      * by calling this function to avoid create cloudUser multiple times
+     *
      * @param uid user uid
      * @return cloudUser
      */
-    public CloudData<User> getCloudUser(String uid) {
+    public void initCloudUser(String uid) {
         if (cloudUser == null) {
             cloudUser = new CloudData<>(
                     "v3/user/" + uid,
                     new GenericTypeIndicator<User>() {
                     }
             );
+
+            cloudUser.addObserver(data -> {
+                // user is totally same to cloudUser, there is no need to synchronize
+                if (user.equals(data)) return;
+
+                // synchronize data
+                user = data;
+                notifyAllObservers(user);
+                Log.d(TAG, "synchronize user data successfully!");
+            });
         }
-        return cloudUser;
-    }
-
-    /**
-     * afer user has logged in successfully, call this function to load user data from cloud
-     */
-    public void downloadUserData(String uid) {
-        getCloudUser(uid).addObserver(data -> {
-            // user is totally same to cloudUser, there is no need to synchronize
-            if (user.equals(data)) return;
-
-            // synchronize data
-            user = data;
-            notifyAllObservers(user);
-            Log.d(TAG, "synchronize user data successfully!");
-        });
     }
 
     /**
@@ -102,7 +105,7 @@ public class UserManager implements Subject<User> {
                 // set user image url
                 user.imageUrl = url;
                 // upload user data to cloud
-                cloudUser.upload(user);
+                uploadUser();
             }).addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
         }).addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
     }

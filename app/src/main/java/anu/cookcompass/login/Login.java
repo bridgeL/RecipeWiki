@@ -53,7 +53,7 @@ public class Login {
 
                     // download user data from cloud
                     String uid = data.getUser().getUid();
-                    UserManager.getInstance().downloadUserData(uid);
+                    UserManager.getInstance().initCloudUser(uid);
                 })
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Login failed!", e);
