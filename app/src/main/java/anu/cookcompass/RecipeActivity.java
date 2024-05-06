@@ -37,9 +37,7 @@ public class RecipeActivity extends AppCompatActivity {
         recipeText = findViewById(R.id.RecipeText);
 
         // grab intent and retrieve Recipe object
-        Intent intent = getIntent();
-        int recipeID = intent.getIntExtra("RecipeID", -1);
-        currentRecipe = RecipeManager.getInstance().getRecipes().get(recipeID);
+        currentRecipe = RecipeManager.getInstance().currentRecipe;
         // set displays
         recipeTitle.setText(currentRecipe.title);
         // setup text to be displayed

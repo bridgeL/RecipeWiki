@@ -55,7 +55,7 @@ public class SearchFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Recipe selectedRecipe = RecipeManager.getInstance().getRecipes().get(position);
                 Intent intent = new Intent(parent.getContext().getApplicationContext(), RecipeActivity.class);
-                intent.putExtra("RecipeID", position);
+                RecipeManager.getInstance().currentRecipe = adapter.getItem(position);
                 startActivity(intent);
             }
         });
@@ -99,32 +99,29 @@ public class SearchFragment extends Fragment {
 
         if (queryObject.queryInvalid) {
             Utils.showLongToast(getActivity(), queryObject.errorMessage);
-            if (queryObject.queryInvalid) {
-                Utils.showLongToast(getActivity(), queryObject.errorMessage);
-                Log.e("query", queryObject.errorMessage);
-            } else {
-                searchResults = recipes.stream().filter(r -> {
-                    if (queryObject.queryInvalid) return false;
-                    for (String keyword : queryObject.title_keywords) {
-                        if (!r.title.contains(keyword)) return false;
-                    }
+            Log.e("query", queryObject.errorMessage);
+        } else {
+            searchResults = recipes.stream().filter(r -> {
+                if (queryObject.queryInvalid) return false;
+                for (String keyword : queryObject.title_keywords) {
+                    if (!r.title.contains(keyword)) return false;
+                }
 
-                    String ingredientsString = String.join(" ", r.ingredients);
-                    for (String keyword : queryObject.ingredient_keywords) {
-                        if (!ingredientsString.contains(keyword)) return false;
-                    }
+                String ingredientsString = String.join(" ", r.ingredients);
+                for (String keyword : queryObject.ingredient_keywords) {
+                    if (!ingredientsString.contains(keyword)) return false;
+                }
 
-                    // TODO: Like range filter
-                    // TODO: Collect range filter
+                // TODO: Like range filter
+                // TODO: Collect range filter
 
-                    return true;
-                }).collect(Collectors.toList());
-            }
-
-            adapter.clear();
-            adapter.addAll(searchResults);
-            adapter.notifyDataSetChanged();
+                return true;
+            }).collect(Collectors.toList());
         }
+
+        adapter.clear();
+        adapter.addAll(searchResults);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
