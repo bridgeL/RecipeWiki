@@ -17,6 +17,9 @@
         android:theme="@style/Theme.CookCompass"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".RecipeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProfileFragment"
             android:exported="false" />
         <activity
