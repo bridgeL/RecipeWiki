@@ -85,7 +85,7 @@ public class UserManager implements Subject<User> {
         String uid = firebaseUser.getUid();
         String username = firebaseUser.getEmail();
 
-        User user = new User();
+//        user = new User();
         user.uid = uid;
         user.username = username;
         initCloudUser(uid);
