@@ -21,7 +21,7 @@ import anu.cookcompass.model.User;
 public class UserManager implements Subject<User> {
     String TAG = "UserManager";
     static UserManager instance = null;
-    User user;
+    User user = new User();
     CloudData<User> cloudUser;
     List<Observer<User>> observers = new ArrayList<>();
 
