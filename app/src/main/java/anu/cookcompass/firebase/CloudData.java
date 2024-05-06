@@ -36,7 +36,9 @@ public class CloudData<T> implements Subject<T> {
      * @param data new value
      */
     public void upload(T data){
-        ref.setValue(data);
+        ref.setValue(data).addOnSuccessListener(unused -> {
+            Log.d(TAG, "upload data into \"" + path + "\" successfully!");
+        }).addOnFailureListener(e->Log.e(TAG, e.getMessage()));
     }
 
     /**
@@ -95,11 +97,13 @@ public class CloudData<T> implements Subject<T> {
                     return;
                 }
 
+                // notify the listener
+                Log.d(TAG, "find a cloud data change at \"" + path + "\"");
+
+                // show new value
                 String dataString = data.toString();
                 dataString = dataString.length() > 100 ? dataString.substring(0, 100) : dataString;
-
-                // notify the listener
-                Log.d(TAG, "download data from \"" + path + "\" successfully! data: " + dataString);
+                Log.d(TAG, dataString);
                 notifyAllObservers(data);
             }
 

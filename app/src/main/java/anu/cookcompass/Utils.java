@@ -24,10 +24,17 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
 public class Utils {
+    public static <T> boolean ArraysEqual(List<T> array1, List<T> array2){
+        HashSet<T> set1 = new HashSet<>(array1);
+        HashSet<T> set2 = new HashSet<>(array2);
+        return set1.containsAll(set2) && set2.containsAll(set1);
+    }
+
     public static Bitmap byteToBitmap(byte[] bytes) {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }

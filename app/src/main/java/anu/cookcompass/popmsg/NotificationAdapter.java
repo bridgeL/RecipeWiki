@@ -18,11 +18,16 @@ import anu.cookcompass.R;
 import anu.cookcompass.model.PopMsg;
 
 public class NotificationAdapter extends ArrayAdapter<PopMsg> {
-    private List<PopMsg> dataSet;
+    public List<PopMsg> dataSet;
 
     public NotificationAdapter(Context context, List<PopMsg> dataSet) {
         super(context, R.layout.notification_item, dataSet);
         this.dataSet = dataSet;
+    }
+
+    public void setDataSet(List<PopMsg> popMsgs) {
+        dataSet.clear();
+        dataSet.addAll(popMsgs);
     }
 
     @NonNull
