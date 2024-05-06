@@ -20,12 +20,14 @@ import java.util.List;
 import anu.cookcompass.model.PopMsg;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
+import anu.cookcompass.popmsg.PopMsgManager;
 
 public class NotificationFragment extends Fragment {
     private View rootView;
     private RecyclerView recyclerView;
     private NotificationAdapter adapter;
     private List<PopMsg> notificationList = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,15 +39,31 @@ public class NotificationFragment extends Fragment {
 
         recyclerView = rootView.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        // TODO: don't work
+        PopMsg popMsg = new PopMsg();
+        popMsg.uid = "uid";
+        popMsg.location = "location";
+        popMsg.rid = 1;
+        popMsg.username = "username";
+        popMsg.title = "title";
+        notificationList.add(popMsg);
+        // TODO: don't work
+
         adapter = new NotificationAdapter(notificationList);
         recyclerView.setAdapter(adapter);
 
         // set initial theme
         rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
+
+//        PopMsgManager.getInstance().addObserver(popMsgs->{
+//            adapter.dataSet = popMsgs;
+//            adapter.notifyDataSetChanged();
+//        });
         return rootView;
     }
 
-    public void onNewNotification(PopMsg popMsg){
+    public void onNewNotification(PopMsg popMsg) {
         notificationList.add(0, popMsg);
         adapter.notifyItemInserted(0);
         recyclerView.smoothScrollToPosition(0);
@@ -68,7 +86,7 @@ public class NotificationFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             PopMsg popMsg = dataSet.get(position);
-            String message = String.format("%s from %s just favorited the recipe %s.", popMsg.getUsername(), popMsg.getLocation(), popMsg.getTitle());
+            String message = String.format("%s from %s just favorited the recipe %s.", popMsg.username, popMsg.location, popMsg.title);
             holder.notificationText.setText(message);
 
             // Set the layout parameters to position the item on the left or right side
