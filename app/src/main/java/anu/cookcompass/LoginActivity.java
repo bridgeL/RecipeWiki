@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
         RecipeManager.getInstance().loadRecipes(this);
         UserManager.getInstance().loadUsers();
 
-        // TODO: main entrance, initialization code write down here
         Button loginButton = findViewById(R.id.loginButton);
         accountEditText = findViewById(R.id.account);
         passwordEditText = findViewById((R.id.password));

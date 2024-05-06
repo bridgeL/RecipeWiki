@@ -13,10 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.Objects;
-
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
-import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
 
 /**
@@ -27,7 +24,7 @@ import anu.cookcompass.model.ThemeConfig;
  */
 public class MainActivity extends AppCompatActivity {//after login ,the application will turn to this page
     private BottomNavigationView bottomNavigationView;
-    private Fragment searchFragment, profileFragment;//two fragment to switch with
+    private Fragment searchFragment, profileFragment,notificationFragment;//three fragment to switch with
     private ThemeConfig themeConfig;
 
     @Override
@@ -36,6 +33,7 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
         setContentView(R.layout.activity_main);
         searchFragment = new SearchFragment();
         profileFragment = new ProfileFragment();
+        notificationFragment=new NotificationFragment();
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, searchFragment)
@@ -51,6 +49,10 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
                 return true;
             } else if (menuItem.getItemId() == R.id.navigation_profile) {
                 replaceFragment(profileFragment);
+                return true;
+            }
+            else if(menuItem.getItemId() == R.id.navigation_notification){
+                replaceFragment(notificationFragment);
                 return true;
             }
             return false;

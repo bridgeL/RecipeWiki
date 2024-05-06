@@ -11,6 +11,10 @@
         android:id="@+id/navigation_profile"
         android:icon="@drawable/account_icon"
         android:title="@string/title_profile" />
+    <item
+        android:id="@+id/navigation_notification"
+        android:icon="@drawable/notification_icon"
+        android:title="@string/notification" />
 
 
 </menu>
