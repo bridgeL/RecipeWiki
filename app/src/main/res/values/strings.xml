@@ -14,4 +14,5 @@
     <string name="email_address">Email Address:</string>
     <string name="format_country_admin_area">%1$s, %2$s</string>
     <string name="notification">Notification</string>
+    <string name="theme">Theme</string>
 </resources>

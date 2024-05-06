@@ -1,18 +1,20 @@
 package anu.cookcompass;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +22,10 @@ import java.util.List;
 import anu.cookcompass.model.PopMsg;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
-import anu.cookcompass.popmsg.PopMsgManager;
 
 public class NotificationFragment extends Fragment {
     private View rootView;
-    private RecyclerView recyclerView;
+    private ListView NotiListView;
     private NotificationAdapter adapter;
     private List<PopMsg> notificationList = new ArrayList<>();
 
@@ -37,8 +38,7 @@ public class NotificationFragment extends Fragment {
         rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
         System.out.println("theme config in notification" + themeConfig.getTheme());
 
-        recyclerView = rootView.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        NotiListView = rootView.findViewById(R.id.notification_listview);
 
         // TODO: don't work
         PopMsg popMsg = new PopMsg();
@@ -50,8 +50,8 @@ public class NotificationFragment extends Fragment {
         notificationList.add(popMsg);
         // TODO: don't work
 
-        adapter = new NotificationAdapter(notificationList);
-        recyclerView.setAdapter(adapter);
+        adapter = new NotificationAdapter(requireContext(),notificationList);
+        NotiListView.setAdapter(adapter);
 
         // set initial theme
         rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
@@ -65,61 +65,43 @@ public class NotificationFragment extends Fragment {
 
     public void onNewNotification(PopMsg popMsg) {
         notificationList.add(0, popMsg);
-        adapter.notifyItemInserted(0);
-        recyclerView.smoothScrollToPosition(0);
+            adapter.notifyDataSetChanged();
+        NotiListView.smoothScrollToPosition(0);
     }
 
-    private class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
-        private List<PopMsg> dataSet;
-
-        public NotificationAdapter(List<PopMsg> dataSet) {
-            this.dataSet = dataSet;
+    private class NotificationAdapter extends ArrayAdapter<PopMsg> {
+        public NotificationAdapter(Context context,List<PopMsg> dataSet) {
+            super(context, R.layout.notification_item, dataSet);
         }
 
         @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_item, parent, false);
-            return new ViewHolder(view);
-        }
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.notification_item, parent, false);
+            }
 
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            PopMsg popMsg = dataSet.get(position);
+            PopMsg popMsg = getItem(position);
+            TextView notificationText = convertView.findViewById(R.id.notification_text);
+
             String message = String.format("%s from %s just favorited the recipe %s.", popMsg.username, popMsg.location, popMsg.title);
-            holder.notificationText.setText(message);
+            notificationText.setText(message);
 
-            // Set the layout parameters to position the item on the left or right side
-            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) holder.itemView.getLayoutParams();
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) notificationText.getLayoutParams();
             if (position % 2 == 0) {
                 params.gravity = Gravity.START;
             } else {
                 params.gravity = Gravity.END;
             }
-            holder.itemView.setLayoutParams(params);
+            notificationText.setLayoutParams(params);
 
-            holder.itemView.setOnClickListener(v -> {
+            convertView.setOnClickListener(v -> {
                 // Handle item click and dismissal
-                int adapterPosition = holder.getAdapterPosition();
-                if (adapterPosition != RecyclerView.NO_POSITION) {
-                    dataSet.remove(adapterPosition);
-                    notifyItemRemoved(adapterPosition);
-                }
+                notificationList.remove(position);
+                notifyDataSetChanged();
             });
-        }
 
-        @Override
-        public int getItemCount() {
-            return dataSet.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView notificationText;
-
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                notificationText = itemView.findViewById(R.id.notification_text);
-            }
+            return convertView;
         }
     }
 
