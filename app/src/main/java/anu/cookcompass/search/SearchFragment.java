@@ -17,11 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import anu.cookcompass.MainActivity;
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
 import anu.cookcompass.theme.ThemeColor;
-import anu.cookcompass.theme.ThemeConfig;
 import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.recipe.RecipeActivity;
 import anu.cookcompass.recipe.RecipeManager;
@@ -37,9 +35,9 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
         //change the color when create
-        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
-        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
-        System.out.println("theme config in search" + themeConfig.getTheme());
+//        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
+//        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
+//        System.out.println("theme config in search" + themeConfig.getTheme());
 
         searchView = rootView.findViewById(R.id.search_view);
         listView = rootView.findViewById(R.id.results_listview);

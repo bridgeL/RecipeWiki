@@ -9,10 +9,8 @@ import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
-import anu.cookcompass.MainActivity;
 import anu.cookcompass.R;
 import anu.cookcompass.theme.ThemeColor;
-import anu.cookcompass.theme.ThemeConfig;
 
 public class NotificationFragment extends Fragment {
     private View rootView;
@@ -24,9 +22,9 @@ public class NotificationFragment extends Fragment {
         super.onCreate(savedInstanceState);
         rootView = inflater.inflate(R.layout.fragment_notification, container, false);
         //change the color when create
-        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
-        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
-        System.out.println("theme config in notification" + themeConfig.getTheme());
+//        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
+//        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
+//        System.out.println("theme config in notification" + themeConfig.getTheme());
 
         NotiListView = rootView.findViewById(R.id.notification_listview);
         adapter = new NotificationAdapter(requireContext(), PopMsgManager.getInstance().popMsgs);

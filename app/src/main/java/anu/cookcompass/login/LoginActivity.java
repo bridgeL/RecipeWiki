@@ -16,11 +16,9 @@ import anu.cookcompass.R;
 import anu.cookcompass.Utils;
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.theme.ThemeColor;
-import anu.cookcompass.theme.ThemeConfig;
 import anu.cookcompass.recipe.RecipeManager;
 
 public class LoginActivity extends AppCompatActivity {
-    String TAG = getClass().getSimpleName();
     private EditText accountEditText;
     private EditText passwordEditText;
 
@@ -29,37 +27,61 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // initial code
-        // compulsory
-        RecipeManager.getInstance().loadRecipes(this);
+        // ======================================
+        // create view
+        // ======================================
 
         Button loginButton = findViewById(R.id.loginButton);
         accountEditText = findViewById(R.id.account);
         passwordEditText = findViewById((R.id.password));
-        Button notRegisteredTextView = findViewById(R.id.registerButton);
+        Button registerButton = findViewById(R.id.registerButton);
         Button quickLoginButton = findViewById(R.id.quickLoginButton);
+
+        // ======================================
+        // create instance
+        // ======================================
+
+        RecipeManager recipeManager = RecipeManager.getInstance();
+        Login login = Login.getInstance();
+
+        // ======================================
+        // bind view listener / callback / handler
+        // ======================================
 
         //login click event
         loginButton.setOnClickListener(v -> {
             String account = accountEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
-            Login.getInstance().login(account, password, res -> {
+            login.login(account, password, res -> {
+                //if successful, show the search page (main page)
                 if (res.successful) {
-                    //if successful, show the search page (main page)
-                    ThemeConfig themeConfig = new ThemeConfig(account, "", "#FFB241");
                     Utils.showShortToast(this, res.message);
+
+
+//                    ThemeConfig themeConfig = new ThemeConfig(account, "", "#FFB241");
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("themeConfig", themeConfig);
+//                    intent.putExtra("themeConfig", themeConfig);
                     startActivity(intent);
+
                 } else {// if not correct, depends on the message, show the error hint
                     Utils.showLongToast(this, res.message);
                 }
             });
         });
 
+
+        // ======================================
+        // initial code
+        // ======================================
+
+        recipeManager.loadRecipes(this);
+
+
+
+
         //register click event
-        notRegisteredTextView.setOnClickListener(v -> {
+        registerButton.setOnClickListener(v -> {
             Utils.switchPage(this, RegisterActivity.class);
         });
 
@@ -70,10 +92,10 @@ public class LoginActivity extends AppCompatActivity {
             Login.getInstance().login(account, password, res -> {
                 if (res.successful) {
                     //if successful, show the search page (main page)
-                    ThemeConfig themeConfig = new ThemeConfig(account, "", "#FFB241");
+//                    ThemeConfig themeConfig = new ThemeConfig(account, "", "#FFB241");
                     Utils.showShortToast(this, res.message);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("themeConfig", themeConfig);
+//                    intent.putExtra("themeConfig", themeConfig);
                     startActivity(intent);
                 } else {// if not correct, depends on the message, show the error hint
                     Utils.showLongToast(this, res.message);

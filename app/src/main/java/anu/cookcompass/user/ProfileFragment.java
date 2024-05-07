@@ -42,9 +42,7 @@ import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.datastream.UserSimulator;
 import anu.cookcompass.gps.UserLocationManager;
 import anu.cookcompass.theme.ThemeColor;
-import anu.cookcompass.theme.ThemeConfig;
 import anu.cookcompass.theme.ThemeType;
-import anu.cookcompass.pattern.Observer;
 
 public class ProfileFragment extends Fragment {
     private View rootView;
@@ -99,12 +97,12 @@ public class ProfileFragment extends Fragment {
 
 
         //on create change the color
-        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
-        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
+//        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
+//        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
 
         getLocationAndUpdateAddress();
 
-        emailAddressTextView.setText(themeConfig.getAccount());
+//        emailAddressTextView.setText(themeConfig.getAccount());
 
 
         String[] themeList = Arrays.stream(ThemeType.values()).map(Enum::toString).toArray(String[]::new);
@@ -140,8 +138,8 @@ public class ProfileFragment extends Fragment {
                 // for bug avoidance, still set ThemeConfig
                 MainActivity mainActivity = (MainActivity) getActivity();
                 assert mainActivity != null;
-                ThemeConfig themeConfig = mainActivity.getThemeConfig();
-                themeConfig.setTheme(colorValue);
+//                ThemeConfig themeConfig = mainActivity.getThemeConfig();
+//                themeConfig.setTheme(colorValue);
 //                mainActivity.updateTheme(colorValue);
 //                System.out.println("theme config in profile" + themeConfig.getTheme());
             }
@@ -188,8 +186,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
-        view.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
+//        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
+//        view.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
         UserManager.getInstance().addObserver(user -> {
             if (user.imageUrl != null) {
                 updateLocalImageView(Uri.parse(user.imageUrl));

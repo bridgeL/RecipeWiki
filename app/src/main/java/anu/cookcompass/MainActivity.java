@@ -14,7 +14,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
-import anu.cookcompass.theme.ThemeConfig;
 import anu.cookcompass.popmsg.NotificationFragment;
 import anu.cookcompass.search.SearchFragment;
 import anu.cookcompass.user.ProfileFragment;
@@ -28,7 +27,7 @@ import anu.cookcompass.user.ProfileFragment;
 public class MainActivity extends AppCompatActivity {//after login ,the application will turn to this page
     private BottomNavigationView bottomNavigationView;
     private Fragment searchFragment, profileFragment,notificationFragment;//three fragment to switch with
-    private ThemeConfig themeConfig;
+//    private ThemeConfig themeConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
                 .hide(notificationFragment)
                 .commit();
 
-        themeConfig=(ThemeConfig)getIntent().getSerializableExtra("themeConfig");
+//        themeConfig=(ThemeConfig)getIntent().getSerializableExtra("themeConfig");
         bottomNavigationView = findViewById(R.id.navigation_bar);//bind with view by id
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {//logic to switch between fragment
             if (menuItem.getItemId() == R.id.navigation_search) {
@@ -104,13 +103,13 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
     }
 
     public void updateTheme(String themeColor) {
-        themeConfig.setTheme(themeColor);
+//        themeConfig.setTheme(themeColor);
         searchFragment.requireView().setBackgroundColor(Color.parseColor(themeColor));
         profileFragment.requireView().setBackgroundColor(Color.parseColor(themeColor));
         notificationFragment.requireView().setBackgroundColor(Color.parseColor(themeColor));
     }
 
-    public ThemeConfig getThemeConfig() {
-        return themeConfig;
-    }
+//    public ThemeConfig getThemeConfig() {
+//        return themeConfig;
+//    }
 }
