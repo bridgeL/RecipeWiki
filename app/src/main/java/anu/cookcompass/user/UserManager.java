@@ -122,6 +122,11 @@ public class UserManager implements Subject<User> {
                 notifyAllObservers(user);
             });
         }
+        else{
+            cloudUser.stopListen();
+            cloudUser = null;
+            initCloudUser(uid);
+        }
     }
 
     /**

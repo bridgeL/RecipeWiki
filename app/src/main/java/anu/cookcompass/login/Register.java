@@ -51,7 +51,6 @@ public class Register {
         }
 
         //Return CompletableFuture<Response> based on the success or failure of the register attempt
-        CompletableFuture<Response> future = new CompletableFuture<>();
         FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(username, password1)
                 .addOnSuccessListener(data -> {

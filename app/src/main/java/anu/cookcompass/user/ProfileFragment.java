@@ -57,19 +57,30 @@ public class ProfileFragment extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // ==============================================
-        // create instance and bind callback / handler / listener
-        // ==============================================
+        // ======================================
+        // create view
+        // ======================================
 
         //root view
         rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         //Image view bind
         imageView = rootView.findViewById(R.id.profileImage);
-        imageView.setOnClickListener(v -> showImageOptions());
 
         //email bind text view
         TextView emailAddressTextView = rootView.findViewById(R.id.emailAddressTextView);
+
+        // initialize spinner
+        colorSelector = rootView.findViewById(R.id.colorSpinner);
+
+        // data stream button
+        Button button = rootView.findViewById(R.id.dataStreamButton);
+
+        // ======================================
+        // create instance
+        // ======================================
+
+        UserManager userManager = UserManager.getInstance();
 
         //initialize imagePickLauncher
         imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -80,42 +91,20 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        // initialize spinner
-        colorSelector = rootView.findViewById(R.id.colorSpinner);
+        String[] themeList = Arrays.stream(ThemeType.values()).map(Enum::toString).toArray(String[]::new);
+        ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(this.requireActivity(), android.R.layout.simple_list_item_1, themeList);
+
+        // ======================================
+        // bind view listener / callback / handler
+        // ======================================
+
+        imageView.setOnClickListener(v -> showImageOptions());
 
         // data stream start
-        Button button = rootView.findViewById(R.id.dataStreamButton);
         button.setOnClickListener(l -> {
             UserSimulator.start();
             Utils.showLongToast(getContext(), "data stream start!");
         });
-
-        // ==============================================
-        // initial module
-        // ==============================================
-
-
-        //on create change the color
-//        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
-//        rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
-
-        getLocationAndUpdateAddress();
-
-//        emailAddressTextView.setText(themeConfig.getAccount());
-
-
-        String[] themeList = Arrays.stream(ThemeType.values()).map(Enum::toString).toArray(String[]::new);
-        ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(this.requireActivity(), android.R.layout.simple_list_item_1, themeList);
-        colorSelector.setAdapter(themeAdapter);
-        // set spinner: set the selected element being the current theme
-        for (int i = 0; i < themeAdapter.getCount(); i++) {
-            if (Objects.equals(themeAdapter.getItem(i), ThemeColor.getThemeName().toString())) {
-                //
-                colorSelector.setSelection(i);
-                break;
-            }
-        }
-
 
         // listeners of spinner
         colorSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -137,10 +126,6 @@ public class ProfileFragment extends Fragment {
                 // for bug avoidance, still set ThemeConfig
                 MainActivity mainActivity = (MainActivity) getActivity();
                 assert mainActivity != null;
-//                ThemeConfig themeConfig = mainActivity.getThemeConfig();
-//                themeConfig.setTheme(colorValue);
-//                mainActivity.updateTheme(colorValue);
-//                System.out.println("theme config in profile" + themeConfig.getTheme());
             }
 
             @Override
@@ -149,15 +134,32 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        setImageView(Uri.parse(UserManager.getInstance().user.imageUrl));
-
-        UserManager.getInstance().addObserver(user -> {
+        userManager.addObserver(user -> {
             setImageView(Uri.parse(user.imageUrl));
+            emailAddressTextView.setText(userManager.user.username);
         });
+
+        // ======================================
+        // other initial code
+        // ======================================
+
+        getLocationAndUpdateAddress();
+        emailAddressTextView.setText(userManager.user.username);
+
+        // set spinner: set the selected element being the current theme
+        colorSelector.setAdapter(themeAdapter);
+        for (int i = 0; i < themeAdapter.getCount(); i++) {
+            if (Objects.equals(themeAdapter.getItem(i), ThemeColor.getThemeName().toString())) {
+                //
+                colorSelector.setSelection(i);
+                break;
+            }
+        }
+
+        setImageView(Uri.parse(UserManager.getInstance().user.imageUrl));
 
         // set initial theme
         rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
-
 
         return rootView;
     }
@@ -185,8 +187,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
-//        view.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
         UserManager.getInstance().addObserver(user -> {
             if (user.imageUrl != null) {
                 updateLocalImageView(Uri.parse(user.imageUrl));
