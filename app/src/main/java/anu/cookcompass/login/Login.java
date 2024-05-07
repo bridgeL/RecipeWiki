@@ -51,9 +51,6 @@ public class Login {
                     Log.d(TAG, "Login successful!");
                     observer.onDataChange(new Response(true, "Login successful!"));
 
-                    // start data stream
-                    UserSimulator.start();
-
                     // download user data from cloud
                     String uid = data.getUser().getUid();
                     UserManager.getInstance().initCloudUser(uid);

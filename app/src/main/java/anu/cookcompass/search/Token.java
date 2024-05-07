@@ -1,4 +1,4 @@
-package anu.cookcompass.TokenizerAndParser;
+package anu.cookcompass.search;
 
 import androidx.annotation.NonNull;
 

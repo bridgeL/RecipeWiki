@@ -1,4 +1,4 @@
-package anu.cookcompass.model;
+package anu.cookcompass.theme;
 
 import android.content.Context;
 
@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
-
-import anu.cookcompass.user.ProfileFragment;
 
 /**
  * A singleton class that stores the theme color of the application.
@@ -37,19 +35,19 @@ public class ThemeColor {
         return instance.themeColor;
     }
 
-    public static ProfileFragment.ThemeType getThemeName(){
+    public static ThemeType getThemeName(){
         switch(instance.themeColor){
             case "#FFB241" -> {
-                return ProfileFragment.ThemeType.Default;
+                return ThemeType.Default;
             }
             case "#FFFFFF" -> {
-                return ProfileFragment.ThemeType.White;
+                return ThemeType.White;
             }
             case "#FFD700" ->{
-                return ProfileFragment.ThemeType.Gold;
+                return ThemeType.Gold;
             }
             default -> {
-                return ProfileFragment.ThemeType.Default;
+                return ThemeType.Default;
             }
         }
     }

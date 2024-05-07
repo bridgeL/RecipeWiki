@@ -3,9 +3,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import anu.cookcompass.TokenizerAndParser.Parser;
-import anu.cookcompass.TokenizerAndParser.QueryObject;
-import anu.cookcompass.TokenizerAndParser.Tokenizer;
+import anu.cookcompass.search.Parser;
+import anu.cookcompass.search.QueryObject;
+import anu.cookcompass.search.Tokenizer;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

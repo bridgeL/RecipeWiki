@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,7 +32,6 @@ import com.bumptech.glide.Glide;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -39,12 +39,12 @@ import anu.cookcompass.MainActivity;
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
+import anu.cookcompass.datastream.UserSimulator;
 import anu.cookcompass.gps.UserLocationManager;
-import anu.cookcompass.model.ThemeColor;
-import anu.cookcompass.model.ThemeConfig;
-import anu.cookcompass.user.User;
+import anu.cookcompass.theme.ThemeColor;
+import anu.cookcompass.theme.ThemeConfig;
+import anu.cookcompass.theme.ThemeType;
 import anu.cookcompass.pattern.Observer;
-import anu.cookcompass.user.UserManager;
 
 public class ProfileFragment extends Fragment {
     private View rootView;
@@ -60,30 +60,53 @@ public class ProfileFragment extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // ==============================================
+        // create instance and bind callback / handler / listener
+        // ==============================================
+
+        //root view
         rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        //Image view bind
+        imageView = rootView.findViewById(R.id.profileImage);
+        imageView.setOnClickListener(v -> showImageOptions());
+
+        //email bind text view
+        TextView emailAddressTextView = rootView.findViewById(R.id.emailAddressTextView);
+
+        //initialize imagePickLauncher
+        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                Uri imageUri = result.getData().getData();
+                UserManager.getInstance().uploadProfileImage(imageUri);
+                setImageView(imageUri);
+            }
+        });
+
+        // initialize spinner
+        colorSelector = rootView.findViewById(R.id.colorSpinner);
+
+        // data stream start
+        Button button = rootView.findViewById(R.id.dataStreamButton);
+        button.setOnClickListener(l -> {
+            UserSimulator.start();
+            Utils.showLongToast(getContext(), "data stream start!");
+        });
+
+        // ==============================================
+        // initial module
+        // ==============================================
+
+
         //on create change the color
         ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
         rootView.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
 
         getLocationAndUpdateAddress();
-//Image view bind
-        imageView = rootView.findViewById(R.id.profileImage);
-        imageView.setOnClickListener(v -> showImageOptions());
-        //email bind text view
-        TextView emailAddressTextView = rootView.findViewById(R.id.emailAddressTextView);
+
         emailAddressTextView.setText(themeConfig.getAccount());
-        System.out.println(getActivity());
-//initialize imagePickLauncher
-        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Uri imageUri = result.getData().getData();
-                        UserManager.getInstance().uploadProfileImage(imageUri);
-                        setImageView(imageUri);
-                    }
-                });
-        // initialize spinner
-        colorSelector = rootView.findViewById(R.id.colorSpinner);
+
+
         String[] themeList = Arrays.stream(ThemeType.values()).map(Enum::toString).toArray(String[]::new);
         ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(this.requireActivity(), android.R.layout.simple_list_item_1, themeList);
         colorSelector.setAdapter(themeAdapter);
@@ -108,7 +131,7 @@ public class ProfileFragment extends Fragment {
                     case White -> colorValue = "#FFFFFF";
                     case Gold -> colorValue = "#FFD700";
                     default ->
-                            printMsg("Some problem may have occurred when selecting theme colour.");
+                            Log.e("ProfileFragment", "Some problem may have occurred when selecting theme colour.");
                 }
                 rootView.setBackgroundColor(Color.parseColor(colorValue));
                 EventBus.getDefault().post(new ThemeUpdateEvent(colorValue));
@@ -137,6 +160,8 @@ public class ProfileFragment extends Fragment {
 
         // set initial theme
         rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
+
+
         return rootView;
     }
 
@@ -165,15 +190,11 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ThemeConfig themeConfig = ((MainActivity) requireActivity()).getThemeConfig();
         view.setBackgroundColor(Color.parseColor(themeConfig.getTheme()));
-        UserManager.getInstance().addObserver(new Observer<>() {
-            @Override
-            public void onDataChange(User user) {
-                if (user.imageUrl != null) {
-                    updateLocalImageView(Uri.parse(user.imageUrl));
-                }
+        UserManager.getInstance().addObserver(user -> {
+            if (user.imageUrl != null) {
+                updateLocalImageView(Uri.parse(user.imageUrl));
             }
         });
-
     }
 
 
@@ -187,12 +208,6 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-
-    void printMsg(String msg) {
-        Utils.showLongToast(this.requireActivity(), msg);
-    }
-
-
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         imagePickerLauncher.launch(intent);
@@ -200,29 +215,5 @@ public class ProfileFragment extends Fragment {
 
     private void updateLocalImageView(Uri imageUri) {
         imageView.setImageURI(imageUri);
-    }
-
-    /**
-     * @param imageUri the image uri generated by image selection
-     * @return a file path
-     */
-    private String getFilePath(Uri imageUri) {
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getActivity().getContentResolver().query(imageUri, projection, null, null, null);
-        if (cursor != null) {
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            String filePath = cursor.getString(columnIndex);
-            cursor.close();
-            return filePath;
-        }
-        return null;
-    }
-
-
-    public enum ThemeType {
-        Default,
-        Gold,
-        White
     }
 }

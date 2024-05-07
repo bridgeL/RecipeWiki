@@ -10,7 +10,11 @@ import anu.cookcompass.popmsg.PopMsgType;
 import anu.cookcompass.popmsg.PopMsgManager;
 
 public class UserSimulator {
+    static boolean started = false;
+
     public static void start() {
+        if (started) return;
+        started = true;
         Timer t = new Timer();
         TimerTask tt = new TimerTask() {
             @Override
@@ -23,7 +27,7 @@ public class UserSimulator {
                 popMsg.title = String.valueOf(popMsg.rid);
                 popMsg.location = "ESCAPE ROOM";
 
-//                PopMsgManager.getInstance().pushPopMsg(popMsg);
+                PopMsgManager.getInstance().pushPopMsg(popMsg);
 //                popMsgManager.popMsgs.add(popMsg);
 //                popMsgManager.notifyAllObservers(popMsgManager.popMsgs);
             }

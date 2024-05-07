@@ -19,16 +19,12 @@ import java.util.stream.Collectors;
 
 import anu.cookcompass.MainActivity;
 import anu.cookcompass.R;
-import anu.cookcompass.TokenizerAndParser.Parser;
-import anu.cookcompass.TokenizerAndParser.QueryObject;
-import anu.cookcompass.TokenizerAndParser.Tokenizer;
 import anu.cookcompass.Utils;
-import anu.cookcompass.model.ThemeColor;
-import anu.cookcompass.model.ThemeConfig;
+import anu.cookcompass.theme.ThemeColor;
+import anu.cookcompass.theme.ThemeConfig;
 import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.recipe.RecipeActivity;
 import anu.cookcompass.recipe.RecipeManager;
-import anu.cookcompass.search.RecipeAdapter;
 
 public class SearchFragment extends Fragment {
 

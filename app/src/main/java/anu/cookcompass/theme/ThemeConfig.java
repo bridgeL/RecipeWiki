@@ -1,4 +1,4 @@
-package anu.cookcompass.model;
+package anu.cookcompass.theme;
 
 import java.io.Serializable;
 

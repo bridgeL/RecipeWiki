@@ -1,4 +1,4 @@
-package anu.cookcompass.TokenizerAndParser;
+package anu.cookcompass.search;
 
 /**
  * The object that stores a recipe query. This class is the output of the search parser, which

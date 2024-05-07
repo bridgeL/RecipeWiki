@@ -14,7 +14,7 @@ import org.greenrobot.eventbus.Subscribe;
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
-import anu.cookcompass.model.ThemeColor;
+import anu.cookcompass.theme.ThemeColor;
 import anu.cookcompass.user.UserManager;
 
 public class RecipeActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package anu.cookcompass.TokenizerAndParser;
+package anu.cookcompass.search;
 
 /**
  * The tokenizer for tokenize user search input. Similar to the tokenizer used in the lab.

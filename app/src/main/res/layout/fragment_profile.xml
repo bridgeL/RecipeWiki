@@ -10,15 +10,14 @@
         android:id="@+id/profileImage"
         android:layout_width="119dp"
         android:layout_height="132dp"
+        android:src="@drawable/account_icon"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.219"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.178"
-        android:src="@drawable/account_icon"
-    />
+        app:layout_constraintVertical_bias="0.178" />
 
     <TextView
         android:id="@+id/textView"
@@ -103,5 +102,15 @@
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.257" />
+
+    <Button
+        android:id="@+id/dataStreamButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="122dp"
+        android:text="Button"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

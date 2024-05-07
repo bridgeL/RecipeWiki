@@ -11,10 +11,8 @@ import androidx.fragment.app.Fragment;
 
 import anu.cookcompass.MainActivity;
 import anu.cookcompass.R;
-import anu.cookcompass.model.ThemeColor;
-import anu.cookcompass.model.ThemeConfig;
-import anu.cookcompass.popmsg.NotificationAdapter;
-import anu.cookcompass.popmsg.PopMsgManager;
+import anu.cookcompass.theme.ThemeColor;
+import anu.cookcompass.theme.ThemeConfig;
 
 public class NotificationFragment extends Fragment {
     private View rootView;

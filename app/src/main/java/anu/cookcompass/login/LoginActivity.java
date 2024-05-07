@@ -15,8 +15,8 @@ import anu.cookcompass.MainActivity;
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
-import anu.cookcompass.model.ThemeColor;
-import anu.cookcompass.model.ThemeConfig;
+import anu.cookcompass.theme.ThemeColor;
+import anu.cookcompass.theme.ThemeConfig;
 import anu.cookcompass.recipe.RecipeManager;
 
 public class LoginActivity extends AppCompatActivity {
