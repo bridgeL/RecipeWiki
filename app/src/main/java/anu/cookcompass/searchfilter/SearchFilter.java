@@ -69,7 +69,7 @@ public class SearchFilter { //Using heap sort
         //Actually build the max heap using the array
         //We only focus on the parent nodes to maintain the max heap property
         //Parent node index i iterates from the index of the last parent node (length / 2 - 1) to the root (top parent node)
-        for (int i = length - 1; i >= 0; i--) {
+        for (int i = length / 2 - 1; i >= 0; i--) {
             heapify(recipeArray, length, i, comparatorType);
         }
 
@@ -80,10 +80,11 @@ public class SearchFilter { //Using heap sort
             Recipe temp = recipeArray[0]; //Store element at the root
             recipeArray[0] = recipeArray[i]; //rA[0] now points to element at the last index
             recipeArray[i] = temp; //rA[i] now points to element previously at the root (AKA root element now at the last index)
-        }
 
-        //Rebuild max heap after extraction
-        heapify(recipeArray, length, 0, comparatorType);
+            //Rebuild max heap after extraction
+            //Length is i (the last index)
+            heapify(recipeArray, i, 0, comparatorType);
+        }
     }
 
     //Return top N recipes according to order defined by id/title/view/like comparator
