@@ -17,7 +17,7 @@ public class User {
     @NonNull
     @Override
     public String toString() {
-        return "[uid: " + uid + "] " + username + " likes:" + likes.toString();
+        return Utils.toJson(this);
     }
 
     @Override
@@ -29,9 +29,9 @@ public class User {
         User user = (User) o;  // Type casting
 
         // Compare all fields
-        if(!uid.equals(user.uid)) return false;
-        if(!username.equals(user.username)) return false;
-        if(!imageUrl.equals(user.imageUrl)) return false;
+        if (!uid.equals(user.uid)) return false;
+        if (!username.equals(user.username)) return false;
+        if (!imageUrl.equals(user.imageUrl)) return false;
         return Utils.ArraysEqual(likes, user.likes);
     }
 

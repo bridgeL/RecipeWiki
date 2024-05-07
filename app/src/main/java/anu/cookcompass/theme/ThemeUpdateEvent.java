@@ -1,4 +1,4 @@
-package anu.cookcompass.broadcast;
+package anu.cookcompass.theme;
 
 /**
  * An event used by EventBus to broadcast theme update. Activities will update its appearance

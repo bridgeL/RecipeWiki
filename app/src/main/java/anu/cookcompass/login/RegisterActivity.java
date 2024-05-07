@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
-import anu.cookcompass.broadcast.ThemeUpdateEvent;
+import anu.cookcompass.theme.ThemeUpdateEvent;
 import anu.cookcompass.theme.ThemeColor;
 
 public class RegisterActivity extends AppCompatActivity {

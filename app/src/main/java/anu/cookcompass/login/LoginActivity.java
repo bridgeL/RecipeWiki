@@ -1,22 +1,28 @@
 package anu.cookcompass.login;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.GenericTypeIndicator;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.HashMap;
 
 import anu.cookcompass.MainActivity;
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
-import anu.cookcompass.broadcast.ThemeUpdateEvent;
+import anu.cookcompass.firebase.CloudData;
+import anu.cookcompass.theme.ThemeUpdateEvent;
 import anu.cookcompass.theme.ThemeColor;
 import anu.cookcompass.recipe.RecipeManager;
+import anu.cookcompass.user.User;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText accountEditText;
@@ -31,9 +37,9 @@ public class LoginActivity extends AppCompatActivity {
         // create view
         // ======================================
 
-        Button loginButton = findViewById(R.id.loginButton);
         accountEditText = findViewById(R.id.account);
         passwordEditText = findViewById((R.id.password));
+        Button loginButton = findViewById(R.id.loginButton);
         Button registerButton = findViewById(R.id.registerButton);
         Button quickLoginButton = findViewById(R.id.quickLoginButton);
 
@@ -41,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
         // create instance
         // ======================================
 
-        RecipeManager recipeManager = RecipeManager.getInstance();
         Login login = Login.getInstance();
 
         // ======================================
@@ -52,59 +57,37 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> {
             String account = accountEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-
             login.login(account, password, res -> {
-                //if successful, show the search page (main page)
-                if (res.successful) {
-                    Utils.showShortToast(this, res.message);
-
-
-//                    ThemeConfig themeConfig = new ThemeConfig(account, "", "#FFB241");
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    intent.putExtra("themeConfig", themeConfig);
-                    startActivity(intent);
-
-                } else {// if not correct, depends on the message, show the error hint
-                    Utils.showLongToast(this, res.message);
-                }
+                Utils.showShortToast(this, res.message);
+                // if successful, show the search page (main page)
+                if (res.successful) Utils.switchPage(this, MainActivity.class);
             });
         });
-
-
-        // ======================================
-        // initial code
-        // ======================================
-
-        recipeManager.loadRecipes(this);
-
-
-
 
         //register click event
         registerButton.setOnClickListener(v -> {
             Utils.switchPage(this, RegisterActivity.class);
         });
 
-        quickLoginButton.setOnClickListener(v->{
-            String account = "comp6442@anu.edu.au";
-            String password = "comp6442";
-
-            Login.getInstance().login(account, password, res -> {
-                if (res.successful) {
-                    //if successful, show the search page (main page)
-//                    ThemeConfig themeConfig = new ThemeConfig(account, "", "#FFB241");
-                    Utils.showShortToast(this, res.message);
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    intent.putExtra("themeConfig", themeConfig);
-                    startActivity(intent);
-                } else {// if not correct, depends on the message, show the error hint
-                    Utils.showLongToast(this, res.message);
-                }
+        // quick login button click event
+        quickLoginButton.setOnClickListener(v -> {
+            login.login("comp6442@anu.edu.au", "comp6442", res -> {
+                Utils.showShortToast(this, res.message);
+                // if successful, show the search page (main page)
+                if (res.successful) Utils.switchPage(this, MainActivity.class);
             });
         });
 
+        // ======================================
+        // other initial code
+        // ======================================
+
+        // recipes load
+        RecipeManager.getInstance().loadRecipes(this);
+
         // register EventBus receiver
         EventBus.getDefault().register(this);
+
         // load theme from the file system
         ThemeColor.init(getApplicationContext());
         ThemeColor.loadTheme();

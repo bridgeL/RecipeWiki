@@ -13,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import anu.cookcompass.broadcast.ThemeUpdateEvent;
+import anu.cookcompass.theme.ThemeUpdateEvent;
 import anu.cookcompass.popmsg.NotificationFragment;
 import anu.cookcompass.search.SearchFragment;
 import anu.cookcompass.user.ProfileFragment;
