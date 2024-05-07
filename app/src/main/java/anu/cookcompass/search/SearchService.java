@@ -4,16 +4,27 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import anu.cookcompass.Utils;
+import anu.cookcompass.pattern.Observer;
+import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.recipe.RecipeManager;
 
-public class SearchService {
+public class SearchService implements Subject<List<Recipe>> {
     static SearchService instance = null;
     List<Recipe> lastRecipes = new ArrayList<>();
+    List<Observer<List<Recipe>>> observers = new ArrayList<>();
+    public String query = "";
+    public String sortType = "id";
+
+    @Override
+    public List<Observer<List<Recipe>>> getObservers() {
+        return observers;
+    }
 
     private SearchService() {
     }
@@ -29,9 +40,20 @@ public class SearchService {
         return parser.parseQuery();
     }
 
-    public List<Recipe> search(Context context, String query) {
-        lastRecipes = innerSearch(context, query);
-        return lastRecipes;
+    public void search(Context context) {
+        // search
+        List<Recipe> recipes = innerSearch(context, query);
+        if (recipes == null) {
+            notifyAllObservers(lastRecipes);
+            return;
+        }
+
+        // sort
+        Recipe[] recipes2 = recipes.toArray(new Recipe[0]);
+        SearchFilter.heapSortByName(recipes2, sortType);
+        recipes.clear();
+        recipes.addAll(Arrays.asList(recipes2));
+        notifyAllObservers(recipes);
     }
 
     public List<Recipe> innerSearch(Context context, String query) {
@@ -58,7 +80,7 @@ public class SearchService {
         if (queryObject.queryInvalid) {
             Utils.showShortToast(context, queryObject.errorMessage);
             Log.e("query", queryObject.errorMessage);
-            return lastRecipes;
+            return null;
         }
 
         // get search results
@@ -87,4 +109,6 @@ public class SearchService {
 
         return searchResults;
     }
+
+
 }

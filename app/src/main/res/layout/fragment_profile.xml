@@ -107,9 +107,9 @@
         android:id="@+id/dataStreamButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="122dp"
-        android:text="Button"
         android:layout_margin="20dp"
+        android:layout_marginBottom="122dp"
+        android:text="Start Data Stream"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

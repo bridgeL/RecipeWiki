@@ -17,7 +17,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -72,7 +71,6 @@ public class SearchFragment extends Fragment {
 
         listView.setAdapter(adapter);
 
-
         // set initial theme
         rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
 
@@ -92,12 +90,19 @@ public class SearchFragment extends Fragment {
         setHasOptionsMenu(true);
         drawerLayout = rootView.findViewById(R.id.drawer_layout);
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_menu, menu);
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) searchMenuItem.getActionView();
         setupSearchView();
+
+        SearchService.getInstance().addObserver(recipes -> {
+            adapter.clear();
+            adapter.addAll(recipes);
+            adapter.notifyDataSetChanged();
+        });
     }
 
     @Override
@@ -141,10 +146,8 @@ public class SearchFragment extends Fragment {
     }
 
     private void updateSearchResults(String query) {
-        List<Recipe> recipes = SearchService.getInstance().search(getContext(), query);
-        adapter.clear();
-        adapter.addAll(recipes);
-        adapter.notifyDataSetChanged();
+        SearchService.getInstance().query = query;
+        SearchService.getInstance().search(getContext());
     }
 
     @Override

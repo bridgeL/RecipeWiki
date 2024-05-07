@@ -1,14 +1,19 @@
-package anu.cookcompass.searchfilter;
+package anu.cookcompass.search;
+
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import anu.cookcompass.model.Recipe;
+import anu.cookcompass.recipe.Recipe;
 
 class RecipeIdComparator implements Comparator<Recipe> {
     @Override
     public int compare(Recipe recipe1, Recipe recipe2) {
-        return recipe1.id - recipe2.id; //Smaller id number appears first
+        return recipe1.rid - recipe2.rid; //Smaller id number appears first
     }
 }
 
@@ -61,6 +66,27 @@ public class SearchFilter { //Using heap sort
             heapify(recipeArray, length, largest, comparatorType);
         }
     }
+
+    public static void heapSortByName(Recipe[] recipeArray, String name) {
+        Comparator<Recipe> comparatorType = null;
+        if (name.equals("id")) comparatorType = new RecipeIdComparator();
+        if (name.equals("title")) comparatorType = new RecipeTitleComparator();
+        if (name.equals("view")) comparatorType = new RecipeViewComparator();
+        if (name.equals("like")) comparatorType = new RecipeLikeComparator();
+
+        assert comparatorType != null;
+
+//        List<Integer> test1 = new ArrayList<>();
+//        List<Integer> test2 = new ArrayList<>();
+//        for (Recipe recipe : recipeArray) test1.add(recipe.view);
+//        heapSort(recipeArray, comparatorType);
+        Arrays.stream(recipeArray).sorted(comparatorType).collect(Collectors.toList()).toArray(recipeArray);
+//        for (Recipe recipe : recipeArray) test2.add(recipe.view);
+//
+//        Log.e("DSF", test1.toString());
+//        Log.e("DSF", test2.toString());
+    }
+
 
     //Sort the recipes using heap sort
     public static void heapSort(Recipe[] recipeArray, Comparator<Recipe> comparatorType) {
@@ -125,7 +151,7 @@ public class SearchFilter { //Using heap sort
                         }
                     }
                 }
-            //Using view comparator
+                //Using view comparator
             } else if (comparatorType instanceof RecipeViewComparator) {
                 //Top N recipes with at least K views (listed from most viewed to least viewed)
                 while (count < topN) {
