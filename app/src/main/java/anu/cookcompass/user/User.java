@@ -1,4 +1,4 @@
-package anu.cookcompass.model;
+package anu.cookcompass.user;
 
 import androidx.annotation.NonNull;
 

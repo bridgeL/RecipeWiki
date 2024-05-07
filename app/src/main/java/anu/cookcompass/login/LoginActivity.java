@@ -1,4 +1,4 @@
-package anu.cookcompass;
+package anu.cookcompass.login;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import anu.cookcompass.MainActivity;
+import anu.cookcompass.R;
+import anu.cookcompass.Utils;
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
-import anu.cookcompass.login.Login;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
 import anu.cookcompass.recipe.RecipeManager;
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         accountEditText = findViewById(R.id.account);
         passwordEditText = findViewById((R.id.password));
         Button notRegisteredTextView = findViewById(R.id.registerButton);
+        Button quickLoginButton = findViewById(R.id.quickLoginButton);
 
         //login click event
         loginButton.setOnClickListener(v -> {
@@ -58,6 +61,24 @@ public class LoginActivity extends AppCompatActivity {
         //register click event
         notRegisteredTextView.setOnClickListener(v -> {
             Utils.switchPage(this, RegisterActivity.class);
+        });
+
+        quickLoginButton.setOnClickListener(v->{
+            String account = "comp6442@anu.edu.au";
+            String password = "comp6442";
+
+            Login.getInstance().login(account, password, res -> {
+                if (res.successful) {
+                    //if successful, show the search page (main page)
+                    ThemeConfig themeConfig = new ThemeConfig(account, "", "#FFB241");
+                    Utils.showShortToast(this, res.message);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("themeConfig", themeConfig);
+                    startActivity(intent);
+                } else {// if not correct, depends on the message, show the error hint
+                    Utils.showLongToast(this, res.message);
+                }
+            });
         });
 
         // register EventBus receiver

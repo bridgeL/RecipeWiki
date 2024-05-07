@@ -5,8 +5,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import anu.cookcompass.Utils;
-import anu.cookcompass.model.PopMsg;
-import anu.cookcompass.model.PopMsgType;
+import anu.cookcompass.popmsg.PopMsg;
+import anu.cookcompass.popmsg.PopMsgType;
 import anu.cookcompass.popmsg.PopMsgManager;
 
 public class UserSimulator {
@@ -23,7 +23,7 @@ public class UserSimulator {
                 popMsg.title = String.valueOf(popMsg.rid);
                 popMsg.location = "ESCAPE ROOM";
 
-                PopMsgManager.getInstance().pushPopMsg(popMsg);
+//                PopMsgManager.getInstance().pushPopMsg(popMsg);
 //                popMsgManager.popMsgs.add(popMsg);
 //                popMsgManager.notifyAllObservers(popMsgManager.popMsgs);
             }

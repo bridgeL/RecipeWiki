@@ -1,4 +1,4 @@
-package anu.cookcompass;
+package anu.cookcompass.search;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,12 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import anu.cookcompass.MainActivity;
+import anu.cookcompass.R;
 import anu.cookcompass.TokenizerAndParser.Parser;
 import anu.cookcompass.TokenizerAndParser.QueryObject;
 import anu.cookcompass.TokenizerAndParser.Tokenizer;
-import anu.cookcompass.model.Recipe;
+import anu.cookcompass.Utils;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
+import anu.cookcompass.recipe.Recipe;
+import anu.cookcompass.recipe.RecipeActivity;
 import anu.cookcompass.recipe.RecipeManager;
 import anu.cookcompass.search.RecipeAdapter;
 

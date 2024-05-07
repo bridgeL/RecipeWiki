@@ -1,4 +1,4 @@
-package anu.cookcompass.model;
+package anu.cookcompass.popmsg;
 
 public class PopMsg {
     public String uid = "uid";

@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import anu.cookcompass.R;
-import anu.cookcompass.model.Recipe;
+import anu.cookcompass.recipe.Recipe;
 
 public class RecipeAdapter extends ArrayAdapter<Recipe> {
     public RecipeAdapter(Context context, List<Recipe> recipes) {

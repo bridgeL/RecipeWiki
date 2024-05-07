@@ -6,7 +6,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class BottomBarActivity extends AppCompatActivity {
-    private TextView bottomNavTextView;
+//    private TextView bottomNavTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

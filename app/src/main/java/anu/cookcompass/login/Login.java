@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import anu.cookcompass.datastream.UserSimulator;
 import anu.cookcompass.pattern.Observer;
-import anu.cookcompass.model.Response;
 import anu.cookcompass.user.UserManager;
 
 

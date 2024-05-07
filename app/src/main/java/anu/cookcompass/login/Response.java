@@ -1,4 +1,4 @@
-package anu.cookcompass.model;
+package anu.cookcompass.login;
 
 public class Response {
     public boolean successful;

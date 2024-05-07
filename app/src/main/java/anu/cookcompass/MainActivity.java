@@ -15,6 +15,9 @@ import org.greenrobot.eventbus.Subscribe;
 
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.model.ThemeConfig;
+import anu.cookcompass.popmsg.NotificationFragment;
+import anu.cookcompass.search.SearchFragment;
+import anu.cookcompass.user.ProfileFragment;
 
 /**
  * This function is the main activity which aims to control the switch between pages

@@ -1,4 +1,4 @@
-package anu.cookcompass.model;
+package anu.cookcompass.recipe;
 
 import androidx.annotation.NonNull;
 

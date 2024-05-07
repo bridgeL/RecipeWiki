@@ -1,4 +1,4 @@
-package anu.cookcompass;
+package anu.cookcompass.popmsg;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
+import anu.cookcompass.MainActivity;
+import anu.cookcompass.R;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
 import anu.cookcompass.popmsg.NotificationAdapter;

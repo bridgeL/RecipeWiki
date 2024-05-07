@@ -1,4 +1,4 @@
-package anu.cookcompass;
+package anu.cookcompass.user;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,17 +27,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Objects;
 
+import anu.cookcompass.MainActivity;
+import anu.cookcompass.R;
+import anu.cookcompass.Utils;
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.gps.UserLocationManager;
 import anu.cookcompass.model.ThemeColor;
 import anu.cookcompass.model.ThemeConfig;
-import anu.cookcompass.model.User;
+import anu.cookcompass.user.User;
 import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.user.UserManager;
 
@@ -48,6 +53,12 @@ public class ProfileFragment extends Fragment {
     private ImageView imageView;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
+    void setImageView(Uri imageUri) {
+        Glide.with(this)
+                .load(imageUri)
+                .into(imageView);
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         //on create change the color
@@ -56,7 +67,7 @@ public class ProfileFragment extends Fragment {
 
         getLocationAndUpdateAddress();
 //Image view bind
-        imageView=rootView.findViewById(R.id.profileImage);
+        imageView = rootView.findViewById(R.id.profileImage);
         imageView.setOnClickListener(v -> showImageOptions());
         //email bind text view
         TextView emailAddressTextView = rootView.findViewById(R.id.emailAddressTextView);
@@ -67,15 +78,8 @@ public class ProfileFragment extends Fragment {
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Uri imageUri = result.getData().getData();
-                        String imagePath = getFilePath(imageUri);
-                        Log.i("image path", String.valueOf(imagePath));
-
-                        assert imagePath != null;
-                        File imageFile = new File(imagePath);
-                        imageView.setImageURI(imageUri);
-                        Log.i("image url", String.valueOf(imageUri));
-                        UserManager.getInstance().uploadProfileImage(imageFile);
-                        updateLocalImageView(imageUri);
+                        UserManager.getInstance().uploadProfileImage(imageUri);
+                        setImageView(imageUri);
                     }
                 });
         // initialize spinner
@@ -123,6 +127,12 @@ public class ProfileFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
                 // do nothing
             }
+        });
+
+        setImageView(Uri.parse(UserManager.getInstance().user.imageUrl));
+
+        UserManager.getInstance().addObserver(user -> {
+            setImageView(Uri.parse(user.imageUrl));
         });
 
         // set initial theme

@@ -16,7 +16,6 @@ import anu.cookcompass.firebase.CloudData;
 import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.model.BinarySearchTree;
-import anu.cookcompass.model.Recipe;
 
 
 public class RecipeManager implements Subject<List<Recipe>> {

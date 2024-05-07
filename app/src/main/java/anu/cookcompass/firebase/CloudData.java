@@ -10,10 +10,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import anu.cookcompass.Utils;
 import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.pattern.Subject;
 
@@ -33,12 +35,13 @@ public class CloudData<T> implements Subject<T> {
 
     /**
      * upload data to cloud
+     *
      * @param data new value
      */
-    public void setValue(T data){
+    public void setValue(T data) {
         ref.setValue(data).addOnSuccessListener(unused -> {
             Log.d(TAG, "upload data into \"" + path + "\" successfully!");
-        }).addOnFailureListener(e->Log.e(TAG, e.getMessage()));
+        }).addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
     }
 
     /**
@@ -101,9 +104,9 @@ public class CloudData<T> implements Subject<T> {
                 Log.d(TAG, "find a cloud data change at \"" + path + "\"");
 
                 // show new value
-                String dataString = data.toString();
-                dataString = dataString.length() > 100 ? dataString.substring(0, 100) : dataString;
-                Log.d(TAG, dataString);
+                Log.d(TAG, "value: " + Utils.cutString(Utils.toJson(data), 1000));
+
+                // notify all observers
                 notifyAllObservers(data);
             }
 
@@ -117,7 +120,8 @@ public class CloudData<T> implements Subject<T> {
 
     /**
      * create a cloud data reference to manage data synchronize
-     * @param cloudPath data path
+     *
+     * @param cloudPath     data path
      * @param cloudDataType data type
      */
     public CloudData(String cloudPath, GenericTypeIndicator<T> cloudDataType) {

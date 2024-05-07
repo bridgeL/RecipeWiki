@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 
-import anu.cookcompass.ProfileFragment;
+import anu.cookcompass.user.ProfileFragment;
 
 /**
  * A singleton class that stores the theme color of the application.

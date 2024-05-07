@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import anu.cookcompass.R;
-import anu.cookcompass.model.PopMsg;
 
 public class NotificationAdapter extends ArrayAdapter<PopMsg> {
     public List<PopMsg> dataSet;

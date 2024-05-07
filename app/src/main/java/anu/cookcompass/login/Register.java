@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 import anu.cookcompass.pattern.Observer;
-import anu.cookcompass.model.Response;
 import anu.cookcompass.user.UserManager;
 
 public class Register {

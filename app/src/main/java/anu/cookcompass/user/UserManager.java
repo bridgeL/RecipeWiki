@@ -14,12 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import anu.cookcompass.firebase.CloudData;
-import anu.cookcompass.model.PopMsg;
-import anu.cookcompass.model.PopMsgType;
-import anu.cookcompass.model.Recipe;
+import anu.cookcompass.popmsg.PopMsg;
+import anu.cookcompass.popmsg.PopMsgType;
+import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.pattern.Subject;
-import anu.cookcompass.model.User;
 import anu.cookcompass.popmsg.PopMsgManager;
 
 public class UserManager implements Subject<User> {
@@ -119,23 +118,24 @@ public class UserManager implements Subject<User> {
 
                 // synchronize data
                 user = data;
-                notifyAllObservers(user);
                 Log.d(TAG, "synchronize user data successfully!");
+                notifyAllObservers(user);
             });
         }
     }
 
     /**
-     * @param imageFile local image file
+     * @param file local image file uri
      * @return use thenAccept to get the download url of uploaded image
      */
-    public void uploadProfileImage(File imageFile) {
-        Uri file = Uri.fromFile(imageFile);
+    public void uploadProfileImage(Uri file) {
+        String fullPath = file.getLastPathSegment();
+        String fileName = fullPath.substring(fullPath.lastIndexOf('/') + 1);
 
         StorageReference imageRef = FirebaseStorage.getInstance().getReference()
                 .child("User Images")
                 .child(user.uid)
-                .child(file.getLastPathSegment());
+                .child(fileName);
 
         imageRef.putFile(file).addOnSuccessListener(unused -> {
             imageRef.getDownloadUrl().addOnSuccessListener(data -> {

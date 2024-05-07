@@ -17,13 +17,13 @@
         android:theme="@style/Theme.CookCompass"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".RecipeActivity"
+            android:name=".recipe.RecipeActivity"
             android:exported="false" />
         <activity
-            android:name=".NotificationFragment"
+            android:name=".popmsg.NotificationFragment"
             android:exported="false" />
         <activity
-            android:name=".ProfileFragment"
+            android:name=".user.ProfileFragment"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -32,13 +32,13 @@
             android:name=".BottomBarActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchFragment"
+            android:name=".search.SearchFragment"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".login.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

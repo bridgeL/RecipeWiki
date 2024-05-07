@@ -1,4 +1,4 @@
-package anu.cookcompass;
+package anu.cookcompass.recipe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,14 +11,10 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import anu.cookcompass.R;
+import anu.cookcompass.Utils;
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
-import anu.cookcompass.model.PopMsg;
-import anu.cookcompass.model.PopMsgType;
-import anu.cookcompass.model.Recipe;
 import anu.cookcompass.model.ThemeColor;
-import anu.cookcompass.model.User;
-import anu.cookcompass.popmsg.PopMsgManager;
-import anu.cookcompass.recipe.RecipeManager;
 import anu.cookcompass.user.UserManager;
 
 public class RecipeActivity extends AppCompatActivity {

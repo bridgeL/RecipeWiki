@@ -27,12 +27,18 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Utils {
 
     public static int randInt(int start, int end) {
         return (int) Math.floor(Math.random() * (end - start) + start);
+    }
+
+    public static String cutString(String str, int maxLength) {
+        str = str.length() > maxLength ? str.substring(0, maxLength) : str;
+        return str;
     }
 
     private static Toast mToast;
@@ -185,6 +191,11 @@ public class Utils {
             e.printStackTrace();
         }
         return data;
+    }
+
+    public static String toJson(Object data) {
+        Gson gson = new Gson();
+        return gson.toJson(data);
     }
 
     /**

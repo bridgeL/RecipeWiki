@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import anu.cookcompass.firebase.CloudData;
-import anu.cookcompass.model.PopMsg;
 import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.pattern.Subject;
 

@@ -1,4 +1,4 @@
-package anu.cookcompass;
+package anu.cookcompass.login;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import anu.cookcompass.R;
+import anu.cookcompass.Utils;
 import anu.cookcompass.broadcast.ThemeUpdateEvent;
 import anu.cookcompass.login.Register;
 import anu.cookcompass.model.ThemeColor;
