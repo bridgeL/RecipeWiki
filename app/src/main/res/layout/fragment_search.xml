@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".search.SearchFragment">
+
+
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:queryHint="@string/search_hint"
+        app:layout_constraintEnd_toStartOf="@+id/expand_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/expand_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/expand_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/search_view"
+        app:layout_constraintTop_toTopOf="@+id/search_view" />
+
+    <LinearLayout
+        android:id="@+id/expandable_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_view"
+        tools:visibility="visible">
+
+        <EditText
+            android:id="@+id/input_n"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/filter_n_hint" />
+
+        <EditText
+            android:id="@+id/input_k"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/filter_k_hint" />
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_confirm" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/results_listview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expandable_area"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/list_item" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>-->
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".search.SearchFragment">
+
+    <!-- Primary content area -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_scrollFlags="scroll|enterAlways"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ListView
+            android:id="@+id/results_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            tools:listitem="@layout/list_item" />
+    </LinearLayout>
+
+    <!-- Drawer that slides from the right -->
+    <FrameLayout
+        android:id="@+id/drawer_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/cardview_light_background">
+        <!-- Fragment will be inserted here -->
+    </FrameLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

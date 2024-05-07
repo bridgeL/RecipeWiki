@@ -4,9 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import java.util.Scanner;
-
-import anu.cookcompass.TokenizerAndParser.Tokenizer;
+import anu.cookcompass.search.Tokenizer;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

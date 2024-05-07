@@ -12,11 +12,10 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import anu.cookcompass.R;
-import anu.cookcompass.model.Recipe;
+import anu.cookcompass.recipe.Recipe;
 
 public class RecipeAdapter extends ArrayAdapter<Recipe> {
     public RecipeAdapter(Context context, List<Recipe> recipes) {
@@ -34,7 +33,7 @@ public class RecipeAdapter extends ArrayAdapter<Recipe> {
         ImageView listImage = convertView.findViewById(R.id.listImage);
 
         Recipe recipe = getItem(position);
-        listName.setText(recipe.title);
+        listName.setText(recipe.title + " (like: " + recipe.like + " view: " + recipe.view + ")");
 
         Bitmap bitmap = getImageFromAssetsFile("Food Images/" + recipe.imageName + ".jpg");
         if (bitmap != null) {
