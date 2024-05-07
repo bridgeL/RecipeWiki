@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sort Results By"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+
+    <GridLayout
+        android:id="@+id/grid_sort_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:useDefaultMargins="true"
+        android:alignmentMode="alignMargins"
+        android:padding="16dp">
+
+        <ToggleButton
+            android:id="@+id/toggle_sort_by_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:textOn="@string/sort_by_id"
+            android:textOff="@string/sort_by_id"
+            android:text="@string/sort_by_id" />
+
+        <ToggleButton
+            android:id="@+id/toggle_sort_by_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:textOn="@string/sort_by_title"
+            android:textOff="@string/sort_by_title"
+            android:text="@string/sort_by_title" />
+
+        <ToggleButton
+            android:id="@+id/toggle_sort_by_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:textOn="@string/sort_by_view"
+            android:textOff="@string/sort_by_view"
+            android:text="@string/sort_by_view" />
+
+        <ToggleButton
+            android:id="@+id/toggle_sort_by_like"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:textOn="@string/sort_by_like"
+            android:textOff="@string/sort_by_like"
+            android:text="@string/sort_by_like" />
+    </GridLayout>
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnSortById"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="ID Number"/>-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnSortByTitle"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Title"/>-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show me the top ... recipes"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <EditText
+        android:id="@+id/editTopN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Enter a number"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show me recipes with at least..."
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <EditText
+        android:id="@+id/editMinViews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Enter minimum views"/>
+
+    <EditText
+        android:id="@+id/editMinLikes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Enter minimum likes"/>
+
+    <Button
+        android:id="@+id/btnFilterResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Filter Search Results"/>
+
+</LinearLayout>

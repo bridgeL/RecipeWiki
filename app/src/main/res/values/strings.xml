@@ -8,6 +8,10 @@
     <string name="search_hint">Enter a recipe name…</string>
     <string name="search">Search</string>
     <string name="search_result">Roasted Chicken</string>
+    <string name="sort_by_id">ID</string>
+    <string name="sort_by_title">Title</string>
+    <string name="sort_by_view">VIEW</string>
+    <string name="sort_by_like">LIKE</string>
     <string name="title_Search">Search</string>
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
@@ -15,4 +19,5 @@
     <string name="format_country_admin_area">%1$s, %2$s</string>
     <string name="notification">Notification</string>
     <string name="theme">Theme</string>
+    <string name="search_sort">Sort</string>
 </resources>
