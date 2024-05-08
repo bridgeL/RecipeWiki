@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import anu.cookcompass.Utils;
 import anu.cookcompass.firebase.CloudData;
 import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.popmsg.PopMsg;
@@ -54,6 +55,7 @@ public class UserManager implements Subject<User> {
         popMsg.rid = recipe.rid;
         popMsg.title = recipe.title;
         popMsg.location = location;
+        popMsg.timestamp = Utils.getTimestamp();
 
         Integer rid = (Integer) recipe.rid;
         boolean like;

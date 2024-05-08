@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import anu.cookcompass.R;
+import anu.cookcompass.Utils;
 
 public class NotificationAdapter extends ArrayAdapter<PopMsg> {
     public List<PopMsg> dataSet;
@@ -39,7 +40,13 @@ public class NotificationAdapter extends ArrayAdapter<PopMsg> {
         PopMsg popMsg = getItem(position);
         TextView notificationText = convertView.findViewById(R.id.notification_text);
 
-        String message = String.format("%s (location: %s) just %s the recipe %s.", popMsg.username, popMsg.location, popMsg.type.value, popMsg.title);
+        String message = String.format("[%s] %s (location: %s) %s the recipe %s.",
+                Utils.timestamp2string(popMsg.timestamp),
+                popMsg.username,
+                popMsg.location,
+                popMsg.type.value,
+                popMsg.title
+        );
         notificationText.setText(message);
 
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) notificationText.getLayoutParams();

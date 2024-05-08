@@ -31,6 +31,7 @@ public class UserSimulator {
                 popMsg.type = PopMsgType.LIKE;
                 popMsg.title = String.valueOf(popMsg.rid);
                 popMsg.location = "comp6442";
+                popMsg.timestamp = Utils.getTimestamp();
 
                 PopMsgManager.getInstance().pushPopMsg(popMsg);
             }

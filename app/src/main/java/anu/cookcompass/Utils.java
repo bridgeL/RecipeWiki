@@ -24,6 +24,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Type;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -70,23 +74,21 @@ public class Utils {
         return set1.containsAll(set2) && set2.containsAll(set1);
     }
 
-    public static Bitmap byteToBitmap(byte[] bytes) {
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    }
 
     public static void switchPage(Activity first, Class<? extends Activity> secondClass) {
         Intent intent = new Intent(first, secondClass);
         first.startActivity(intent);
     }
 
-    public static byte[] getImageBytesFromImageView(ImageView imageView) {
-        // Get the data from an ImageView as bytes
-        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        return stream.toByteArray();
+    public static String timestamp2string(int timestamp) {
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return dateTime.format(formatter);
     }
 
+    public static int getTimestamp() {
+        return (int) (System.currentTimeMillis() / 1000);
+    }
 
     /**
      * @param fileName filepath
@@ -150,25 +152,6 @@ public class Utils {
             br.close();
             fileReader.close();
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
-
-    /**
-     * @param file   json file
-     * @param tClass type of object
-     * @param <T>    type of object
-     * @return data
-     * Read Json file and convert it to relative object
-     */
-    public static <T> T readJson(File file, Class<T> tClass) {
-        T data = null;
-        try (FileReader fileReader = new FileReader(file)) {
-            Gson gson = new Gson();
-            Type type = TypeToken.getParameterized(tClass).getType();
-            data = gson.fromJson(fileReader, type);
-        } catch (IOException e) {
             e.printStackTrace();
         }
         return data;

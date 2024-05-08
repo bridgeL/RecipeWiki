@@ -14,13 +14,13 @@ import java.util.List;
 import anu.cookcompass.Utils;
 import anu.cookcompass.firebase.CloudData;
 import anu.cookcompass.pattern.Observer;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.model.BinarySearchTree;
 
 
 public class RecipeManager implements Subject<List<Recipe>> {
     String TAG = getClass().getSimpleName();
-    static RecipeManager instance = null;
     CloudData<List<Recipe>> cloudRecipesRef;
     BinarySearchTree<Recipe> recipeBST = new BinarySearchTree<>();
     List<Observer<List<Recipe>>> observers = new ArrayList<>();
@@ -47,8 +47,7 @@ public class RecipeManager implements Subject<List<Recipe>> {
     }
 
     public static RecipeManager getInstance() {
-        if (instance == null) instance = new RecipeManager();
-        return instance;
+        return SingletonFactory.getInstance(RecipeManager.class);
     }
 
     /**
@@ -72,12 +71,14 @@ public class RecipeManager implements Subject<List<Recipe>> {
     }
 
     public void loadRecipes(Context context) {
-        File file = new File(context.getFilesDir(), "recipe.json");
+        File file = new File(context.getFilesDir(), "recipe/recipe.json");
 
         // if there is not a local file
         if (!file.exists()) {
-            // make sure dirs exist
-            file.mkdirs();
+
+            // make sure parent dir exists
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists()) parentDir.mkdirs();
 
             // download recipes from cloud
             downloadRecipes(file);
@@ -87,15 +88,12 @@ public class RecipeManager implements Subject<List<Recipe>> {
         // load it from local file
         List<Recipe> recipes = Utils.readJson(file, new TypeToken<List<Recipe>>() {
         });
-        if (recipes!=null){
+        if (recipes != null) {
             recipeBST.insertAll(recipes);
             Log.d(TAG, "load recipes from local file successfully!");
+        } else {
+            Log.d(TAG, "NO results for recipes");
         }
-        else{
-            Log.d(TAG,"NO results for recipes");
-        }
-
-
     }
 
     public List<Recipe> getRecipes() {
