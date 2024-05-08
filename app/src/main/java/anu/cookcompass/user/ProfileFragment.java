@@ -3,14 +3,12 @@ package anu.cookcompass.user;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,18 +29,15 @@ import com.bumptech.glide.Glide;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import anu.cookcompass.MainActivity;
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
-import anu.cookcompass.pattern.SingletonFactory;
-import anu.cookcompass.theme.ThemeUpdateEvent;
 import anu.cookcompass.datastream.UserSimulator;
 import anu.cookcompass.gps.UserLocationManager;
 import anu.cookcompass.theme.ThemeColor;
-import anu.cookcompass.theme.ThemeType;
+import anu.cookcompass.theme.ThemeUpdateEvent;
 
 public class ProfileFragment extends Fragment {
     private View rootView;
@@ -165,20 +160,20 @@ public class ProfileFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * This function will show a new window with two options, one to upload image, another to close the window
+     */
     private void showImageOptions() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Choose");
-        builder.setItems(new String[]{"upload image", "close"}, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        openImagePicker();
-                        break;
-                    case 1:
-                        dialog.dismiss();
-                        break;
-                }
+        builder.setItems(new String[]{"upload image", "close"}, (dialog, which) -> {
+            switch (which) {
+                case 0:
+                    openImagePicker();
+                    break;
+                case 1:
+                    dialog.dismiss();
+                    break;
             }
         });
         builder.show();
@@ -207,6 +202,9 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    /**
+     * open image picker of local resource manager
+     */
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         imagePickerLauncher.launch(intent);

@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
     private Fragment searchFragment, profileFragment,notificationFragment;//three fragment to switch with
 //    private ThemeConfig themeConfig;
 
+    /**
+     * when create the main activity, start three initial fragment,and switch the fragment depends on the item
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +90,10 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
         updateTheme(color);
     }
 
+    /**
+     * @param fragment the fragment will switch
+     *                 this function will switch fragment when click
+     */
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
