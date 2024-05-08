@@ -103,7 +103,14 @@ public class SearchService implements Subject<List<Recipe>> {
             int b = queryObject.like_range[1];
             if (a < 0) a = 0;
             if (b < 0) b = Integer.MAX_VALUE;
-            return r.like > a && r.like < b;
+            if (r.like <= a || r.like >= b) return false;
+
+            // view range limit
+            a = queryObject.view_range[0];
+            b = queryObject.view_range[1];
+            if (a < 0) a = 0;
+            if (b < 0) b = Integer.MAX_VALUE;
+            return r.view > a && r.view < b;
         }).collect(Collectors.toList());
 
         // show number of results

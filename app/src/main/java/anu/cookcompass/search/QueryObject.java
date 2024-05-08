@@ -8,7 +8,7 @@ public class QueryObject {
     public String[] title_keywords;
     public String[] ingredient_keywords;
     public int[] like_range;
-    public int[] collect_range;
+    public int[] view_range;
     public boolean queryInvalid;
     public String errorMessage;
 
@@ -36,7 +36,7 @@ public class QueryObject {
         title_keywords = new String[]{};
         ingredient_keywords = new String[]{};
         like_range = new int[]{-1, -1};
-        collect_range = new int[]{-1, -1};
+        view_range = new int[]{-1, -1};
     }
 
     /**
@@ -49,6 +49,6 @@ public class QueryObject {
         title_keywords = new String[]{};
         ingredient_keywords = new String[]{};
         like_range = new int[]{-1, -1};
-        collect_range = new int[]{-1, -1};
+        view_range = new int[]{-1, -1};
     }
 }

@@ -11,7 +11,7 @@ import java.util.Objects;
  * INGREDIENTS: ingredients
  * TITLE: title
  * LIKE: like
- * COLLECT: collect
+ * VIEW: view
  * BOOL_GT: >
  * BOOL_EQ: =
  * BOOL_LT: =
@@ -21,7 +21,7 @@ import java.util.Objects;
  * INT: integer
  */
 public class Token {
-    public enum Type{INGREDIENTS, TITLE, LIKE, COLLECT, BOOL_GT, BOOL_EQ, BOOL_LT, COMMA, SEMI, STRING, INT}
+    public enum Type{INGREDIENTS, TITLE, LIKE, VIEW, BOOL_GT, BOOL_EQ, BOOL_LT, COMMA, SEMI, STRING, INT}
 
     /**
      * If a tokenizer attempts to tokenize something that is not of one of the types of tokens,
