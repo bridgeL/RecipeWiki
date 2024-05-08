@@ -1,12 +1,10 @@
 package anu.cookcompass.popmsg;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,8 +15,11 @@ import java.util.List;
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
 
+/**
+ * self defined array adapter to show Pop message instance
+ */
 public class NotificationAdapter extends ArrayAdapter<PopMsg> {
-    public List<PopMsg> dataSet;
+    public List<PopMsg> dataSet;//store pop message instance
 
     public NotificationAdapter(Context context, List<PopMsg> dataSet) {
         super(context, R.layout.notification_item, dataSet);
@@ -49,13 +50,13 @@ public class NotificationAdapter extends ArrayAdapter<PopMsg> {
         );
         notificationText.setText(message);
 
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) notificationText.getLayoutParams();
-        if (position % 2 == 0) {
-            params.gravity = Gravity.START;
-        } else {
-            params.gravity = Gravity.END;
-        }
-        notificationText.setLayoutParams(params);
+//        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) notificationText.getLayoutParams();
+////        if (position % 2 == 0) {
+////            params.gravity = Gravity.START;
+////        } else {
+////            params.gravity = Gravity.END;
+////        }
+//        notificationText.setLayoutParams(params);
 
         convertView.setOnClickListener(v -> {
             // Handle item click and dismissal
