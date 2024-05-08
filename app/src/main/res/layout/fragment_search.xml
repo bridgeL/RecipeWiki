@@ -115,7 +115,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="@color/cardview_light_background">
+        android:background="@color/cardview_light_background"
+        android:clickable="true"
+        android:focusable="true">
         <!-- Fragment will be inserted here -->
     </FrameLayout>
 
