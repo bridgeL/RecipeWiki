@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 
 import anu.cookcompass.Utils;
 import anu.cookcompass.pattern.Observer;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.recipe.RecipeManager;
 
 public class SearchService implements Subject<List<Recipe>> {
-    static SearchService instance = null;
     List<Recipe> lastRecipes = new ArrayList<>();
     List<Observer<List<Recipe>>> observers = new ArrayList<>();
     public String query = "";
@@ -30,8 +30,7 @@ public class SearchService implements Subject<List<Recipe>> {
     }
 
     public static SearchService getInstance() {
-        if (instance == null) instance = new SearchService();
-        return instance;
+        return SingletonFactory.getInstance(SearchService.class);
     }
 
     static QueryObject parseQuery(String query) {

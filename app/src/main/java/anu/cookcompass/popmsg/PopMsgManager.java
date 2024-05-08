@@ -9,12 +9,11 @@ import java.util.List;
 
 import anu.cookcompass.firebase.CloudData;
 import anu.cookcompass.pattern.Observer;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.pattern.Subject;
 
 public class PopMsgManager implements Subject<List<PopMsg>> {
     String TAG = "PopMsgManager";
-    static PopMsgManager instance = null;
-
     public List<PopMsg> popMsgs = new ArrayList<>();
     CloudData<List<PopMsg>> cloudPopmsgsRef;
     List<Observer<List<PopMsg>>> observers = new ArrayList<>();
@@ -31,7 +30,7 @@ public class PopMsgManager implements Subject<List<PopMsg>> {
                 }
         );
 
-        cloudPopmsgsRef.addObserver(cloudPopmsgs->{
+        cloudPopmsgsRef.addObserver(cloudPopmsgs -> {
             Log.d(TAG, "synchronize popmsgs successfully!");
             popMsgs = cloudPopmsgs;
             notifyAllObservers(popMsgs);
@@ -39,15 +38,15 @@ public class PopMsgManager implements Subject<List<PopMsg>> {
     }
 
     public static PopMsgManager getInstance() {
-        if (instance == null) instance = new PopMsgManager();
-        return instance;
+        return SingletonFactory.getInstance(PopMsgManager.class);
     }
 
     /**
      * add a pop message and upload it to cloud
+     *
      * @param popMsg pop message
      */
-    public void pushPopMsg(PopMsg popMsg){
+    public void pushPopMsg(PopMsg popMsg) {
         popMsgs.add(0, popMsg);
         cloudPopmsgsRef.setValue(popMsgs);
     }

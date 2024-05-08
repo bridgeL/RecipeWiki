@@ -103,7 +103,7 @@ public class ProfileFragment extends Fragment {
 
         // data stream start
         button.setOnClickListener(l -> {
-            UserSimulator userSimulator = SingletonFactory.getInstance(UserSimulator.class);
+            UserSimulator userSimulator = UserSimulator.getInstance();
             userSimulator.toggleStart();
             if (userSimulator.started) {
                 button.setText("Stop Data Stream");

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import anu.cookcompass.firebase.CloudData;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.popmsg.PopMsg;
 import anu.cookcompass.popmsg.PopMsgType;
 import anu.cookcompass.recipe.Recipe;
@@ -23,7 +24,6 @@ import anu.cookcompass.popmsg.PopMsgManager;
 
 public class UserManager implements Subject<User> {
     String TAG = "UserManager";
-    static UserManager instance = null;
     public User user = new User();
     public CloudData<User> cloudUser;
     List<Observer<User>> observers = new ArrayList<>();
@@ -37,8 +37,7 @@ public class UserManager implements Subject<User> {
     }
 
     public static UserManager getInstance() {
-        if (instance == null) instance = new UserManager();
-        return instance;
+        return SingletonFactory.getInstance(UserManager.class);
     }
 
     /**

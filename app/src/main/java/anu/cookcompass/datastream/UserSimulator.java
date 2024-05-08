@@ -5,11 +5,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import anu.cookcompass.Utils;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.popmsg.PopMsg;
 import anu.cookcompass.popmsg.PopMsgType;
 import anu.cookcompass.popmsg.PopMsgManager;
 
 public class UserSimulator {
+    public static UserSimulator getInstance() {
+        return SingletonFactory.getInstance(UserSimulator.class);
+    }
+
     public boolean started = false;
 
     private UserSimulator() {

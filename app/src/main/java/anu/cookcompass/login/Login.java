@@ -8,19 +8,18 @@ import java.util.Objects;
 
 import anu.cookcompass.datastream.UserSimulator;
 import anu.cookcompass.pattern.Observer;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.user.UserManager;
 
 
 public class Login {
     String TAG = getClass().getSimpleName();
-    private static Login instance;
 
     private Login() {
     }
 
     public static Login getInstance() {
-        if (instance == null) instance = new Login();
-        return instance;
+        return SingletonFactory.getInstance(Login.class);
     }
 
     public void login(String username, String password, Observer<Response> observer) {

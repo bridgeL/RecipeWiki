@@ -9,17 +9,15 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 import anu.cookcompass.pattern.Observer;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.user.UserManager;
 
 public class Register {
     String TAG = getClass().getSimpleName();
-    private static Register instance;
-
     private Register() {}
 
     public static Register getInstance() {
-        if (instance == null) instance = new Register();
-        return instance;
+        return SingletonFactory.getInstance(Register.class);
     }
 
     public void register(String username, String password1, String password2, Observer<Response> observer) {

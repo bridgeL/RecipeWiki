@@ -20,15 +20,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import anu.cookcompass.login.Login;
+import anu.cookcompass.pattern.SingletonFactory;
+
 public class UserLocationManager implements LocationService {
-    private static UserLocationManager instance = null;
     LocationManager locationManager;
     LocationListener locationListener;
     public String location = "unknown";
 
     public static UserLocationManager getInstance() {
-        if (instance == null) instance = new UserLocationManager();
-        return instance;
+        return SingletonFactory.getInstance(UserLocationManager.class);
     }
 
     public void init(LocationManager locationManager) {
