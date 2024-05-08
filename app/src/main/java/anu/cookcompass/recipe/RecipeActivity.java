@@ -54,14 +54,12 @@ public class RecipeActivity extends AppCompatActivity {
 
         // set button callbacks
         likeButton.setOnClickListener(l -> {
-            // TODO: add a location
-            // ...
             String location = UserLocationManager.getInstance().location;
             boolean like = UserManager.getInstance().toggleLike(RecipeManager.getInstance().currentRecipe, location);
             if (like) {
-                Utils.showLongToast(this, "you like it successfully!");
+                Utils.showShortToast(this, "you like it successfully!");
             } else {
-                Utils.showLongToast(this, "you cancel like successfully!");
+                Utils.showShortToast(this, "you cancel like successfully!");
             }
         });
 

@@ -37,6 +37,7 @@ import java.util.Objects;
 import anu.cookcompass.MainActivity;
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.theme.ThemeUpdateEvent;
 import anu.cookcompass.datastream.UserSimulator;
 import anu.cookcompass.gps.UserLocationManager;
@@ -102,8 +103,15 @@ public class ProfileFragment extends Fragment {
 
         // data stream start
         button.setOnClickListener(l -> {
-            UserSimulator.start();
-            Utils.showLongToast(getContext(), "data stream start!");
+            UserSimulator userSimulator = SingletonFactory.getInstance(UserSimulator.class);
+            userSimulator.toggleStart();
+            if (userSimulator.started) {
+                button.setText("Stop Data Stream");
+                Utils.showShortToast(getContext(), "data stream start!");
+            } else {
+                button.setText("Start Data Stream");
+                Utils.showShortToast(getContext(), "data stream stop!");
+            }
         });
 
         // listeners of spinner
