@@ -30,7 +30,7 @@ import anu.cookcompass.user.UserManager;
 public class RecipeActivity extends AppCompatActivity {
     Button likeButton;
     ImageView imageView;
-    TextView recipeTitle, recipeText, likeText, viewText;
+    TextView recipeTitle, recipeText1,recipeText2,recipeText3,recipeText4 , likeText, viewText;
     Recipe currentRecipe;
 
     private Bitmap getImageFromAssetsFile(String filePath) {
@@ -51,7 +51,10 @@ public class RecipeActivity extends AppCompatActivity {
         likeButton = findViewById(R.id.LikeButton);
         imageView = findViewById(R.id.RecipePicture);
         recipeTitle = findViewById(R.id.RecipeTitle);
-        recipeText = findViewById(R.id.RecipeText);
+        recipeText1 = findViewById(R.id.SubTitle1);
+        recipeText2 = findViewById(R.id.Content1);
+        recipeText3 = findViewById(R.id.SubTitle2);
+        recipeText4 = findViewById(R.id.Content2);
         likeText = findViewById(R.id.likeText);
         viewText = findViewById(R.id.viewText);
 
@@ -60,16 +63,10 @@ public class RecipeActivity extends AppCompatActivity {
         // set displays
         recipeTitle.setText(currentRecipe.title);
         // setup text to be displayed
-        StringBuilder sb = new StringBuilder();
-        sb.append("Ingredients: \n");
-        for (String s : currentRecipe.ingredients) {
-            sb.append(s).append("; ");
-        }
-        sb.append("\n\nInstructions: \n");
-        for (String s : currentRecipe.instructions) {
-            sb.append(s).append("\n");
-        }
-        recipeText.setText(sb.toString());
+        recipeText1.setText("Ingredients");
+        recipeText2.setText(String.join("\n", currentRecipe.ingredients));
+        recipeText3.setText("Instructions");
+        recipeText4.setText("✨ " + String.join("\n\n✨ ", currentRecipe.instructions));
 
         Bitmap bitmap = getImageFromAssetsFile("Food Images/" + currentRecipe.imageName + ".jpg");
         if (bitmap != null) {
