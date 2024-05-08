@@ -13,6 +13,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
+import anu.cookcompass.gps.UserLocationManager;
 import anu.cookcompass.theme.ThemeUpdateEvent;
 import anu.cookcompass.theme.ThemeColor;
 import anu.cookcompass.user.UserManager;
@@ -55,7 +56,8 @@ public class RecipeActivity extends AppCompatActivity {
         likeButton.setOnClickListener(l -> {
             // TODO: add a location
             // ...
-            boolean like = UserManager.getInstance().toggleLike(RecipeManager.getInstance().currentRecipe, "unknown");
+            String location = UserLocationManager.getInstance().location;
+            boolean like = UserManager.getInstance().toggleLike(RecipeManager.getInstance().currentRecipe, location);
             if (like) {
                 Utils.showLongToast(this, "you like it successfully!");
             } else {

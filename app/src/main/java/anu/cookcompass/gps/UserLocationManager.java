@@ -24,10 +24,19 @@ public class UserLocationManager implements LocationService {
     private static UserLocationManager instance = null;
     LocationManager locationManager;
     LocationListener locationListener;
+    public String location = "unknown";
+
+    public static UserLocationManager getInstance() {
+        if (instance == null) instance = new UserLocationManager();
+        return instance;
+    }
+
+    public void init(LocationManager locationManager) {
+        this.locationManager = locationManager;
+    }
 
     //LocationManagerClass constructor taking in a LocationManager instance as a parameter
-    public UserLocationManager(LocationManager locationManager) {
-        this.locationManager = locationManager;
+    private UserLocationManager() {
     }
 
     /*
@@ -42,11 +51,12 @@ public class UserLocationManager implements LocationService {
 
         locationListener = new LocationListener() {
             @Override
-            public void onLocationChanged(@NonNull Location location) {
+            public void onLocationChanged(@NonNull Location location1) {
                 //Passes a Location object to the locationRetrieved method and lets the caller receive and handle the updated location
-                callback.locationRetrieved(location);
+                callback.locationRetrieved(location1);
                 //Stop updates after the initial location is retrieved
                 locationManager.removeUpdates(locationListener);
+                location = decodeLocation(context, location1);
             }
 
             //If location services are disabled, launch the location settings so the user can enable them

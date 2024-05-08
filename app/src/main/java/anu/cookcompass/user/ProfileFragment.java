@@ -197,7 +197,8 @@ public class ProfileFragment extends Fragment {
 
     //get location
     private void getLocationAndUpdateAddress() {
-        UserLocationManager locationManager = new UserLocationManager((LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE));
+        UserLocationManager locationManager = UserLocationManager.getInstance();
+        locationManager.init((LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE));
         locationManager.getLocation(getActivity(), location -> {
             String locationString = locationManager.decodeLocation(getActivity(), location);
             TextView countryAddressTextView = rootView.findViewById(R.id.countryAddressTextView);
