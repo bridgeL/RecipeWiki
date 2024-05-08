@@ -1,42 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="10dp"
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
-    android:layout_marginVertical="10dp"
-    android:layout_marginHorizontal="10dp"
     app:cardCornerRadius="20dp"
-    app:cardElevation="8dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <RelativeLayout
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/listImage"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/listImage"
-            android:src="@mipmap/ic_launcher"
-            android:scaleType="centerCrop"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
         <TextView
             android:id="@+id/listName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/listImage"
-            android:layout_alignBottom="@id/listImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toEndOf="@id/listImage"
+            android:layout_marginEnd="8dp"
             android:text="@string/search_result"
             android:textColor="@color/lavender"
             android:textSize="16sp"
-            android:gravity="center_vertical"/>
+            app:layout_constraintBottom_toBottomOf="@id/listImage"
+            app:layout_constraintEnd_toStartOf="@id/likeIcon"
+            app:layout_constraintStart_toEndOf="@id/listImage"
+            app:layout_constraintTop_toTopOf="@id/listImage" />
 
-    </RelativeLayout>
-</androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/likeIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_thumb_up_24"
+            app:layout_constraintBottom_toBottomOf="@+id/likeCount"
+            app:layout_constraintStart_toStartOf="@+id/viewIcon"
+            app:layout_constraintTop_toTopOf="@+id/listName" />
+
+        <TextView
+            android:id="@+id/likeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/like_count"
+            android:text="@string/placeholder_like"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/likeIcon"
+            app:layout_constraintBottom_toBottomOf="@id/likeIcon"/>
+
+        <ImageView
+            android:id="@+id/viewIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/baseline_article_24"
+            app:layout_constraintEnd_toStartOf="@+id/viewCount"
+            app:layout_constraintTop_toBottomOf="@+id/likeIcon" />
+
+        <TextView
+            android:id="@+id/viewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/view_count"
+            android:text="@string/placeholder_view"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/viewIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/viewIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
