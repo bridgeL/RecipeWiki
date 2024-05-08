@@ -87,13 +87,13 @@ public class SearchService implements Subject<List<Recipe>> {
         List<Recipe> searchResults = recipes.stream().filter(r -> {
             // search title
             for (String keyword : queryObject.title_keywords) {
-                if (!r.title.contains(keyword)) return false;
+                if (!r.title.toLowerCase().contains(keyword.toLowerCase())) return false;
             }
 
             // search ingredients
-            String ingredientsString = String.join(" ", r.ingredients);
+            String ingredientsString = String.join(" ", r.ingredients).toLowerCase();
             for (String keyword : queryObject.ingredient_keywords) {
-                if (!ingredientsString.contains(keyword)) return false;
+                if (!ingredientsString.contains(keyword.toLowerCase())) return false;
             }
 
             // like range limit
