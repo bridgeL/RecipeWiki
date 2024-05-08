@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        String[] themeList = Arrays.stream(ThemeType.values()).map(Enum::toString).toArray(String[]::new);
+        String[] themeList = ThemeColor.getThemeList();
         ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(this.requireActivity(), android.R.layout.simple_list_item_1, themeList);
 
         // ======================================
@@ -119,19 +119,12 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // change theme color
-                String colorValue = null;
-                switch (ThemeType.values()[position]) {
-                    case Default -> colorValue = "#FFB241";
-                    case White -> colorValue = "#FFFFFF";
-                    case Gold -> colorValue = "#FFD700";
-                    default ->
-                            Log.e("ProfileFragment", "Some problem may have occurred when selecting theme colour.");
-                }
+                String themeName = (String) colorSelector.getSelectedItem();
+                String colorValue = ThemeColor.findColorByName(themeName);  // retrieve color value
                 rootView.setBackgroundColor(Color.parseColor(colorValue));
                 EventBus.getDefault().post(new ThemeUpdateEvent(colorValue));
                 ThemeColor.setThemeColor(colorValue);
                 ThemeColor.writeTheme();    // write new color value into file
-                // for bug avoidance, still set ThemeConfig
                 MainActivity mainActivity = (MainActivity) getActivity();
                 assert mainActivity != null;
             }
@@ -157,7 +150,7 @@ public class ProfileFragment extends Fragment {
         // set spinner: set the selected element being the current theme
         colorSelector.setAdapter(themeAdapter);
         for (int i = 0; i < themeAdapter.getCount(); i++) {
-            if (Objects.equals(themeAdapter.getItem(i), ThemeColor.getThemeName().toString())) {
+            if (Objects.equals(themeAdapter.getItem(i), ThemeColor.getThemeName())) {
                 //
                 colorSelector.setSelection(i);
                 break;

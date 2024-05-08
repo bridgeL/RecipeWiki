@@ -8,6 +8,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import anu.cookcompass.Utils;
 
 /**
  * A singleton class that stores the theme color of the application.
@@ -16,13 +21,46 @@ public class ThemeColor {
     private static ThemeColor instance;
     private Context context;
     private String themeColor;
+    private String themeName;   // the color value and the name of the current theme
+    private List<String[]> themeList; // the list for storing the theme
+    private String[] themeNameList;    // stores the names of themes
 
     /**
-     * Initialize the singleton by calling the constructor.
+     * Initialize the singleton by calling the constructor. This function also defines the themes
+     * available for this run.
      */
     public static void init(Context context){
         instance = new ThemeColor();
         instance.context = context;
+
+        // try reading the theme from file themeList.csv
+        try {
+            File file = new File(instance.context.getFilesDir(), "themeList.csv");
+            if (!file.exists()) {
+                // if file not exist, create a default one and then read
+                System.out.println("themeList.csv not found. Created by default");
+                file.createNewFile();
+                FileOutputStream fos = new FileOutputStream(file);
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
+                bos.write(("Default,#FFB241\n" +
+                        "White,#FFFFFF\n" +
+                        "Ultramarine,#4e72b8\n" +
+                        "PaleGreen,#cde67c\n").getBytes());
+                bos.flush();
+                bos.close();
+                fos.close();
+            }
+            // read the theme color from the file
+            instance.themeList = Utils.readCsv(file);
+            // create available theme name list
+            List<String> temp = new ArrayList<>();
+            for(String[] s: instance.themeList){
+                temp.add(s[0]);
+            }
+            instance.themeNameList = temp.toArray(new String[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void setThemeColor(String themeColor){
@@ -35,21 +73,32 @@ public class ThemeColor {
         return instance.themeColor;
     }
 
-    public static ThemeType getThemeName(){
-        switch(instance.themeColor){
-            case "#FFB241" -> {
-                return ThemeType.Default;
-            }
-            case "#FFFFFF" -> {
-                return ThemeType.White;
-            }
-            case "#FFD700" ->{
-                return ThemeType.Gold;
-            }
-            default -> {
-                return ThemeType.Default;
+    public static String getThemeName(){
+        return instance.themeName;
+    }
+
+    public static String[] getThemeList(){
+        return instance.themeNameList;
+    }
+
+    public static String findColorByName(String name){
+        for (String[] s: instance.themeList) {
+            if(Objects.equals(s[0], name)){
+                return s[1];
             }
         }
+        System.out.println("Unable to find theme with name " + name + ", return #000000 by default.");
+        return "#000000";
+    }
+
+    public static String findNameByColor(String color){
+        for (String[] s: instance.themeList) {
+            if(Objects.equals(s[1], color)){
+                return s[0];
+            }
+        }
+        System.out.println("Unable to find theme with name " + color + ", return Undefined by default.");
+        return "Undefined";
     }
 
     /**
@@ -70,6 +119,7 @@ public class ThemeColor {
                 bos.close();
                 fos.close();
                 instance.themeColor = "#FFB241";
+                instance.themeName = "Default";
             }
             else{
                 // if the file exists, read the theme color from the file
@@ -78,6 +128,7 @@ public class ThemeColor {
                 String line = reader.readLine();
                 if(line != null){
                     instance.themeColor = line;
+                    instance.themeName = findNameByColor(line);
                 }
             }
         } catch (Exception e) {
@@ -104,6 +155,7 @@ public class ThemeColor {
                 bos.close();
                 fos.close();
                 instance.themeColor = "#FFB241";
+                instance.themeName = "Default";
             }
             else{
                 // if file exists, write the theme color into the file
