@@ -18,11 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:layout_margin="20dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/RecipeTitle"
-                android:layout_width="393dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:text="TextView"
@@ -36,14 +37,15 @@
 
             <TextView
                 android:id="@+id/RecipeText"
-                android:layout_width="370dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="40dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -52,12 +54,20 @@
                     android:layout_height="wrap_content"
                     android:text="Like!" />
 
-                <Button
-                    android:id="@+id/CollectButton"
+                <TextView
+                    android:id="@+id/likeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:text="Collect" />
+                    android:textSize="20dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:text="Like: 0"/>
+
+                <TextView
+                    android:id="@+id/viewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="View: 0"/>
 
             </LinearLayout>
 

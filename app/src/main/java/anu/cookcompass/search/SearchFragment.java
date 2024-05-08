@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.List;
 
 import anu.cookcompass.R;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.theme.ThemeColor;
 import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.recipe.RecipeActivity;
@@ -51,6 +52,7 @@ public class SearchFragment extends Fragment {
         // ======================================
 
         adapter = new RecipeAdapter(getActivity(), RecipeManager.getInstance().getRecipes());
+        SingletonFactory.setInstance(adapter);
 
         // ======================================
         // bind view listener / callback / handler
@@ -59,7 +61,9 @@ public class SearchFragment extends Fragment {
         // callback for viewing recipe page
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(parent.getContext().getApplicationContext(), RecipeActivity.class);
-            RecipeManager.getInstance().setCurrentRecipe(adapter.getItem(position));
+            Recipe recipe = adapter.getItem(position);
+            RecipeManager.getInstance().setCurrentRecipe(recipe);
+            adapter.notifyDataSetChanged();
             startActivity(intent);
         });
 

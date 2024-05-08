@@ -48,7 +48,10 @@ public class SearchService implements Subject<List<Recipe>> {
         }
 
         // sort
-        Recipe[] recipes2 = recipes.toArray(new Recipe[0]);
+        Recipe[] recipes2 = new Recipe[recipes.size()];
+        for (int i = 0; i < recipes.size(); i++) {
+            recipes2[i] = recipes.get(i);
+        }
         SearchFilter.heapSortByName(recipes2, sortType);
         recipes.clear();
         recipes.addAll(Arrays.asList(recipes2));

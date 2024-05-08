@@ -80,7 +80,11 @@ public class SearchFilter { //Using heap sort
 //        List<Integer> test2 = new ArrayList<>();
 //        for (Recipe recipe : recipeArray) test1.add(recipe.view);
 //        heapSort(recipeArray, comparatorType);
+
+
         Arrays.stream(recipeArray).sorted(comparatorType).collect(Collectors.toList()).toArray(recipeArray);
+
+
 //        for (Recipe recipe : recipeArray) test2.add(recipe.view);
 //
 //        Log.e("DSF", test1.toString());

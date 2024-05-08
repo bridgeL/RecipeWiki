@@ -24,14 +24,15 @@ public class UserSimulator {
             public void run() {
                 if (!started) return;
 
-                PopMsg popMsg = new PopMsg();
-                popMsg.uid = "data stream";
-                popMsg.username = "Bernardo";
-                popMsg.rid = Utils.randInt(1, 2000);
-                popMsg.type = PopMsgType.LIKE;
-                popMsg.title = String.valueOf(popMsg.rid);
-                popMsg.location = "comp6442";
-                popMsg.timestamp = Utils.getTimestamp();
+                PopMsg popMsg = new PopMsg(
+                        "data stream",
+                        "Bernardo",
+                        Utils.randInt(1, 2000),
+                        "Escape room",
+                        "Barry Drive",
+                        PopMsgType.LIKE,
+                        Utils.getTimestamp()
+                );
 
                 PopMsgManager.getInstance().pushPopMsg(popMsg);
             }
