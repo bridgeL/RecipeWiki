@@ -3,12 +3,12 @@ package anu.cookcompass.searchfilter;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import anu.cookcompass.model.Recipe;
+import anu.cookcompass.recipe.Recipe;
 
 class RecipeIdComparator implements Comparator<Recipe> {
     @Override
     public int compare(Recipe recipe1, Recipe recipe2) {
-        return recipe1.id - recipe2.id; //Smaller id number appears first
+        return recipe1.rid - recipe2.rid; //Smaller id number appears first
     }
 }
 
