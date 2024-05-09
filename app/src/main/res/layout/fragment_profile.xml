@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+<!--circle image to show profile image-->
+        <anu.cookcompass.theme.CircleImageView
+            android:id="@+id/profileImage"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="24dp"
+            android:foregroundGravity="center"
+            android:src="@drawable/account_icon"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+<!-- email address text information-->
+        <TextView
+            android:id="@+id/emailAddressLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/email_address"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+<!--the text receive account information and display-->
+        <TextView
+            android:id="@+id/emailAddressTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:padding="8dp"
+            android:background="@drawable/profile_text_background"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/emailAddressLabel"
+            app:layout_constraintTop_toTopOf="@id/emailAddressLabel" />
+<!-- Address label-->
+        <TextView
+            android:id="@+id/addressLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text="@string/address"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/emailAddressTextView"
+            app:layout_constraintTop_toBottomOf="@id/emailAddressLabel" />
+<!-- Address display text-->
+        <TextView
+            android:id="@+id/countryAddressTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:padding="8dp"
+            android:background="@drawable/profile_text_background"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/addressLabel"
+            app:layout_constraintTop_toTopOf="@id/addressLabel" />
+<!--Theme label-->
+        <TextView
+            android:id="@+id/colorSettingText"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/theme"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/countryAddressTextView"
+            app:layout_constraintTop_toBottomOf="@id/countryAddressTextView" />
+<!-- Spinner to show different themes-->
+        <Spinner
+            android:id="@+id/colorSpinner"
+            android:layout_width="231dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            style="@style/CustomSpinnerStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/colorSettingText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toEndOf="@id/colorSettingText"
+            app:layout_constraintTop_toTopOf="@+id/colorSettingText"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/dataStreamButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_background"
+            android:padding="2dp"
+
+            android:text="@string/start_data_stream"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/colorSpinner" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

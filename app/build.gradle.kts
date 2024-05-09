@@ -37,7 +37,11 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-storage")
-    implementation("com.google.firebase:firebase-appcheck")
+    implementation("com.google.firebase:firebase-database")
+
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation("androidx.cardview:cardview:1.0.0")
+
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
@@ -47,6 +51,7 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
     implementation("androidx.activity:activity:1.7.2"){
     }
+    implementation ("org.greenrobot:eventbus:3.2.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

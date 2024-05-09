@@ -1,0 +1,102 @@
+package anu.cookcompass.recipe;
+
+
+import android.content.Context;
+import android.util.Log;
+
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import anu.cookcompass.Utils;
+import anu.cookcompass.firebase.CloudData;
+import anu.cookcompass.pattern.Observer;
+import anu.cookcompass.pattern.SingletonFactory;
+import anu.cookcompass.pattern.Subject;
+import anu.cookcompass.model.BinarySearchTree;
+
+
+public class RecipeManager implements Subject<List<Recipe>> {
+    String TAG = getClass().getSimpleName();
+    CloudData<List<Recipe>> cloudRecipesRef;
+    BinarySearchTree<Recipe> recipeBST = new BinarySearchTree<>();
+    List<Observer<List<Recipe>>> observers = new ArrayList<>();
+    public Recipe currentRecipe = null;
+
+    @Override
+    public List<Observer<List<Recipe>>> getObservers() {
+        return observers;
+    }
+
+    public void setCurrentRecipe(Recipe recipe) {
+        currentRecipe = recipe;
+        currentRecipe.view += 1;
+        cloudRecipesRef.setValue(getRecipes());
+    }
+
+    private RecipeManager() {
+        cloudRecipesRef = new CloudData<>(
+                "v2/recipe",
+                new GenericTypeIndicator<List<Recipe>>() {
+                },
+                false
+        );
+    }
+
+    public static RecipeManager getInstance() {
+        return SingletonFactory.getInstance(RecipeManager.class);
+    }
+
+    /**
+     * download recipes from cloud and save it into a local file,
+     * so next time the app don't need to re-download it, and save the bandwidth
+     *
+     * @param storageFile data will be stored in this file
+     */
+    public void downloadRecipes(File storageFile) {
+        cloudRecipesRef.getOnce(recipes -> {
+            recipeBST.insertAll(recipes);
+            Log.d(TAG, "download recipes successfully!");
+
+            // because its an async function and will cost time,
+            // when download completes, it should notify other modules (like front-end viewer) to update their status
+            notifyAllObservers(getRecipes());
+
+            // save it into given file
+            Utils.saveJson(storageFile, recipes);
+        });
+    }
+
+    public void loadRecipes(Context context) {
+        File file = new File(context.getFilesDir(), "recipe/recipe.json");
+
+        // if there is not a local file
+        if (!file.exists()) {
+
+            // make sure parent dir exists
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists()) parentDir.mkdirs();
+
+            // download recipes from cloud
+            downloadRecipes(file);
+            return;
+        }
+
+        // load it from local file
+        List<Recipe> recipes = Utils.readJson(file, new TypeToken<List<Recipe>>() {
+        });
+        if (recipes != null) {
+            recipeBST.insertAll(recipes);
+            Log.d(TAG, "load recipes from local file successfully!");
+        } else {
+            Log.d(TAG, "NO results for recipes");
+        }
+    }
+
+    public List<Recipe> getRecipes() {
+        return recipeBST.inOrderTraversal();
+    }
+}

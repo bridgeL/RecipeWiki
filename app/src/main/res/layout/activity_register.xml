@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    tools:context=".login.RegisterActivity">
 <!--Back button-->
     <ImageButton
         android:id="@+id/backButton"
@@ -60,6 +60,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/login_bg">
             <!-- password icon -->
             <ImageView
@@ -85,6 +86,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/login_bg">
             <!-- password icon -->
             <ImageView
