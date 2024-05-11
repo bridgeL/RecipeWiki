@@ -105,7 +105,11 @@
             android:id="@+id/results_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             tools:listitem="@layout/list_item" />
     </LinearLayout>
 
@@ -115,7 +119,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="@color/cardview_light_background">
+        android:background="@color/cardview_light_background"
+        android:clickable="true"
+        android:focusable="true">
         <!-- Fragment will be inserted here -->
     </FrameLayout>
 
