@@ -14,6 +14,7 @@ import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.recipe.RecipeManager;
+import anu.cookcompass.searchfilter.SearchFilter;
 
 public class SearchService implements Subject<List<Recipe>> {
     List<Recipe> lastRecipes = new ArrayList<>();
