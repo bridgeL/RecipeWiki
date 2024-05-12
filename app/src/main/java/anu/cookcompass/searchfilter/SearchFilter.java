@@ -40,7 +40,7 @@ public class SearchFilter {
         if (criterionName.equals("id")) comparatorType = new RecipeIdComparator();
         if (criterionName.equals("title")) comparatorType = new RecipeTitleComparator();
         if (criterionName.equals("view")) comparatorType = new RecipeViewComparator();
-        if (criterionName.equals("like")) comparatorType = new RecipeViewComparator();
+        if (criterionName.equals("like")) comparatorType = new RecipeLikeComparator();
         heapSort(recipeArray, comparatorType);
     }
 
