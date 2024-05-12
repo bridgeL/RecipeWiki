@@ -21,6 +21,7 @@ public class SearchService implements Subject<List<Recipe>> {
     List<Observer<List<Recipe>>> observers = new ArrayList<>();
     public String query = "";
     public String sortType = "id";
+    public boolean isDescending = true;
 
     @Override
     public List<Observer<List<Recipe>>> getObservers() {
@@ -53,7 +54,11 @@ public class SearchService implements Subject<List<Recipe>> {
         for (int i = 0; i < recipes.size(); i++) {
             recipes2[i] = recipes.get(i);
         }
-        SearchFilter.heapSortByName(recipes2, sortType);
+        if (!isDescending) {
+            SearchFilter.heapSortByName(recipes2, sortType, false);
+        } else {
+            SearchFilter.heapSortByName(recipes2, sortType, true);
+        }
         recipes.clear();
         recipes.addAll(Arrays.asList(recipes2));
         notifyAllObservers(recipes);

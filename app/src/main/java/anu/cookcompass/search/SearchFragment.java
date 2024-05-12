@@ -147,6 +147,8 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
+
+        searchView.setQueryHint(getString(R.string.search_hint));
     }
 
     private void updateSearchResults(String query) {

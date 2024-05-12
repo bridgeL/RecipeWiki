@@ -35,12 +35,16 @@ class RecipeLikeComparator implements Comparator<Recipe> {
 
 public class SearchFilter {
 
-    public static void heapSortByName(Recipe[] recipeArray, String criterionName) {
+    public static void heapSortByName(Recipe[] recipeArray, String criterionName, boolean isAscending) {
         Comparator<Recipe> comparatorType = null;
         if (criterionName.equals("id")) comparatorType = new RecipeIdComparator();
         if (criterionName.equals("title")) comparatorType = new RecipeTitleComparator();
         if (criterionName.equals("view")) comparatorType = new RecipeViewComparator();
         if (criterionName.equals("like")) comparatorType = new RecipeLikeComparator();
+
+        if (!isAscending && comparatorType != null) {
+            comparatorType = comparatorType.reversed();
+        }
         heapSort(recipeArray, comparatorType);
     }
 

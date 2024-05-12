@@ -5,7 +5,7 @@
     <string name="register">Register</string>
     <string name="please_input_your_password">Please input your password</string>
     <string name="please_input_your_password_again">Please input your password again</string>
-    <string name="search_hint">Enter a recipe name…</string>
+    <string name="search_hint">ingredients=apple; like>20;</string>
     <string name="search">Search</string>
     <string name="search_result">Roasted Chicken</string>
     <string name="sort_by_id">ID</string>
@@ -26,4 +26,7 @@
     <string name="placeholder_view">456</string>
     <string name="like_count">like count</string>
     <string name="view_count">view count</string>
+    <string name="sort_button_description">sort_by_desc</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
 </resources>
