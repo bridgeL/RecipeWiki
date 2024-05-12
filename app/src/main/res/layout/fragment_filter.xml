@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="ID"/>
+        android:text="ID" />
 
     <Button
         android:id="@+id/titleSortBtn"
@@ -43,4 +43,13 @@
         android:layout_margin="5dp"
         android:text="LIKE"/>
 
+    <ImageButton
+        android:id="@+id/sortToggle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_sort_asc"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/sort_button_description"/>
 </LinearLayout>

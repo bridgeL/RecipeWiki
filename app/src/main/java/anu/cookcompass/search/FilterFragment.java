@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.content.Context;
 
 import anu.cookcompass.R;
 
 public class FilterFragment extends Fragment {
 
     private Button idBtn, titleBtn, viewBtn, likeBtn;
+    private ImageButton sortToggle;
 //    private EditText editTopN, editMinViews, editMinLikes;
 //    private Button btnFilterResults;
 
@@ -33,70 +36,33 @@ public class FilterFragment extends Fragment {
         titleBtn = view.findViewById(R.id.titleSortBtn);
         viewBtn = view.findViewById(R.id.viewSortBtn);
         likeBtn = view.findViewById(R.id.likeSortBtn);
+        sortToggle = view.findViewById(R.id.sortToggle);
 
         SearchService searchService = SearchService.getInstance();
-        idBtn.setOnClickListener(l->{
+        idBtn.setOnClickListener(l -> {
             searchService.sortType = "id";
             searchService.search(getContext());
         });
-        titleBtn.setOnClickListener(l->{
+        titleBtn.setOnClickListener(l -> {
             searchService.sortType = "title";
             searchService.search(getContext());
         });
-        viewBtn.setOnClickListener(l->{
+        viewBtn.setOnClickListener(l -> {
             searchService.sortType = "view";
             searchService.search(getContext());
         });
-        likeBtn.setOnClickListener(l->{
+        likeBtn.setOnClickListener(l -> {
             searchService.sortType = "like";
             searchService.search(getContext());
         });
-//        // EditTexts for input
-//        editTopN = view.findViewById(R.id.editTopN);
-//        editMinViews = view.findViewById(R.id.editMinViews);
-//        editMinLikes = view.findViewById(R.id.editMinLikes);
-//
-//        // Button to execute filter
-//        btnFilterResults = view.findViewById(R.id.btnFilterResults);
 
-        // Set up the listener for toggle buttons
-//        setupToggleButtons();
+        sortToggle.setOnClickListener(v -> {
+                searchService.isAscending = !searchService.isAscending;
+                sortToggle.setImageResource(searchService.isAscending ? R.drawable.ic_sort_asc : R.drawable.ic_sort_desc);
+                searchService.search(getContext());
+        });
 
-//        // Setup button listener
-//        btnFilterResults.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                filterResults();
-//            }
-//        });
+        sortToggle.setImageResource(searchService.isAscending ? R.drawable.ic_sort_asc : R.drawable.ic_sort_desc);
     }
 
-//    private void setupToggleButtons() {
-//        CompoundButton.OnCheckedChangeListener listener = (buttonView, isChecked) -> {
-//            if (isChecked) {
-//                if (buttonView != idBtn) idBtn.setChecked(false);
-//                if (buttonView != titleBtn) titleBtn.setChecked(false);
-//                if (buttonView != viewBtn) viewBtn.setChecked(false);
-//                if (buttonView != likeBtn) likeBtn.setChecked(false);
-//                buttonView.setChecked(true);
-//
-////                if (buttonView != toggleId) toggleId.setChecked(false);
-////                if (buttonView != toggleTitle) toggleTitle.setChecked(false);
-////                if (buttonView != toggleView) toggleView.setChecked(false);
-////                if (buttonView != toggleLike) toggleLike.setChecked(false);
-////                buttonView.setChecked(true);
-//            }
-//        };
-//
-//        idBtn.setOnCheckedChangeListener(listener);
-//        titleBtn.setOnCheckedChangeListener(listener);
-//        viewBtn.setOnCheckedChangeListener(listener);
-//        likeBtn.setOnCheckedChangeListener(listener);
-//    }
-//
-//    private void filterResults() {
-//        // Implement filtering logic here
-//        // You can use editTopN, editMinViews, editMinLikes to get the user input
-//        // And then update your list accordingly
-//    }
 }
