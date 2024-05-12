@@ -35,6 +35,14 @@ class RecipeLikeComparator implements Comparator<Recipe> {
 
 public class SearchFilter {
 
+    public static void heapSortByName(Recipe[] recipeArray, String criterionName) {
+        Comparator<Recipe> comparatorType = null;
+        if (criterionName.equals("id")) comparatorType = new RecipeIdComparator();
+        if (criterionName.equals("title")) comparatorType = new RecipeTitleComparator();
+        if (criterionName.equals("view")) comparatorType = new RecipeViewComparator();
+        if (criterionName.equals("like")) comparatorType = new RecipeViewComparator();
+    }
+
     //Sort the recipes using heap sort (Using max heap)
     public static void heapSort(Recipe[] recipeArray, Comparator<Recipe> comparator) {
         int length = recipeArray.length;
