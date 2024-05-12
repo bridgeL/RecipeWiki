@@ -41,6 +41,7 @@ public class SearchFilter {
         if (criterionName.equals("title")) comparatorType = new RecipeTitleComparator();
         if (criterionName.equals("view")) comparatorType = new RecipeViewComparator();
         if (criterionName.equals("like")) comparatorType = new RecipeViewComparator();
+        heapSort(recipeArray, comparatorType);
     }
 
     //Sort the recipes using heap sort (Using max heap)
