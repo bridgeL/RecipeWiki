@@ -9,9 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.content.Context;
+import android.widget.TextView;
 
 import anu.cookcompass.R;
 
@@ -19,6 +18,7 @@ public class FilterFragment extends Fragment {
 
     private Button idBtn, titleBtn, viewBtn, likeBtn;
     private ImageButton sortToggle;
+    private TextView sortToggleText;
 //    private EditText editTopN, editMinViews, editMinLikes;
 //    private Button btnFilterResults;
 
@@ -37,6 +37,7 @@ public class FilterFragment extends Fragment {
         viewBtn = view.findViewById(R.id.viewSortBtn);
         likeBtn = view.findViewById(R.id.likeSortBtn);
         sortToggle = view.findViewById(R.id.sortToggle);
+        sortToggleText = view.findViewById(R.id.sortToggleText);
 
         SearchService searchService = SearchService.getInstance();
         idBtn.setOnClickListener(l -> {
@@ -57,12 +58,14 @@ public class FilterFragment extends Fragment {
         });
 
         sortToggle.setOnClickListener(v -> {
-                searchService.isAscending = !searchService.isAscending;
-                sortToggle.setImageResource(searchService.isAscending ? R.drawable.ic_sort_asc : R.drawable.ic_sort_desc);
+                searchService.isDescending = !searchService.isDescending;
+                sortToggle.setImageResource(searchService.isDescending ? R.drawable.ic_sort_desc : R.drawable.ic_sort_asc);
+                sortToggleText.setText(searchService.isDescending ? R.string.sort_descending: R.string.sort_ascending);
                 searchService.search(getContext());
         });
 
-        sortToggle.setImageResource(searchService.isAscending ? R.drawable.ic_sort_asc : R.drawable.ic_sort_desc);
+        sortToggle.setImageResource(searchService.isDescending ? R.drawable.ic_sort_desc : R.drawable.ic_sort_asc);
+        sortToggleText.setText(searchService.isDescending ? R.string.sort_descending: R.string.sort_ascending);
     }
 
 }

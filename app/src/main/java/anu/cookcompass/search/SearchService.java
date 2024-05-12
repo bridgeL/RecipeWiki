@@ -5,7 +5,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +21,7 @@ public class SearchService implements Subject<List<Recipe>> {
     List<Observer<List<Recipe>>> observers = new ArrayList<>();
     public String query = "";
     public String sortType = "id";
-    public boolean isAscending = true;
+    public boolean isDescending = true;
 
     @Override
     public List<Observer<List<Recipe>>> getObservers() {
@@ -55,7 +54,7 @@ public class SearchService implements Subject<List<Recipe>> {
         for (int i = 0; i < recipes.size(); i++) {
             recipes2[i] = recipes.get(i);
         }
-        if (!isAscending) {
+        if (!isDescending) {
             SearchFilter.heapSortByName(recipes2, sortType, false);
         } else {
             SearchFilter.heapSortByName(recipes2, sortType, true);

@@ -27,4 +27,6 @@
     <string name="like_count">like count</string>
     <string name="view_count">view count</string>
     <string name="sort_button_description">sort_by_desc</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
 </resources>

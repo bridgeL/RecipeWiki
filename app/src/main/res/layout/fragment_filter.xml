@@ -43,13 +43,36 @@
         android:layout_margin="5dp"
         android:text="LIKE"/>
 
-    <ImageButton
-        android:id="@+id/sortToggle"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="5dp"
-        android:src="@drawable/ic_sort_asc"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:contentDescription="@string/sort_button_description"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+
+        <ImageButton
+            android:id="@+id/sortToggle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:contentDescription="@string/sort_button_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_sort_asc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/sortToggleText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="@string/sort_ascending"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sortToggle"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </LinearLayout>
