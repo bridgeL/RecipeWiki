@@ -13,6 +13,10 @@ public class Recipe implements Comparable<Recipe> {
     public int view;
     public int like;
 
+    public Recipe() {
+        this(0, "title", 0, 0);
+    }
+
     //Constructor added for SearchFilter testing purposes
     public Recipe(int rid, String title, int view, int like) {
         this.rid = rid;

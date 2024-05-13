@@ -67,6 +67,8 @@ public class SearchService implements Subject<List<Recipe>> {
     public List<Recipe> innerSearch(Context context, String query) {
         List<Recipe> recipes = RecipeManager.getInstance().getRecipes();
 
+        query = query.trim();
+
         // if query is empty, return all data
         if (query.isEmpty()) {
             Utils.showShortToast(context, "get " + recipes.size() + " results");
@@ -74,7 +76,7 @@ public class SearchService implements Subject<List<Recipe>> {
         }
 
         // feature: search invalid
-        if (!query.contains(";")) query = query + ";";
+        if (query.charAt(query.length() - 1) != ';') query = query + ";";
         QueryObject temp = parseQuery(query);
 
         if (temp.queryInvalid) {
