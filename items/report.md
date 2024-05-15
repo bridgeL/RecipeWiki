@@ -77,8 +77,42 @@ Note that the core criteria of contribution is based on `code contribution` (the
     - [Report Writing?] [Slides preparation?]*
     - [You are welcome to provide anything that you consider as a contribution to the project or team.] e.g., APK, setups, firebase* <br><br>
 
-2. **UID2, Name2**  I have xx% contribution, as follows: <br>
+2. **UID2, Name2**  I have 20% contribution, as follows: <br>
   - ...
+
+3**U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: <br>
+- **Code Contribution in the final App**
+    - Feature Feat 1 login, Feat 9 data Profile, Feat 4 data stream 
+      - class ProfileFragment: [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
+      - class NotificationFragment:[NotificationFragment.java](app/src/main/java/anu/cookcompass/popmsg/NotificationFragment.java)
+      - class NotificationAdapter:[NotificationAdapter.java](app/src/main/java/anu/cookcompass/popmsg/NotificationAdapter.java)
+    - Other UI realated java class 
+      - class MainActivity [MainActivity.java](app/src/main/java/anu/cookcompass/MainActivity.java)
+      - class BottomBarActivity [BotommBarActivity.java](app/src/main/java/anu/cookcompass/BottomBarActivity.java)
+      - class CircleImageView [CircleImageView.java](app/src/main/java/anu/cookcompass/theme/CircleImageView.java)
+      - class RegisterActivity [RegisterActivity.java](app/src/main/java/anu/cookcompass/login/RegisterActivity.java)
+      - class BottomBarActivity [BottomBarActivity.java](app/src/main/java/anu/cookcompass/BottomBarActivity.java)
+    - <br><br>
+
+- **Code and App Design**
+    - UI Design
+      - UI design for the login page: [activity_login.xml](app/src/main/res/layout/activity_login.xml)
+      - UI design for the main page: [activity_main.xml](app/src/main/res/layout/activity_main.xml)
+      - UI design for the nagivation bar:[activity_navigation_bar.xml](app/src/main/res/layout/activity_navigation_bar.xml)
+      - UI design for the fragment_notification page:[fragment_notification.xml](app/src/main/res/layout/fragment_notification.xml)
+      - UI design for the fragment_profile page:[fragment_profile.xml](app/src/main/res/layout/fragment_profile.xml)
+      - UI design for the notification_item:[notification_item.xml](app/src/main/res/layout/notification_item.xml)
+      - UI design for bottom_bar_background:[bottom_bar_bg.xml](app/src/main/res/menu/bottom_bar_bg.xml)
+      - UI design for profile_text background:[profile_text_background.xml](app/src/main/res/drawable/profile_text_background.xml)
+      - UI design for login account icon:[baseline_account_box_24.xml](app/src/main/res/drawable/baseline_account_box_24.xml)
+      - UI design for register back arrow icon:[round_arrow_back_24.xml](app/src/main/res/drawable/round_arrow_back_24.xml)
+    - 
+    - External resources of my UI part
+      - ![account_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Faccount_icon.png) free for non-commercial use, CC BY "best_leeyang"
+      - ![lock_image.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Flock_image.png) free for non-commercial use, CC BY "逍剑"
+      - ![notification_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Fnotification_icon.png) free for non-commercial use, CC BY "best_leeyang"
+      - ![search_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Fsearch_icon.png) free for non-commercial use, CC BY "best_leeyang"
+      - <br><br>
 
 
 
@@ -242,6 +276,13 @@ Feature Category: Firebase Integration <br>
    * Code: [Class X, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
    * [Class B](../src/path/to/class/file.java#L30-85): methods A, B, C, lines of code: 30 to 85
    * Description of your implementation: ... <br>
+Feature Category: Greater Data Usage, Handling and Sophistication <br>
+1. [Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image,
+   animation (e.g., gif), video). (easy) 
+   * Code: [ProfileFragment.java]
+   * This is a fragment to show profile data from the firebase, and can sycronized with the firebase.
+   * By clicking the profile button in the navigation bar, the application will jump to the profile fragment.
+   * In the fragment, there are 
 
 <hr>
 
@@ -282,7 +323,7 @@ Feature Category: Firebase Integration <br>
    - *Code coverage: ...*
    - *Types of tests created and descriptions: ...*
 
-2. xxx
+2. Tests for
 
 ...
 

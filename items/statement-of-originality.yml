@@ -45,9 +45,21 @@ assets:
   - comment: "_Bliss_ by Charles O'Rear"
     url: https://en.wikipedia.org/wiki/Bliss_(image)
     licence: fair use
+  - comment: "account_icon.png"
+    url:  https://www.iconfont.cn/collections/detail?spm=a313x.search_index.0.da5a778a4.77e73a81BfxbFM&cid=15266
+    licence: free for non-commercial use, CC BY "best_leeyang"
+  - comment: "lock_image.png"
+    url: https://www.iconfont.cn/collections/detail?spm=a313x.search_index.0.da5a778a4.36733a81e2WdKa&cid=748
+    licence: free for non-commercial use, CC BY "逍剑"
+  - comment: "notification_icon.png"
+    url: https://www.iconfont.cn/collections/detail?spm=a313x.search_index.0.da5a778a4.77e73a81BfxbFM&cid=15266
+    licence: free for non-commercial use, CC BY "best_leeyang"
+  - comment: "search_icon.png"
+    url: https://www.iconfont.cn/collections/detail?spm=a313x.search_index.0.da5a778a4.77e73a81BfxbFM&cid=15266
+    license: free for non-commercial use, CC BY "best_leeyang"
 
 
-### Questions (answer before final submission):
+  ### Questions (answer before final submission):
 1. You (as a group) completed this work (tick the most appropriate option):
   - [ ] by yourself (as a group) without the help of others;
       [ ] with Gen AI tools (e.g., ChatGPT, Co-Pilot).
@@ -72,5 +84,5 @@ members:
     uid:
   - name:
     uid:
-  - name:
-    uid:
+  - name: Jiangbei Zhang
+    uid: u7759982
