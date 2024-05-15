@@ -29,6 +29,7 @@ public class SearchService implements Subject<List<Recipe>> {
     public String query = "";
     public String sortType = "id";
     public boolean isDescending = true;
+    static SearchService inst = null;
 
     @Override
     public List<Observer<List<Recipe>>> getObservers() {
@@ -39,7 +40,8 @@ public class SearchService implements Subject<List<Recipe>> {
     }
 
     public static SearchService getInstance() {
-        return SingletonFactory.getInstance(SearchService.class);
+        if (inst == null) inst = new SearchService();
+        return inst;
     }
 
     static QueryObject parseQuery(String query) {

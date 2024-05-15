@@ -1,5 +1,7 @@
 package anu.cookcompass;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.List;
 import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.search.SearchService;
 
-public class SearchTest {
+public class SearchServiceTest {
     @Test
     public void test_simple_case() {
         SearchService searchService = SearchService.getInstance();
