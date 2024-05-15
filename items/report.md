@@ -41,7 +41,7 @@ The key area(s) of responsibilities for each member
 |:---------|:--------------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | u7760022 |   Xinyang Li   | Backend (Login, DataFiles, LoadShowData, DataStream, Search-Invalid, FB-Auth, FB-Persist-extension, Register) |
 | u7752874 |   Xinlei Wen   | Backend (LoadShowData, Search, Data-Formats)                                                                                                    [role] |
-| u7754676 | Tashia Tamara  | Backend (Login, Search-Filter, Data-GPS)
+| u7754676 | Tashia Tamara  | Backend (Login, Search-Filter, Data-GPS)|
 | u7759982 | Jiangbei Zhang | Frontend (Login, Data-Profile, Register)                                                                                                                                               [role] |
 | u7693070 |  Changlai Sun  | Frontend (LoadShowData, Search-Filter)                                                                                                                                                                                     [role] |
 
@@ -276,13 +276,18 @@ Feature Category: Firebase Integration <br>
    * Code: [Class X, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
    * [Class B](../src/path/to/class/file.java#L30-85): methods A, B, C, lines of code: 30 to 85
    * Description of your implementation: ... <br>
+
 Feature Category: Greater Data Usage, Handling and Sophistication <br>
-1. [Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image,
+9. [Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image,
    animation (e.g., gif), video). (easy) 
-   * Code: [ProfileFragment.java]
-   * This is a fragment to show profile data from the firebase, and can sycronized with the firebase.
+   * Code: [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
+   * This is a fragment to show profile data from the firebase, and can synchronized with the firebase.
    * By clicking the profile button in the navigation bar, the application will jump to the profile fragment.
-   * In the fragment, there are 
+   * In the fragment, the users' email address, location, and profile image will be displayed. UserManger is 
+   * used to get instance for current user, you can also upload the profile image by click the profile image. 
+   * After clicking the image, the image picker will start which enables you to choose the image 
+   * from phone local storage. At the same time, the image will be also be uploaded to the firebase.
+   * Next time when you login this user, the image will be loaded automatically from the firebase.
 
 <hr>
 
@@ -290,6 +295,19 @@ Feature Category: Greater Data Usage, Handling and Sophistication <br>
 
 - If implemented, explain how your solution addresses the task (any detail requirements will be released with the surprise feature specifications).
 - State that "Suprised feature is not implemented" otherwise.
+Four existing code smells:
+1. frontend design structure
+- description: At first, we try to implement all UI page by activity. However, in this way, it is very hard to expand the 
+  - present code. Every activity need a intent to switch from one to another. The logic to switch among activities need to be 
+  - take into serious consideration. Then, we refactored the UI structure by introducing navigation bar combined with fragments. 
+  - In this way, it enables us to switch easily between our pages and privide a better guidance for the user. 
+  - In addition, it makes us easier to add new pages.
+- Previous gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/tree/20667e8b702d408e22d3e01be223a798e5a0aa34
+  - related java class [SearchActivity]
+- Refactor gits:https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/tree/c2cfcce780541d10b256729258290589dca672fb
+  - related java class [MainActivity.java],[SearchFragment.java]
+- Solution outline: First, create a main activity to store the navigation bar and fragments. Then change the type of needed activyty,
+- at first, search activity was changed to fragment. Later, new fragment of profile, notification were added.
 
 <br> <hr>
 
@@ -323,9 +341,21 @@ Feature Category: Greater Data Usage, Handling and Sophistication <br>
    - *Code coverage: ...*
    - *Types of tests created and descriptions: ...*
 
-2. Tests for
+2. Tests for read Data-Formats
+   - Code: [DataFormatTest.java](app/src/androidTest/java/anu/cookcompass/DataFormatTest.java) for the 
+   - [ThemeColor.java](app/src/main/java/anu/cookcompass/theme/ThemeColor.java)
+   - - *Code coverage: 100 % *
+   - * Number of test cases: 4 * 
+   - *Types of tests created and descriptions: 
+     - testReadCsv(): Tests reading theme data from a CSV file with randomly generated content. 
+      Asserts that the theme list read from the file matches the expected theme names.
+     - testReadTxt(): Tests reading the theme color from a text file with randomly generated content. 
+      Asserts that the loaded theme color matches the content of the text file.
+     - testFixedCsvContent(): Tests reading theme data from a CSV file with fixed content. 
+      Asserts that the theme list read from the file matches the expected theme names and does not match unexpected names.
+     - testFixedTxtContent(): Tests reading the theme color from a text file with fixed content. 
+      Asserts that the loaded theme color matches the expected color and does not match an unexpected color.*
 
-...
 
 <br> <hr>
 
