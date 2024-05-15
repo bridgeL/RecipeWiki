@@ -30,12 +30,20 @@ public class ThemeColor {
      * available for this run.
      */
     public static void init(Context context){
+        init(context, null);
+    }
+    public static void init(Context context,String csvFilePath){
         instance = new ThemeColor();
         instance.context = context;
 
         // try reading the theme from file themeList.csv
         try {
-            File file = new File(instance.context.getFilesDir(), "themeList.csv");
+            File file;
+            if (csvFilePath != null && !csvFilePath.isEmpty()) {
+                file = new File(csvFilePath);
+            } else {
+                file = new File(instance.context.getFilesDir(), "themeList.csv");
+            }
             if (!file.exists()) {
                 // if file not exist, create a default one and then read
                 System.out.println("themeList.csv not found. Created by default");
@@ -106,8 +114,16 @@ public class ThemeColor {
      * default value and create the file.
      */
     public static void loadTheme(){
+        loadTheme(null);
+    }
+    public static void loadTheme(String txtFilePath){
         try {
-            File file = new File(instance.context.getFilesDir(), "theme.txt");
+            File file;
+            if (txtFilePath != null && !txtFilePath.isEmpty()) {
+                file = new File(txtFilePath);
+            } else {
+                file = new File(instance.context.getFilesDir(), "theme.txt");
+            }
             if (!file.exists()) {
                 // if file not exist, create a default one and set it to the default color
                 System.out.println("theme.txt not found. Created by default");

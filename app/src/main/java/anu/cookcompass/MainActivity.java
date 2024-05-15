@@ -19,10 +19,12 @@ import anu.cookcompass.search.SearchFragment;
 import anu.cookcompass.user.ProfileFragment;
 
 /**
+ * @author u7759982,Jiangbei Zhang
  * This function is the main activity which aims to control the switch between pages
  * {@code @bottomNavigationView} This is the navigation bar to control the switch
  * {@code @searchFragment} This is the fragment of search page
  * {@code @profileFragment} This is the fragment of profile page
+ * @notificationFragment This is the fragment of notification page
  */
 public class MainActivity extends AppCompatActivity {//after login ,the application will turn to this page
     private BottomNavigationView bottomNavigationView;
@@ -36,10 +38,11 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //initialize three fragment
         searchFragment = new SearchFragment();
         profileFragment = new ProfileFragment();
         notificationFragment=new NotificationFragment();
-
+        //include all used fragment into the transaction and commit it to implement to UI
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, searchFragment)
                 .add(R.id.fragment_container, profileFragment)
@@ -95,8 +98,8 @@ public class MainActivity extends AppCompatActivity {//after login ,the applicat
      *                 this function will switch fragment when click
      */
     private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        FragmentManager fragmentManager = getSupportFragmentManager();//get present fragmentManager
+        FragmentTransaction transaction = fragmentManager.beginTransaction();//a new transaction
         if (fragment == searchFragment) {
             transaction.hide(profileFragment).hide(notificationFragment).show(searchFragment);
         } else if (fragment == profileFragment) {

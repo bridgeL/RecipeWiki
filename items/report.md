@@ -41,7 +41,7 @@ The key area(s) of responsibilities for each member
 |:---------|:--------------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | u7760022 |   Xinyang Li   | Backend (Login, DataFiles, LoadShowData, DataStream, Search-Invalid, FB-Auth, FB-Persist-extension, Register) |
 | u7752874 |   Xinlei Wen   | Backend (LoadShowData, Search, Data-Formats)                                                                                                    [role] |
-| u7754676 | Tashia Tamara  | Backend (Login, Search-Filter, Data-GPS)
+| u7754676 | Tashia Tamara  | Backend (Login, Search-Filter, Data-GPS)|
 | u7759982 | Jiangbei Zhang | Frontend (Login, Data-Profile, Register)                                                                                                                                               [role] |
 | u7693070 |  Changlai Sun  | Frontend (LoadShowData, Search-Filter)                                                                                                                                                                                     [role] |
 
@@ -77,8 +77,42 @@ Note that the core criteria of contribution is based on `code contribution` (the
     - [Report Writing?] [Slides preparation?]*
     - [You are welcome to provide anything that you consider as a contribution to the project or team.] e.g., APK, setups, firebase* <br><br>
 
-2. **UID2, Name2**  I have xx% contribution, as follows: <br>
+2. **UID2, Name2**  I have 20% contribution, as follows: <br>
   - ...
+
+3**U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: <br>
+- **Code Contribution in the final App**
+    - Feature Feat 1 login, Feat 9 data Profile, Feat 4 data stream 
+      - class ProfileFragment: [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
+      - class NotificationFragment:[NotificationFragment.java](app/src/main/java/anu/cookcompass/popmsg/NotificationFragment.java)
+      - class NotificationAdapter:[NotificationAdapter.java](app/src/main/java/anu/cookcompass/popmsg/NotificationAdapter.java)
+    - Other UI realated java class 
+      - class MainActivity [MainActivity.java](app/src/main/java/anu/cookcompass/MainActivity.java)
+      - class BottomBarActivity [BotommBarActivity.java](app/src/main/java/anu/cookcompass/BottomBarActivity.java)
+      - class CircleImageView [CircleImageView.java](app/src/main/java/anu/cookcompass/theme/CircleImageView.java)
+      - class RegisterActivity [RegisterActivity.java](app/src/main/java/anu/cookcompass/login/RegisterActivity.java)
+      - class BottomBarActivity [BottomBarActivity.java](app/src/main/java/anu/cookcompass/BottomBarActivity.java)
+    - <br><br>
+
+- **Code and App Design**
+    - UI Design
+      - UI design for the login page: [activity_login.xml](app/src/main/res/layout/activity_login.xml)
+      - UI design for the main page: [activity_main.xml](app/src/main/res/layout/activity_main.xml)
+      - UI design for the nagivation bar:[activity_navigation_bar.xml](app/src/main/res/layout/activity_navigation_bar.xml)
+      - UI design for the fragment_notification page:[fragment_notification.xml](app/src/main/res/layout/fragment_notification.xml)
+      - UI design for the fragment_profile page:[fragment_profile.xml](app/src/main/res/layout/fragment_profile.xml)
+      - UI design for the notification_item:[notification_item.xml](app/src/main/res/layout/notification_item.xml)
+      - UI design for bottom_bar_background:[bottom_bar_bg.xml](app/src/main/res/menu/bottom_bar_bg.xml)
+      - UI design for profile_text background:[profile_text_background.xml](app/src/main/res/drawable/profile_text_background.xml)
+      - UI design for login account icon:[baseline_account_box_24.xml](app/src/main/res/drawable/baseline_account_box_24.xml)
+      - UI design for register back arrow icon:[round_arrow_back_24.xml](app/src/main/res/drawable/round_arrow_back_24.xml)
+    - 
+    - External resources of my UI part
+      - ![account_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Faccount_icon.png) free for non-commercial use, CC BY "best_leeyang"
+      - ![lock_image.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Flock_image.png) free for non-commercial use, CC BY "逍剑"
+      - ![notification_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Fnotification_icon.png) free for non-commercial use, CC BY "best_leeyang"
+      - ![search_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Fsearch_icon.png) free for non-commercial use, CC BY "best_leeyang"
+      - <br><br>
 
 
 
@@ -192,13 +226,32 @@ Here is a partial (short) example for the subsection `Data Structures`:*
 
 Production Rules:
 
-    <Non-Terminal> ::= <some output>
-    <Non-Terminal> ::= <some output>
+```#
+    <Query> ::= <Ingr-Query> <Titl-Query> <Like-Query> <View-Query>
+    <Ingr-Query> ::= ingredients = <Names>; | EMPTY
+    <Titl-Query> ::= title = <Names>; | EMPTY
+    <Like-Query> ::= like <BoolOperator> INTEGER ; | EMPTY
+    <View-Query> ::= view <BoolOperator> INTEGER ; | EMPTY
+    <Names> ::== STRING | STRING , <Names>
+    <BoolOperator> ::=  > | <  | = 
+```
+Note that in this grammar, query to any data type (ingredients, title, etc.) could not appear more than once, and must follow the order given by the first equation.
 
+This grammar is designed to support searching certain recipe with given title or ingredients, and do filtering on the like or view number. By applying this grammar, we could not only search keywords, but also filtering the result, which makes the filtering page clearer.
+
+Specifically, in the actual application, a search invalid feature is implemented, allows user to search with an input that does not fully satisfies this grammar. However, this feature is not implemented in parser. For testing the parser, a fully correct input is still required.
+
+<br>
 
 ### <u>Tokenizers and Parsers</u>
 
 *[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
+
+We implemented one tokenizer and one parser in our application, which is used as a supportive module of the searching functionality (see `Tokenizer.java` and `Parser.java` in package `search`). No external libraries that provides tokenizing or parsing are used, and the implementation has a simiilar format as the one provided in labs.
+
+In a searching process, user enters their need formatted in the formal grammar shown above, and the tokenizer and parser will then be called, creating an object that contains every information in the input (object `QueryObject`). The search module only handles this query object.
+
+By using a tokenizer and parser, it is easier to parse search inputs, enabling a clear filtering rule for the search module to perform its task. Besides, it separates the raw input from the frontend with the search interface in the backend, protects the search module from invalid inputs.
 
 <hr>
 
@@ -243,12 +296,37 @@ Feature Category: Firebase Integration <br>
    * [Class B](../src/path/to/class/file.java#L30-85): methods A, B, C, lines of code: 30 to 85
    * Description of your implementation: ... <br>
 
+Feature Category: Greater Data Usage, Handling and Sophistication <br>
+9. [Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image,
+   animation (e.g., gif), video). (easy) 
+   * Code: [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
+   * This is a fragment to show profile data from the firebase, and can synchronized with the firebase.
+   * By clicking the profile button in the navigation bar, the application will jump to the profile fragment.
+   * In the fragment, the users' email address, location, and profile image will be displayed. UserManger is 
+   * used to get instance for current user, you can also upload the profile image by click the profile image. 
+   * After clicking the image, the image picker will start which enables you to choose the image 
+   * from phone local storage. At the same time, the image will be also be uploaded to the firebase.
+   * Next time when you login this user, the image will be loaded automatically from the firebase.
+
 <hr>
 
 ### Surprise Features
 
 - If implemented, explain how your solution addresses the task (any detail requirements will be released with the surprise feature specifications).
 - State that "Suprised feature is not implemented" otherwise.
+Four existing code smells:
+1. frontend design structure
+- description: At first, we try to implement all UI page by activity. However, in this way, it is very hard to expand the 
+  - present code. Every activity need a intent to switch from one to another. The logic to switch among activities need to be 
+  - take into serious consideration. Then, we refactored the UI structure by introducing navigation bar combined with fragments. 
+  - In this way, it enables us to switch easily between our pages and privide a better guidance for the user. 
+  - In addition, it makes us easier to add new pages.
+- Previous gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/tree/20667e8b702d408e22d3e01be223a798e5a0aa34
+  - related java class [SearchActivity]
+- Refactor gits:https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/tree/c2cfcce780541d10b256729258290589dca672fb
+  - related java class [MainActivity.java],[SearchFragment.java]
+- Solution outline: First, create a main activity to store the navigation bar and fragments. Then change the type of needed activyty,
+- at first, search activity was changed to fragment. Later, new fragment of profile, notification were added.
 
 <br> <hr>
 
@@ -282,9 +360,21 @@ Feature Category: Firebase Integration <br>
    - *Code coverage: ...*
    - *Types of tests created and descriptions: ...*
 
-2. xxx
+2. Tests for read Data-Formats
+   - Code: [DataFormatTest.java](app/src/androidTest/java/anu/cookcompass/DataFormatTest.java) for the 
+   - [ThemeColor.java](app/src/main/java/anu/cookcompass/theme/ThemeColor.java)
+   - - *Code coverage: 100 % *
+   - * Number of test cases: 4 * 
+   - *Types of tests created and descriptions: 
+     - testReadCsv(): Tests reading theme data from a CSV file with randomly generated content. 
+      Asserts that the theme list read from the file matches the expected theme names.
+     - testReadTxt(): Tests reading the theme color from a text file with randomly generated content. 
+      Asserts that the loaded theme color matches the content of the text file.
+     - testFixedCsvContent(): Tests reading theme data from a CSV file with fixed content. 
+      Asserts that the theme list read from the file matches the expected theme names and does not match unexpected names.
+     - testFixedTxtContent(): Tests reading the theme color from a text file with fixed content. 
+      Asserts that the loaded theme color matches the expected color and does not match an unexpected color.*
 
-...
 
 <br> <hr>
 

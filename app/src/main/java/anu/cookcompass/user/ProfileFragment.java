@@ -40,6 +40,12 @@ import anu.cookcompass.gps.UserLocationManager;
 import anu.cookcompass.theme.ThemeColor;
 import anu.cookcompass.theme.ThemeUpdateEvent;
 
+/**
+ * @author u7759982,Jiangbei Zhang
+ * @feature Data_Profile
+ * This method decides the logic in profileFragment, including display email address,
+ * locaiton and profile image
+ */
 public class ProfileFragment extends Fragment {
     private View rootView;
     private Spinner colorSelector;
