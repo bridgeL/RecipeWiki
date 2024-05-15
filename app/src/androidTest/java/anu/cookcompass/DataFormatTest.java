@@ -17,6 +17,9 @@ import java.util.Random;
 
 import anu.cookcompass.theme.ThemeColor;
 
+/**
+ * @author  Jiangbei Zhang,this java class aims to test data format-- read files of different types csv and txt.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class DataFormatTest {
     @Mock
@@ -79,6 +82,9 @@ public class DataFormatTest {
         Assert.assertEquals(randomTxtContent, themeColor);
     }
 
+    /**
+     * test for fixed csv content
+     */
     @Test
     public void testFixedCsvContent() throws Exception {
         String fixedCsvContent = "Theme1,#000000\nTheme2,#FFFFFF\n";
@@ -95,6 +101,9 @@ public class DataFormatTest {
         Assert.assertNotEquals(unexpectedCsvContent, themeList);
     }
 
+    /**
+     *test for some fixed txt content
+     */
     @Test
     public void testFixedTxtContent() throws Exception {
         String fixedTxtContent = "#ABCDEF";
@@ -112,6 +121,9 @@ public class DataFormatTest {
         Assert.assertNotEquals(unexpectedColor, themeColor);
     }
 
+    /**
+     * @return return generated content for csv file
+     */
     private String csvRandom() {
         StringBuilder sb = new StringBuilder();
         Random rColor = new Random();
@@ -125,9 +137,13 @@ public class DataFormatTest {
         return sb.toString().trim();
     }
 
+    /**
+     * @return return generated content for txtfile
+     */
     private String txtRandom() {
         Random rColor = new Random();
         return String.format("#%06x", rColor.nextInt(0xFFFFFF));
     }
+
 }
 

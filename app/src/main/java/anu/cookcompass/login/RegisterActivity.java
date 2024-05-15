@@ -16,6 +16,10 @@ import anu.cookcompass.Utils;
 import anu.cookcompass.theme.ThemeUpdateEvent;
 import anu.cookcompass.theme.ThemeColor;
 
+/**
+ * @author u7759982,Jiangbei Zhang
+ * This method implement reegister logic, and can create new user for the application
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     @Override

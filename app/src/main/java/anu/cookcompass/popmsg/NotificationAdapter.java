@@ -16,16 +16,26 @@ import anu.cookcompass.R;
 import anu.cookcompass.Utils;
 
 /**
- * self defined array adapter to show Pop message instance
+ * @author u7759982, Jiangbei Zhang,
+ * @feature Data-Stream
+ * This class is a self defined array adapter to show Pop message instance
  */
 public class NotificationAdapter extends ArrayAdapter<PopMsg> {
     public List<PopMsg> dataSet;//store pop message instance
 
+    /**
+     * @param context application context
+     * @param dataSet the list contains PopMsg
+     *                initialize the adapter and set context and dataSet
+     */
     public NotificationAdapter(Context context, List<PopMsg> dataSet) {
         super(context, R.layout.notification_item, dataSet);
         this.dataSet = dataSet;
     }
 
+    /**
+     * update the dataSet,clear and addAll
+     */
     public void setDataSet(List<PopMsg> popMsgs) {
         dataSet.clear();
         dataSet.addAll(popMsgs);
@@ -39,8 +49,9 @@ public class NotificationAdapter extends ArrayAdapter<PopMsg> {
         }
 
         PopMsg popMsg = getItem(position);
+        //bind the text with item
         TextView notificationText = convertView.findViewById(R.id.notification_text);
-
+        //standardize the message
         String message = String.format("[%s] %s (location: %s) %s the recipe %s.",
                 Utils.timestamp2string(popMsg.timestamp),
                 popMsg.username,
@@ -49,15 +60,7 @@ public class NotificationAdapter extends ArrayAdapter<PopMsg> {
                 popMsg.title
         );
         notificationText.setText(message);
-
-//        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) notificationText.getLayoutParams();
-////        if (position % 2 == 0) {
-////            params.gravity = Gravity.START;
-////        } else {
-////            params.gravity = Gravity.END;
-////        }
-//        notificationText.setLayoutParams(params);
-
+        //if click,just remove that item
         convertView.setOnClickListener(v -> {
             // Handle item click and dismissal
             dataSet.remove(position);
