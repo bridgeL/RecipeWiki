@@ -47,9 +47,13 @@ public class Parser {
         }
         QueryObject result = new QueryObject();
         while(tokenizer.hasNext()){
+            // the input could NOT begin with a symbol.
+            if(tokenizer.current().getType() != Token.Type.STRING){
+                return new QueryObject("Invalid search: Input not beginning with a keyword.");
+            }
             // switch the token type
-            switch(tokenizer.current().getType()){
-                case INGREDIENTS -> {
+            switch(tokenizer.current().getToken()){
+                case "ingredients" -> {
                     // no duplicated query keyword allowed
                     if(includes_ingr)
                         return new QueryObject("Invalid search: Keyword \"ingredients\" duplicated.");
@@ -71,7 +75,7 @@ public class Parser {
                         result.ingredient_keywords = array;
                     }
                 }
-                case TITLE -> {
+                case "title" -> {
                     // no duplicated query keyword allowed
                     if(includes_titl)
                         return new QueryObject("Invalid search: Keyword \"title\" duplicated.");
@@ -93,7 +97,7 @@ public class Parser {
                         result.title_keywords = array;
                     }
                 }
-                case LIKE -> {
+                case "like" -> {
                     // no duplicated query keyword allowed
                     if(includes_like)
                         return new QueryObject("Invalid search: Keyword \"like\" duplicated.");
@@ -112,7 +116,7 @@ public class Parser {
                         result.like_range = ArrayUtils.toPrimitive(array);
                     }
                 }
-                case VIEW -> {
+                case "view" -> {
                     // no duplicated query keyword allowed
                     if(includes_view)
                         return new QueryObject("Invalid search: Keyword \"view\" duplicated.");
@@ -190,11 +194,23 @@ public class Parser {
         Token.Type operator = tokenizer.current().getType();
         ArrayList<Integer> result = new ArrayList<>();
         tokenizer.next();
+
         // if no value is following the operator, or the next token is not an integer, this part is invalid.
-        if(!tokenizer.hasNext() || tokenizer.current().getType() != Token.Type.INT){
+        if(!tokenizer.hasNext()){
             return new ArrayList<>();
         }
-        int range = Integer.parseInt(tokenizer.current().getToken());
+        int range;
+        try {
+            for (int i = 0; i < tokenizer.current().getToken().length(); i++) {
+                if(!Character.isDigit(tokenizer.current().getToken().charAt(i))){
+                    return new ArrayList<>();
+                }
+            }
+        } catch (Exception e) {
+            return new ArrayList<>();   // that means the token is not an integer
+        }
+
+        range = Integer.parseInt(tokenizer.current().getToken());
         // format and return the result
         if(operator == Token.Type.BOOL_EQ){
             result.add(range);

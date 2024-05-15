@@ -34,10 +34,7 @@ public class Tokenizer {
             return;
         }
 
-        /*
-        To help you, we have already written the first few steps in the tokenization process.
-        The rest will follow a similar format.
-         */
+        // tokenizing part
         char firstChar = buffer.charAt(0);
         // bool operators
         if(firstChar == '=')
@@ -51,39 +48,21 @@ public class Tokenizer {
             currentToken =  new Token(";", Token.Type.SEMI);
         else if (firstChar == ',')
             currentToken = new Token(",", Token.Type.COMMA);
-            // recipe keywords
-        else if (buffer.startsWith("ingredients"))
-            currentToken = new Token("ingredients", Token.Type.INGREDIENTS);
-        else if (buffer.startsWith("title"))
-            currentToken = new Token("title", Token.Type.TITLE);
-            // statistic keywords
-        else if (buffer.startsWith("like"))
-            currentToken = new Token("like", Token.Type.LIKE);
-        else if (buffer.startsWith("view"))
-            currentToken = new Token("view", Token.Type.VIEW);
-            // integers
-        else if (Character.isDigit(firstChar)){
-            StringBuilder result = new StringBuilder();
-            int idx = 0;
-            while (idx < buffer.length() && Character.isDigit(buffer.charAt(idx))) {
-                result.append(buffer.charAt(idx));
-                idx++;
-            }
-            currentToken = new Token(result.toString(), Token.Type.INT);
-        }
-        // by default, consider the following word as a string
+        // consider everything apart from symbols above as a string
         else{
             StringBuilder result = new StringBuilder();
             int idx = 0;
             while(idx < buffer.length()
-                    && (buffer.charAt(idx) != ',' && buffer.charAt(idx) != ';')){
+                    && (buffer.charAt(idx) != ','
+                    && buffer.charAt(idx) != ';'
+                    && buffer.charAt(idx) != '>'
+                    && buffer.charAt(idx) != '<'
+                    && buffer.charAt(idx) != '=')){
                 result.append(buffer.charAt(idx));
                 idx++;
             }
             currentToken = new Token(result.toString(), Token.Type.STRING);
         }
-        //else
-        //throw new Token.IllegalTokenException("Invalid character \""+ firstChar + "\" detected");
 
         // Remove the extracted token from buffer
         int tokenLen = currentToken.getToken().length();
