@@ -1,6 +1,10 @@
 package anu.cookcompass.theme;
 
 /**
+ * @author u7752874, Xinlei Wen
+ * @feature Data-format
+ */
+/**
  * An event used by EventBus to broadcast theme update. Activities will update its appearance
  * according to the information carried by this event object.
  */

@@ -4,6 +4,10 @@ import android.util.Log;
 
 import java.util.List;
 
+/**
+ * @author u7760022, Xinyang Li
+ * The class is a Subject (design pattern)
+ */
 public interface Subject<T> {
     List<Observer<T>> getObservers();
 

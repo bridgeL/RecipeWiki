@@ -19,6 +19,11 @@ import anu.cookcompass.Utils;
 import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.pattern.Subject;
 
+/**
+ * @author u7760022, Xinyang Li
+ * @feature DataFiles
+ * The class is a cloud reference to synchronize the data between local and cloud
+ */
 public class CloudData<T> implements Subject<T> {
     String TAG = "CloudData";
     String path;

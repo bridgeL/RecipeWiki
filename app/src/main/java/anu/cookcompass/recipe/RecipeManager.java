@@ -18,7 +18,11 @@ import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.model.BinarySearchTree;
 
-
+/**
+ * @author u7760022, Xinyang Li
+ * @feature LoadShowData
+ * The class is back-end of LoadShowData
+ */
 public class RecipeManager implements Subject<List<Recipe>> {
     String TAG = getClass().getSimpleName();
     CloudData<List<Recipe>> cloudRecipesRef;

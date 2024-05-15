@@ -17,6 +17,10 @@ import java.util.List;
 import anu.cookcompass.R;
 import anu.cookcompass.recipe.Recipe;
 
+/**
+ * @author u7693070, Changlai Sun
+ * @feature LoadShowData
+ */
 public class RecipeAdapter extends ArrayAdapter<Recipe> {
     public RecipeAdapter(Context context, List<Recipe> recipes) {
         super(context, R.layout.list_item, recipes);

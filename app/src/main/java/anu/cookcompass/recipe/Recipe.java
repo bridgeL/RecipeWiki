@@ -4,6 +4,11 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
+/**
+ * @author u7760022, Xinyang Li
+ * @feature LoadShowData
+ * The class is Recipe
+ */
 public class Recipe implements Comparable<Recipe> {
     public int rid;
     public String title;

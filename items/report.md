@@ -37,13 +37,13 @@ Note that you should have removed ALL TEMPLATE/INSTRUCTION textes in your submis
 ## Team Members and Roles
 The key area(s) of responsibilities for each member
 
-| UID      |      Name      | Role |
-|:---------|:--------------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| u7760022 |   Xinyang Li   | Backend (Login, DataFiles, LoadShowData, DataStream, Search-Invalid, FB-Auth, FB-Persist-extension, Register) |
-| u7752874 |   Xinlei Wen   | Backend (LoadShowData, Search, Data-Formats)                                                                                                    [role] |
-| u7754676 | Tashia Tamara  | Backend (Login, Search-Filter, Data-GPS)|
-| u7759982 | Jiangbei Zhang | Frontend (Login, Data-Profile, Register)                                                                                                                                               [role] |
-| u7693070 |  Changlai Sun  | Frontend (LoadShowData, Search-Filter)                                                                                                                                                                                     [role] |
+| UID      |      Name      |                                                                                                                                                                                                                                      Role |
+|:---------|:--------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| u7760022 |   Xinyang Li   |                                                                                                                             Backend (Login, DataFiles, LoadShowData, DataStream, Search-Invalid, FB-Auth, FB-Persist-extension, Register) |
+| u7752874 |   Xinlei Wen   |                                                                                    Backend (LoadShowData, Search, Data-Formats)                                                                                                    [role] |
+| u7754676 | Tashia Tamara  |                                                                                                                                                                                                  Backend (Login, Search-Filter, Data-GPS) |
+| u7759982 | Jiangbei Zhang |                                             Frontend (Login, Data-Profile, Register)                                                                                                                                               [role] |
+| u7693070 |  Changlai Sun  | Frontend (LoadShowData, Search, Search-Filter)                                                                                                                                                                                     [role] |
 
 
 ## Summary of Individual Contributions

@@ -23,6 +23,11 @@ import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.popmsg.PopMsgManager;
 
+
+/**
+ * @author u7760022, Xinyang Li
+ * The class is UserManager
+ */
 public class UserManager implements Subject<User> {
     String TAG = "UserManager";
     public User user = new User();

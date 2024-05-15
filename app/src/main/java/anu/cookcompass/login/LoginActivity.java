@@ -24,6 +24,11 @@ import anu.cookcompass.theme.ThemeColor;
 import anu.cookcompass.recipe.RecipeManager;
 import anu.cookcompass.user.User;
 
+/**
+ * @author u7693070, Changlai Sun
+ * @feature Login
+ * The class is a Login front-end code
+ */
 public class LoginActivity extends AppCompatActivity {
     private EditText accountEditText;
     private EditText passwordEditText;

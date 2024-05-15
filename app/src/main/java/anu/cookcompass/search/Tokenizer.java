@@ -1,5 +1,10 @@
 package anu.cookcompass.search;
 
+
+/**
+ * @author u7752874, Xinlei Wen
+ * @feature Search
+ */
 /**
  * The tokenizer for tokenize user search input. Similar to the tokenizer used in the lab.
  */

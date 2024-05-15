@@ -16,6 +16,11 @@ import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.recipe.RecipeManager;
 import anu.cookcompass.searchfilter.SearchFilter;
 
+/**
+ * @author u7760022, Xinyang Li
+ * @feature Search-invalid
+ * The class is Facade (design pattern), combined basic search, search-invalid, search-filter in one service point
+ */
 public class SearchService implements Subject<List<Recipe>> {
     List<Recipe> lastRecipes = new ArrayList<>();
     List<Observer<List<Recipe>>> observers = new ArrayList<>();

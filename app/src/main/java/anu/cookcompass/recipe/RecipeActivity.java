@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -27,10 +28,15 @@ import anu.cookcompass.theme.ThemeUpdateEvent;
 import anu.cookcompass.theme.ThemeColor;
 import anu.cookcompass.user.UserManager;
 
+/**
+ * @author u7760022, Xinyang Li
+ * @feature LoadShowData
+ * The class controls the RecipeActivity and combine the data with view. front-end of LoadShowData
+ */
 public class RecipeActivity extends AppCompatActivity {
     Button likeButton;
     ImageView imageView;
-    TextView recipeTitle, recipeText1,recipeText2,recipeText3,recipeText4 , likeText, viewText;
+    TextView recipeTitle, recipeText1, recipeText2, recipeText3, recipeText4, likeText, viewText;
     Recipe currentRecipe;
 
     private Bitmap getImageFromAssetsFile(String filePath) {
@@ -92,10 +98,12 @@ public class RecipeActivity extends AppCompatActivity {
             boolean like = UserManager.getInstance().toggleLike(recipe, location);
 
             for (Recipe recipe1 : RecipeManager.getInstance().getRecipes()) {
-                if(recipe1.rid == recipe.rid){
+                if (recipe1.rid == recipe.rid) {
                     recipe1.like = recipe.like;
                     likeText.setText("Like: " + recipe.like);
                     SingletonFactory.getInstance(RecipeAdapter.class).notifyDataSetChanged();
+                    File file = new File(getFilesDir(), "recipe/recipe.json");
+                    Utils.saveJson(file, RecipeManager.getInstance().getRecipes());
                     break;
                 }
             }

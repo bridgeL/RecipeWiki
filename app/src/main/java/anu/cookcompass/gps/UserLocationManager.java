@@ -22,6 +22,12 @@ import java.util.Locale;
 
 import anu.cookcompass.pattern.SingletonFactory;
 
+
+/**
+ * @author u7754676, Tashia Tamara
+ * @feature Data-GPS
+ * The class is a GPS manager
+ */
 public class UserLocationManager implements LocationService {
     LocationManager locationManager;
     LocationListener locationListener;

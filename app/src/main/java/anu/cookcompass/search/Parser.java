@@ -5,6 +5,11 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.ArrayList;
 
 /**
+ * @author u7752874, Xinlei Wen
+ * @feature Search
+ */
+
+/**
  * A parser for parsing the result of a query from the user input to a search tree. <br>
  * The grammar is shown as follow: <br>
  * < Query > :== < Ingr-Query > < Titl-Query > < Like-Query > < View-Query > <br>

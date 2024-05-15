@@ -4,6 +4,10 @@ import android.util.Log;
 
 import java.util.HashMap;
 
+/**
+ * @author u7760022, Xinyang Li
+ * The class is a SingletonFactory (design pattern), help to implement a lot of singleton
+ */
 public class SingletonFactory {
     static String TAG = "SingletonFactory";
     static HashMap<Class<?>, Object> data = new HashMap<>();

@@ -20,15 +20,22 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.io.File;
 import java.util.List;
 
 import anu.cookcompass.R;
+import anu.cookcompass.Utils;
 import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.theme.ThemeColor;
 import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.recipe.RecipeActivity;
 import anu.cookcompass.recipe.RecipeManager;
 
+/**
+ * @author u7693070, Changlai Sun
+ * @feature Search
+ * The class is the front-end of Search
+ */
 public class SearchFragment extends Fragment {
     private RecipeAdapter adapter;
     private View rootView;
@@ -64,6 +71,9 @@ public class SearchFragment extends Fragment {
             Recipe recipe = adapter.getItem(position);
             RecipeManager.getInstance().setCurrentRecipe(recipe);
             adapter.notifyDataSetChanged();
+
+            File file = new File(getActivity().getFilesDir(), "recipe/recipe.json");
+            Utils.saveJson(file, RecipeManager.getInstance().getRecipes());
             startActivity(intent);
         });
 

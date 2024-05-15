@@ -13,7 +13,7 @@ import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.user.UserManager;
 
 public class Register {
-    String TAG = getClass().getSimpleName();
+    String TAG = "Register";
     private Register() {}
 
     public static Register getInstance() {

@@ -4,28 +4,44 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import anu.cookcompass.recipe.Recipe;
-
+/**
+ * @author u7754676, Tashia Tamara
+ * @feature Search-filter
+ * The class is the back-end of search-filter
+ */
 class RecipeIdComparator implements Comparator<Recipe> {
     @Override
     public int compare(Recipe recipe1, Recipe recipe2) {
         return recipe1.rid - recipe2.rid; //Smaller id number appears first (Ascending)
     }
 }
-
+/**
+ * @author u7754676, Tashia Tamara
+ * @feature Search-filter
+ * The class is the back-end of search-filter
+ */
 class RecipeTitleComparator implements Comparator<Recipe> {
     @Override
     public int compare(Recipe recipe1, Recipe recipe2) {
         return recipe1.title.compareTo(recipe2.title); //Alphabetical order (Ascending)
     }
 }
-
+/**
+ * @author u7754676, Tashia Tamara
+ * @feature Search-filter
+ * The class is the back-end of search-filter
+ */
 class RecipeViewComparator implements Comparator<Recipe> {
     @Override
     public int compare(Recipe recipe1, Recipe recipe2) {
         return recipe2.view - recipe1.view; //Larger view count appears first (Descending)
     }
 }
-
+/**
+ * @author u7754676, Tashia Tamara
+ * @feature Search-filter
+ * The class is the back-end of search-filter
+ */
 class RecipeLikeComparator implements Comparator<Recipe> {
     @Override
     public int compare(Recipe recipe1, Recipe recipe2) {
@@ -33,6 +49,11 @@ class RecipeLikeComparator implements Comparator<Recipe> {
     }
 }
 
+/**
+ * @author u7754676, Tashia Tamara
+ * @feature Search-filter
+ * The class is the back-end of search-filter
+ */
 public class SearchFilter {
 
     public static void heapSortByName(Recipe[] recipeArray, String criterionName, boolean isAscending) {

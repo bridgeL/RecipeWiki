@@ -14,6 +14,11 @@ import android.widget.TextView;
 
 import anu.cookcompass.R;
 
+/**
+ * @author u7693070, Changlai Sun
+ * @feature Search-Filter
+ * The class controls the FilterFragment and combine the data with view. front-end of Search-Filter
+ */
 public class FilterFragment extends Fragment {
 
     private Button idBtn, titleBtn, viewBtn, likeBtn;

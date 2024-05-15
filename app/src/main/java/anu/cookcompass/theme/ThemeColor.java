@@ -15,6 +15,10 @@ import java.util.Objects;
 import anu.cookcompass.Utils;
 
 /**
+ * @author u7752874, Xinlei Wen
+ * @feature Data-format
+ */
+/**
  * A singleton class that stores the theme color of the application.
  */
 public class ThemeColor {

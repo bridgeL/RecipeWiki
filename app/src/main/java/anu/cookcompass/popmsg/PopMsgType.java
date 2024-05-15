@@ -1,5 +1,9 @@
 package anu.cookcompass.popmsg;
 
+/**
+ * @author u7760022, Xinyang Li
+ * The class is PopMsgType
+ */
 public enum PopMsgType {
     UNLIKE("unlike"),
     LIKE("like");

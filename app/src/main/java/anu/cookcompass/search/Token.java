@@ -3,6 +3,12 @@ package anu.cookcompass.search;
 import androidx.annotation.NonNull;
 
 import java.util.Objects;
+
+/**
+ * @author u7752874, Xinlei Wen
+ * @feature Search
+ */
+
 /**
  * Token class to save extracted token from tokenizer.
  * Each token has its surface form saved in {@code token}

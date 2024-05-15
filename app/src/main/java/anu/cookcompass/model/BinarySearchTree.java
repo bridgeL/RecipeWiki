@@ -3,6 +3,10 @@ package anu.cookcompass.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author u7760022, Xinyang Li
+ * The class is a BinarySearchTree (data structure)
+ */
 public class BinarySearchTree<T extends Comparable<T>> {
     public static class TreeNode<T extends Comparable<T>> {
         T val;

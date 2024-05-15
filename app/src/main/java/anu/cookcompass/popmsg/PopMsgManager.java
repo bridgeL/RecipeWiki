@@ -12,6 +12,10 @@ import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.pattern.Subject;
 
+/**
+ * @author u7760022, Xinyang Li
+ * The class is PopMsgManager as the back-end of notification page
+ */
 public class PopMsgManager implements Subject<List<PopMsg>> {
     String TAG = "PopMsgManager";
     public List<PopMsg> popMsgs = new ArrayList<>();

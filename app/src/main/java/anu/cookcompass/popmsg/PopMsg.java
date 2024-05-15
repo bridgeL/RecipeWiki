@@ -1,5 +1,11 @@
 package anu.cookcompass.popmsg;
 
+
+/**
+ * @author u7760022, Xinyang Li
+ * @feature LoadShowData
+ * The class is PopMsg for pop message
+ */
 public class PopMsg {
     public String uid = "uid";
     public String username = "username";

@@ -1,5 +1,11 @@
 package anu.cookcompass.search;
 
+
+/**
+ * @author u7752874, Xinlei Wen
+ * @feature Search
+ */
+
 /**
  * The object that stores a recipe query. This class is the output of the search parser, which
  * delivers the information in the user input to search module.

@@ -11,9 +11,14 @@ import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.user.UserManager;
 
-
+/**
+ * @author u7760022, Xinyang Li
+ * @author u7754676, Tashia Tamara
+ * @feature Login
+ * The class is a Login back-end code
+ */
 public class Login {
-    String TAG = getClass().getSimpleName();
+    String TAG = "Login";
 
     private Login() {
     }

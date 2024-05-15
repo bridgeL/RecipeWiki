@@ -10,6 +10,11 @@ import anu.cookcompass.popmsg.PopMsg;
 import anu.cookcompass.popmsg.PopMsgType;
 import anu.cookcompass.popmsg.PopMsgManager;
 
+/**
+ * @author u7760022, Xinyang Li
+ * @feature Data-stream
+ * The class is a UserSimulator to simulate a user likes a recipe
+ */
 public class UserSimulator {
     public static UserSimulator getInstance() {
         return SingletonFactory.getInstance(UserSimulator.class);

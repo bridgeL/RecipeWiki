@@ -1,5 +1,11 @@
 package anu.cookcompass.login;
 
+
+/**
+ * @author u7760022, Xinyang Li
+ * @feature Login
+ * The class is a Login Response
+ */
 public class Response {
     public boolean successful;
     public String message;

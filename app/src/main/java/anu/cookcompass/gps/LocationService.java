@@ -7,6 +7,12 @@ import android.location.Location;
 //This is the Data-GPS feature
 
 //Interface LocationService defines a method to get the user's location.
+
+/**
+ * @author u7754676, Tashia Tamara
+ * @feature Data-GPS
+ * The class is a GPS interface
+ */
 public interface LocationService {
 
     //Nested interface LocationCallback contains the currentLocation method to receive the retrieved location

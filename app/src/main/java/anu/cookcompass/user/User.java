@@ -8,6 +8,10 @@ import java.util.Objects;
 
 import anu.cookcompass.Utils;
 
+/**
+ * @author u7760022, Xinyang Li
+ * The class is User
+ */
 public class User {
     public String uid = "";
     public String username = "";
