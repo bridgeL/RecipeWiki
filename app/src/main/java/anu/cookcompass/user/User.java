@@ -19,24 +19,4 @@ public class User {
     public String toString() {
         return Utils.toJson(this);
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;  // Check if the references point to the same object
-        if (o == null || getClass() != o.getClass())
-            return false;  // Check for null and ensure exact class match
-
-        User user = (User) o;  // Type casting
-
-        // Compare all fields
-        if (!uid.equals(user.uid)) return false;
-        if (!username.equals(user.username)) return false;
-        if (!imageUrl.equals(user.imageUrl)) return false;
-        return Utils.ArraysEqual(likes, user.likes);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, username, imageUrl, likes);  // Generate hash code
-    }
 }

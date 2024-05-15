@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,6 @@ import anu.cookcompass.theme.ThemeUpdateEvent;
 public class ProfileFragment extends Fragment {
     private View rootView;
     private Spinner colorSelector;
-    private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imageView;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
@@ -81,9 +81,11 @@ public class ProfileFragment extends Fragment {
         //initialize imagePickLauncher
         imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                Uri imageUri = result.getData().getData();
-                UserManager.getInstance().uploadProfileImage(imageUri);
-                setImageView(imageUri);
+                Uri file = result.getData().getData();
+                UserManager.getInstance().uploadProfileImage(file);
+//                Log.e("JUSTDEBUG", imageUri.toString());
+//                setImageView(Uri.parse(imageUri.toString()));
+                setImageView(file);
             }
         });
 
@@ -131,6 +133,7 @@ public class ProfileFragment extends Fragment {
         });
 
         userManager.addObserver(user -> {
+            Log.e("JUSTDEBUG", user.imageUrl);
             setImageView(Uri.parse(user.imageUrl));
             emailAddressTextView.setText(userManager.user.username);
         });

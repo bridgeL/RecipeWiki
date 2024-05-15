@@ -122,7 +122,7 @@ public class UserManager implements Subject<User> {
 
             cloudUser.addObserver(data -> {
                 // user is totally same to cloudUser, there is no need to synchronize
-                if (user.equals(data)) return;
+//                if (user.equals(data)) return;
 
                 // synchronize data
                 user = data;
