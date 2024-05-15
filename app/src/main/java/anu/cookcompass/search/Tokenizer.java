@@ -12,15 +12,13 @@ package anu.cookcompass.search;
 public class Tokenizer {
     private String buffer;
     private Token currentToken;
-    private boolean hasKeywordBefore = false;
 
     /**
      * Tokenizer constructor. Initialize the tokenizer with search input. Should be called by
      * the search model.
-     *
      * @param text The search input from the user.
      */
-    public Tokenizer(String text) {
+    public Tokenizer(String text){
         buffer = text;
         next();
     }
@@ -28,7 +26,7 @@ public class Tokenizer {
     /**
      * Asks the tokenizer to extract the next token. Results will be saved to
      */
-    public void next() {
+    public void next(){
         buffer = buffer.trim();     // remove whitespace at the beginning
 
         if (buffer.isEmpty()) {
@@ -42,38 +40,29 @@ public class Tokenizer {
          */
         char firstChar = buffer.charAt(0);
         // bool operators
-        if (firstChar == '=')
+        if(firstChar == '=')
             currentToken = new Token("=", Token.Type.BOOL_EQ);
         else if (firstChar == '>')
-            currentToken = new Token(">", Token.Type.BOOL_GT);
+            currentToken =  new Token(">", Token.Type.BOOL_GT);
         else if (firstChar == '<')
-            currentToken = new Token("<", Token.Type.BOOL_LT);
+            currentToken =  new Token("<", Token.Type.BOOL_LT);
             // semicolon and comma
-        else if (firstChar == ';') {
-            currentToken = new Token(";", Token.Type.SEMI);
-            hasKeywordBefore = false;
-        } else if (firstChar == ',')
+        else if (firstChar == ';')
+            currentToken =  new Token(";", Token.Type.SEMI);
+        else if (firstChar == ',')
             currentToken = new Token(",", Token.Type.COMMA);
-
             // recipe keywords
-        else if (!hasKeywordBefore && buffer.startsWith("ingredients")) {
+        else if (buffer.startsWith("ingredients"))
             currentToken = new Token("ingredients", Token.Type.INGREDIENTS);
-            hasKeywordBefore = true;
-        } else if (!hasKeywordBefore && buffer.startsWith("title")) {
+        else if (buffer.startsWith("title"))
             currentToken = new Token("title", Token.Type.TITLE);
-            hasKeywordBefore = true;
-        }
-        // statistic keywords
-        else if (!hasKeywordBefore && buffer.startsWith("like")) {
+            // statistic keywords
+        else if (buffer.startsWith("like"))
             currentToken = new Token("like", Token.Type.LIKE);
-            hasKeywordBefore = true;
-        } else if (!hasKeywordBefore && buffer.startsWith("view")) {
+        else if (buffer.startsWith("view"))
             currentToken = new Token("view", Token.Type.VIEW);
-            hasKeywordBefore = true;
-        }
-
-        // integers
-        else if (Character.isDigit(firstChar)) {
+            // integers
+        else if (Character.isDigit(firstChar)){
             StringBuilder result = new StringBuilder();
             int idx = 0;
             while (idx < buffer.length() && Character.isDigit(buffer.charAt(idx))) {
@@ -82,13 +71,12 @@ public class Tokenizer {
             }
             currentToken = new Token(result.toString(), Token.Type.INT);
         }
-
         // by default, consider the following word as a string
-        else {
+        else{
             StringBuilder result = new StringBuilder();
             int idx = 0;
-            while (idx < buffer.length()
-                    && (isCharacter(buffer.charAt(idx)))) {
+            while(idx < buffer.length()
+                    && (buffer.charAt(idx) != ',' && buffer.charAt(idx) != ';')){
                 result.append(buffer.charAt(idx));
                 idx++;
             }
@@ -102,18 +90,11 @@ public class Tokenizer {
         buffer = buffer.substring(tokenLen);
     }
 
-    boolean isCharacter(char a) {
-        if (a >= 'a' && a <= 'z') return true;
-        if (a >= 'A' && a <= 'Z') return true;
-//        if (a == ' ') return true;
-        return false;
-    }
-
-    public Token current() {
+    public Token current(){
         return currentToken;
     }
 
-    public boolean hasNext() {
+    public boolean hasNext(){
         return currentToken != null;
     }
 }
