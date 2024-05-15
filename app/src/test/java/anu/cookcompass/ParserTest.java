@@ -71,6 +71,15 @@ public class ParserTest {
         assertTrue(parseResult.queryInvalid);
     }
 
+    @Test
+    public void test_special_case6() {
+        Tokenizer tokenizer = new Tokenizer("title=apple,   title0;");
+        Parser parser = new Parser(tokenizer);
+        QueryObject parseResult = parser.parseQuery();
+        assertFalse(parseResult.queryInvalid);
+        assertArrayEquals(new String[]{"apple", "title0"}, parseResult.title_keywords);
+    }
+
 //    @Test
 //    public void test_simple_case() {
 //        Tokenizer tokenizer = new Tokenizer(simple_query1);
