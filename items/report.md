@@ -226,13 +226,32 @@ Here is a partial (short) example for the subsection `Data Structures`:*
 
 Production Rules:
 
-    <Non-Terminal> ::= <some output>
-    <Non-Terminal> ::= <some output>
+```#
+    <Query> ::= <Ingr-Query> <Titl-Query> <Like-Query> <View-Query>
+    <Ingr-Query> ::= ingredients = <Names>; | EMPTY
+    <Titl-Query> ::= title = <Names>; | EMPTY
+    <Like-Query> ::= like <BoolOperator> INTEGER ; | EMPTY
+    <View-Query> ::= view <BoolOperator> INTEGER ; | EMPTY
+    <Names> ::== STRING | STRING , <Names>
+    <BoolOperator> ::=  > | <  | = 
+```
+Note that in this grammar, query to any data type (ingredients, title, etc.) could not appear more than once, and must follow the order given by the first equation.
 
+This grammar is designed to support searching certain recipe with given title or ingredients, and do filtering on the like or view number. By applying this grammar, we could not only search keywords, but also filtering the result, which makes the filtering page clearer.
+
+Specifically, in the actual application, a search invalid feature is implemented, allows user to search with an input that does not fully satisfies this grammar. However, this feature is not implemented in parser. For testing the parser, a fully correct input is still required.
+
+<br>
 
 ### <u>Tokenizers and Parsers</u>
 
 *[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
+
+We implemented one tokenizer and one parser in our application, which is used as a supportive module of the searching functionality (see `Tokenizer.java` and `Parser.java` in package `search`). No external libraries that provides tokenizing or parsing are used, and the implementation has a simiilar format as the one provided in labs.
+
+In a searching process, user enters their need formatted in the formal grammar shown above, and the tokenizer and parser will then be called, creating an object that contains every information in the input (object `QueryObject`). The search module only handles this query object.
+
+By using a tokenizer and parser, it is easier to parse search inputs, enabling a clear filtering rule for the search module to perform its task. Besides, it separates the raw input from the frontend with the search interface in the backend, protects the search module from invalid inputs.
 
 <hr>
 
