@@ -13,7 +13,6 @@ import anu.cookcompass.search.Tokenizer;
  */
 public class TokenizerTest {
     static String simple_query1 = "ingredients = apple, orange; title = apple for day";
-    static String simple_q2 = "like > 15";
     @Test
     public void test_simple_case(){
         Tokenizer tokenizer = new Tokenizer(simple_query1);
@@ -23,5 +22,17 @@ public class TokenizerTest {
             tokenizer.next();
         }
         assertEquals("ingredients=apple,orange;title=apple for day", result.toString());
+    }
+
+    @Test
+    public void test_simple_case2(){
+        Tokenizer tokenizer = new Tokenizer("apple < 10");
+        String result = "";
+        while(tokenizer.hasNext()){
+            result += tokenizer.current().getToken();
+            System.out.println(tokenizer.current().getToken());
+            tokenizer.next();
+        }
+        assertEquals("apple<10", result);
     }
 }

@@ -163,7 +163,7 @@ public class SearchFragment extends Fragment {
 
     private void updateSearchResults(String query) {
         SearchService.getInstance().query = query;
-        SearchService.getInstance().search(getContext());
+        SearchService.getInstance().searchAndShow();
     }
 
     @Override

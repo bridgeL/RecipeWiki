@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
             String password2 = secondPassword.getText().toString();
 
             Register.getInstance().register(account, password1, password2, res -> {
-                Utils.showShortToast(this, res.message);
+                Utils.showShortToast(res.message);
                 if (res.successful)
                     finish(); // Destroy the current activity and return to login page
             });

@@ -47,26 +47,26 @@ public class FilterFragment extends Fragment {
         SearchService searchService = SearchService.getInstance();
         idBtn.setOnClickListener(l -> {
             searchService.sortType = "id";
-            searchService.search(getContext());
+            searchService.searchAndShow();
         });
         titleBtn.setOnClickListener(l -> {
             searchService.sortType = "title";
-            searchService.search(getContext());
+            searchService.searchAndShow();
         });
         viewBtn.setOnClickListener(l -> {
             searchService.sortType = "view";
-            searchService.search(getContext());
+            searchService.searchAndShow();
         });
         likeBtn.setOnClickListener(l -> {
             searchService.sortType = "like";
-            searchService.search(getContext());
+            searchService.searchAndShow();
         });
 
         sortToggle.setOnClickListener(v -> {
                 searchService.isDescending = !searchService.isDescending;
                 sortToggle.setImageResource(searchService.isDescending ? R.drawable.ic_sort_desc : R.drawable.ic_sort_asc);
                 sortToggleText.setText(searchService.isDescending ? R.string.sort_descending: R.string.sort_ascending);
-                searchService.search(getContext());
+                searchService.searchAndShow();
         });
 
         sortToggle.setImageResource(searchService.isDescending ? R.drawable.ic_sort_desc : R.drawable.ic_sort_asc);

@@ -5,6 +5,7 @@ package anu.cookcompass.search;
  * @author u7752874, Xinlei Wen
  * @feature Search
  */
+
 /**
  * The tokenizer for tokenize user search input. Similar to the tokenizer used in the lab.
  */
@@ -87,7 +88,7 @@ public class Tokenizer {
             StringBuilder result = new StringBuilder();
             int idx = 0;
             while (idx < buffer.length()
-                    && (buffer.charAt(idx) != ',' && buffer.charAt(idx) != ';')) {
+                    && (isCharacter(buffer.charAt(idx)))) {
                 result.append(buffer.charAt(idx));
                 idx++;
             }
@@ -99,6 +100,13 @@ public class Tokenizer {
         // Remove the extracted token from buffer
         int tokenLen = currentToken.getToken().length();
         buffer = buffer.substring(tokenLen);
+    }
+
+    boolean isCharacter(char a) {
+        if (a >= 'a' && a <= 'z') return true;
+        if (a >= 'A' && a <= 'Z') return true;
+//        if (a == ' ') return true;
+        return false;
     }
 
     public Token current() {

@@ -110,10 +110,10 @@ public class ProfileFragment extends Fragment {
             userSimulator.toggleStart();
             if (userSimulator.started) {
                 button.setText("Stop Data Stream");
-                Utils.showShortToast(getContext(), "data stream start!");
+                Utils.showShortToast("data stream start!");
             } else {
                 button.setText("Start Data Stream");
-                Utils.showShortToast(getContext(), "data stream stop!");
+                Utils.showShortToast("data stream stop!");
             }
         });
 

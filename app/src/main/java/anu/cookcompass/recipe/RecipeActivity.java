@@ -110,10 +110,10 @@ public class RecipeActivity extends AppCompatActivity {
 
             if (like) {
                 likeButton.setText("Unlike!");
-                Utils.showShortToast(this, "you like it successfully!");
+                Utils.showShortToast("you like it successfully!");
             } else {
                 likeButton.setText("Like!");
-                Utils.showShortToast(this, "you cancel like successfully!");
+                Utils.showShortToast("you cancel like successfully!");
             }
         });
 

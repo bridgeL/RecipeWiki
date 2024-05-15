@@ -23,13 +23,6 @@ import java.util.ArrayList;
  * IMPORTANT: in this grammar, we don't allow any query (e.g., < Reci-Query >) to appear more than once.
  */
 public class Parser {
-    /**
-     * Exception to be thrown when the query read from user input is invalid.
-     */
-    public static class IllegalQueryException extends IllegalArgumentException{
-        public IllegalQueryException(String message) {super(message);}
-    }
-
     Tokenizer tokenizer;
     // boolean variables that states which part has already been read.
     boolean includes_ingr, includes_titl, includes_like, includes_view;

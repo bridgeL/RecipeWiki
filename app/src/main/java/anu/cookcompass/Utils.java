@@ -38,18 +38,18 @@ import java.util.Objects;
  * Features include random integer generation, string manipulation, toast messages, page switching,
  * timestamp conversion, and file operations.
  *
- * @version 1.0
- * @author
- * u7760022, Xinyang Li
+ * @author u7760022, Xinyang Li
  * u7752874, Xinlei Wen
+ * @version 1.0
  * @feature Data-format
  */
 public class Utils {
 
     /**
      * Generates a random integer between the specified start (inclusive) and end (exclusive).
+     *
      * @param start the starting value (inclusive)
-     * @param end the ending value (exclusive)
+     * @param end   the ending value (exclusive)
      * @return a random integer between start and end
      */
     public static int randInt(int start, int end) {
@@ -60,7 +60,8 @@ public class Utils {
 
     /**
      * Cuts a string to the specified maximum length.
-     * @param str the string to be cut
+     *
+     * @param str       the string to be cut
      * @param maxLength the maximum length of the string
      * @return the cut string
      */
@@ -70,49 +71,28 @@ public class Utils {
         return str;
     }
 
-    // Singleton Toast object to prevent multiple toasts from stacking.
-    private static Toast mToast;
-    static Context context;
-
-    /**
-     * Displays a toast message.
-     * @param mContext the context in which the toast should be displayed
-     * @param text the message to be displayed
-     * @param duration the duration of the toast (Toast.LENGTH_SHORT or Toast.LENGTH_LONG)
-     */
-    public static void showToast(Context mContext, String text, int duration) {
-        if (mToast == null) {
-            // Create a new Toast if none exists.
-            mToast = Toast.makeText(mContext, text, duration);
-        } else {
-            // Update the existing Toast with the new text.
-            mToast.setText(text);
-        }
-        // Show the Toast.
-        mToast.show();
-    }
-
     /**
      * Displays a short toast message.
-     * @param context the context in which the toast should be displayed
+     *
      * @param message the message to be displayed
      */
-    public static void showShortToast(Context context, String message) {
-        showToast(context, message, Toast.LENGTH_SHORT);
+    public static void showShortToast(String message) {
+        MyToast.getInstance().showToast(message, Toast.LENGTH_SHORT);
     }
 
     /**
      * Displays a long toast message.
-     * @param context the context in which the toast should be displayed
+     *
      * @param message the message to be displayed
      */
-    public static void showLongToast(Context context, String message) {
-        showToast(context, message, Toast.LENGTH_LONG);
+    public static void showLongToast(String message) {
+        MyToast.getInstance().showToast(message, Toast.LENGTH_LONG);
     }
 
     /**
      * Switches to a new activity.
-     * @param first the current activity
+     *
+     * @param first       the current activity
      * @param secondClass the class of the activity to switch to
      */
     public static void switchPage(Activity first, Class<? extends Activity> secondClass) {
@@ -124,6 +104,7 @@ public class Utils {
 
     /**
      * Converts a Unix timestamp to a formatted string.
+     *
      * @param timestamp the Unix timestamp
      * @return the formatted date and time string
      */
@@ -138,6 +119,7 @@ public class Utils {
 
     /**
      * Gets the current Unix timestamp.
+     *
      * @return the current Unix timestamp
      */
     public static int getTimestamp() {
@@ -147,7 +129,8 @@ public class Utils {
 
     /**
      * Copies a file from the assets folder to the app's internal storage.
-     * @param context the context of the application
+     *
+     * @param context  the context of the application
      * @param fileName the name of the file to copy
      * @return the copied file
      */
@@ -185,6 +168,7 @@ public class Utils {
 
     /**
      * Reads a CSV file and returns the data as a list of string arrays.
+     *
      * @param file the CSV file to read
      * @return a list of string arrays containing the CSV data
      */
@@ -210,6 +194,7 @@ public class Utils {
 
     /**
      * Reads a text file and returns the data as a list of strings.
+     *
      * @param file the text file to read
      * @return a list of strings containing the file data
      */
@@ -238,8 +223,9 @@ public class Utils {
 
     /**
      * Reads a JSON file and converts it to a specified object type.
-     * @param <T> the type of the object to return
-     * @param file the JSON file to read
+     *
+     * @param <T>       the type of the object to return
+     * @param file      the JSON file to read
      * @param typeToken the type token representing the object type
      * @return the object read from the JSON file
      */
@@ -263,6 +249,7 @@ public class Utils {
 
     /**
      * Converts an object to a JSON string.
+     *
      * @param data the object to convert
      * @return the JSON string representation of the object
      */
@@ -275,6 +262,7 @@ public class Utils {
 
     /**
      * Converts an object to a JSON string and saves it to a file.
+     *
      * @param file the file to save the JSON data to
      * @param data the object to convert and save
      */

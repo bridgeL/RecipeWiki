@@ -2,27 +2,21 @@ package anu.cookcompass.login;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.GenericTypeIndicator;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.HashMap;
-
 import anu.cookcompass.MainActivity;
+import anu.cookcompass.MyToast;
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
-import anu.cookcompass.firebase.CloudData;
-import anu.cookcompass.theme.ThemeUpdateEvent;
-import anu.cookcompass.theme.ThemeColor;
 import anu.cookcompass.recipe.RecipeManager;
-import anu.cookcompass.user.User;
+import anu.cookcompass.theme.ThemeColor;
+import anu.cookcompass.theme.ThemeUpdateEvent;
 
 /**
  * @author u7693070, Changlai Sun
@@ -63,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             String account = accountEditText.getText().toString();
             String password = passwordEditText.getText().toString();
             login.login(account, password, res -> {
-                Utils.showShortToast(this, res.message);
+                Utils.showShortToast(res.message);
                 // if successful, show the search page (main page)
                 if (res.successful) Utils.switchPage(this, MainActivity.class);
             });
@@ -77,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         // quick login button click event
         quickLoginButton.setOnClickListener(v -> {
             login.login("comp6442@anu.edu.au", "comp6442", res -> {
-                Utils.showShortToast(this, res.message);
+                Utils.showShortToast(res.message);
                 // if successful, show the search page (main page)
                 if (res.successful) Utils.switchPage(this, MainActivity.class);
             });
@@ -86,6 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         // ======================================
         // other initial code
         // ======================================
+
+        MyToast.getInstance().init(this.getApplicationContext());
 
         // recipes load
         RecipeManager.getInstance().loadRecipes(this);

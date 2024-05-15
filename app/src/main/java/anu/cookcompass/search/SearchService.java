@@ -3,6 +3,8 @@ package anu.cookcompass.search;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,56 +48,69 @@ public class SearchService implements Subject<List<Recipe>> {
         return parser.parseQuery();
     }
 
-    public void search(Context context) {
+    public void searchAndShow() {
+        List<Recipe> recipes = search(query, sortType, isDescending, RecipeManager.getInstance().getRecipes());
+        lastRecipes = recipes;
+        notifyAllObservers(recipes);
+    }
+
+    public List<Recipe> search(String query, String sortType, boolean isDescending, List<Recipe> recipes) {
         // search
-        List<Recipe> recipes = innerSearch(context, query);
-        if (recipes == null) {
-            notifyAllObservers(lastRecipes);
-            return;
-        }
+        List<Recipe> recipes1 = searchByInformalQuery(query, recipes, lastRecipes);
 
         // sort
-        Recipe[] recipes2 = new Recipe[recipes.size()];
-        for (int i = 0; i < recipes.size(); i++) {
-            recipes2[i] = recipes.get(i);
+        return recipeSort(sortType, isDescending, recipes1);
+    }
+
+    public List<Recipe> recipeSort(String sortType, boolean isDescending, List<Recipe> recipes1) {
+        Recipe[] recipes2 = new Recipe[recipes1.size()];
+        for (int i = 0; i < recipes1.size(); i++) {
+            recipes2[i] = recipes1.get(i);
         }
         if (!isDescending) {
             SearchFilter.heapSortByName(recipes2, sortType, false);
         } else {
             SearchFilter.heapSortByName(recipes2, sortType, true);
         }
-        recipes.clear();
-        recipes.addAll(Arrays.asList(recipes2));
-        notifyAllObservers(recipes);
+        return Arrays.asList(recipes2);
     }
 
-    public List<Recipe> innerSearch(Context context, String query) {
-        List<Recipe> recipes = RecipeManager.getInstance().getRecipes();
-
+    public List<Recipe> searchByInformalQuery(String query, List<Recipe> recipes, List<Recipe> lastRecipes) {
+        // trim
         query = query.trim();
 
         // if query is empty, return all data
         if (query.isEmpty()) {
-            Utils.showShortToast(context, "get " + recipes.size() + " results");
+            Utils.showShortToast("get " + recipes.size() + " results");
             return recipes;
         }
 
-        // feature: search invalid
+        // if last one if not ; ;
         if (query.charAt(query.length() - 1) != ';') query = query + ";";
-        QueryObject temp = parseQuery(query);
-
-        if (temp.queryInvalid) {
-            query = "title=" + query;
-            temp = parseQuery(query);
+        try {
+            return searchByQuery(query, recipes);
+        } catch (Exception e) {
         }
 
-        QueryObject queryObject = temp;
+        // if not contains keyword
+        try {
+            query = "title=" + query;
+            return searchByQuery(query, recipes);
+        } catch (Exception e) {
 
-        // if still invalid, show error message
+            // if it is still wrong, return last results
+            Log.w("query", e.getMessage());
+            Utils.showShortToast(e.getMessage());
+            return lastRecipes;
+        }
+    }
+
+    public List<Recipe> searchByQuery(String query, List<Recipe> recipes) throws Exception {
+        QueryObject queryObject = parseQuery(query);
+
+        // show error message
         if (queryObject.queryInvalid) {
-            Utils.showShortToast(context, queryObject.errorMessage);
-            Log.e("query", queryObject.errorMessage);
-            return null;
+            throw new Exception(queryObject.errorMessage);
         }
 
         // get search results
@@ -127,7 +142,7 @@ public class SearchService implements Subject<List<Recipe>> {
         }).collect(Collectors.toList());
 
         // show number of results
-        Utils.showShortToast(context, "get " + searchResults.size() + " results");
+        Utils.showShortToast("get " + searchResults.size() + " results");
 
         return searchResults;
     }
