@@ -3,14 +3,12 @@ package anu.cookcompass.user;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,22 +29,25 @@ import com.bumptech.glide.Glide;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import anu.cookcompass.MainActivity;
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;
-import anu.cookcompass.theme.ThemeUpdateEvent;
 import anu.cookcompass.datastream.UserSimulator;
 import anu.cookcompass.gps.UserLocationManager;
 import anu.cookcompass.theme.ThemeColor;
-import anu.cookcompass.theme.ThemeType;
+import anu.cookcompass.theme.ThemeUpdateEvent;
 
+/**
+ * @author u7759982,Jiangbei Zhang
+ * @feature Data_Profile
+ * This method decides the logic in profileFragment, including display email address,
+ * locaiton and profile image
+ */
 public class ProfileFragment extends Fragment {
     private View rootView;
     private Spinner colorSelector;
-    private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imageView;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
@@ -91,7 +92,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        String[] themeList = Arrays.stream(ThemeType.values()).map(Enum::toString).toArray(String[]::new);
+        String[] themeList = ThemeColor.getThemeList();
         ArrayAdapter<String> themeAdapter = new ArrayAdapter<>(this.requireActivity(), android.R.layout.simple_list_item_1, themeList);
 
         // ======================================
@@ -102,8 +103,15 @@ public class ProfileFragment extends Fragment {
 
         // data stream start
         button.setOnClickListener(l -> {
-            UserSimulator.start();
-            Utils.showLongToast(getContext(), "data stream start!");
+            UserSimulator userSimulator = UserSimulator.getInstance();
+            userSimulator.toggleStart();
+            if (userSimulator.started) {
+                button.setText("Stop Data Stream");
+                Utils.showShortToast(getContext(), "data stream start!");
+            } else {
+                button.setText("Start Data Stream");
+                Utils.showShortToast(getContext(), "data stream stop!");
+            }
         });
 
         // listeners of spinner
@@ -111,19 +119,12 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // change theme color
-                String colorValue = null;
-                switch (ThemeType.values()[position]) {
-                    case Default -> colorValue = "#FFB241";
-                    case White -> colorValue = "#FFFFFF";
-                    case Gold -> colorValue = "#FFD700";
-                    default ->
-                            Log.e("ProfileFragment", "Some problem may have occurred when selecting theme colour.");
-                }
+                String themeName = (String) colorSelector.getSelectedItem();
+                String colorValue = ThemeColor.findColorByName(themeName);  // retrieve color value
                 rootView.setBackgroundColor(Color.parseColor(colorValue));
                 EventBus.getDefault().post(new ThemeUpdateEvent(colorValue));
                 ThemeColor.setThemeColor(colorValue);
                 ThemeColor.writeTheme();    // write new color value into file
-                // for bug avoidance, still set ThemeConfig
                 MainActivity mainActivity = (MainActivity) getActivity();
                 assert mainActivity != null;
             }
@@ -149,7 +150,7 @@ public class ProfileFragment extends Fragment {
         // set spinner: set the selected element being the current theme
         colorSelector.setAdapter(themeAdapter);
         for (int i = 0; i < themeAdapter.getCount(); i++) {
-            if (Objects.equals(themeAdapter.getItem(i), ThemeColor.getThemeName().toString())) {
+            if (Objects.equals(themeAdapter.getItem(i), ThemeColor.getThemeName())) {
                 //
                 colorSelector.setSelection(i);
                 break;
@@ -164,20 +165,20 @@ public class ProfileFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * This function will show a new window with two options, one to upload image, another to close the window
+     */
     private void showImageOptions() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Choose");
-        builder.setItems(new String[]{"upload image", "close"}, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        openImagePicker();
-                        break;
-                    case 1:
-                        dialog.dismiss();
-                        break;
-                }
+        builder.setItems(new String[]{"upload image", "close"}, (dialog, which) -> {
+            switch (which) {
+                case 0:
+                    openImagePicker();
+                    break;
+                case 1:
+                    dialog.dismiss();
+                    break;
             }
         });
         builder.show();
@@ -197,7 +198,8 @@ public class ProfileFragment extends Fragment {
 
     //get location
     private void getLocationAndUpdateAddress() {
-        UserLocationManager locationManager = new UserLocationManager((LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE));
+        UserLocationManager locationManager = UserLocationManager.getInstance();
+        locationManager.init((LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE));
         locationManager.getLocation(getActivity(), location -> {
             String locationString = locationManager.decodeLocation(getActivity(), location);
             TextView countryAddressTextView = rootView.findViewById(R.id.countryAddressTextView);
@@ -205,6 +207,9 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    /**
+     * open image picker of local resource manager
+     */
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         imagePickerLauncher.launch(intent);

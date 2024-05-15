@@ -7,11 +7,11 @@ import java.util.ArrayList;
 /**
  * A parser for parsing the result of a query from the user input to a search tree. <br>
  * The grammar is shown as follow: <br>
- * < Query > :== < Ingr-Query > < Titl-Query > < Like-Query > < Collect-Query > <br>
+ * < Query > :== < Ingr-Query > < Titl-Query > < Like-Query > < View-Query > <br>
  * < Ingr-Query > :== ingredients = < Names >; | EMPTY <br>
  * < Titl-Query > :== title = < Names >; | EMPTY<br>
  * < Like-Query > :== like < BoolOperator > INTEGER ; | EMPTY<br>
- * < Collect-Query > :== collect < BoolOperator > INTEGER ; | EMPTY<br>
+ * < View-Query > :== view < BoolOperator > INTEGER ; | EMPTY<br>
  * < Names > :== STRING | STRING , < Names ><br>
  * < BoolOperator > :==  > | <  | = <br>
  * <br>
@@ -27,7 +27,7 @@ public class Parser {
 
     Tokenizer tokenizer;
     // boolean variables that states which part has already been read.
-    boolean includes_ingr, includes_titl, includes_like, includes_collect;
+    boolean includes_ingr, includes_titl, includes_like, includes_view;
     int currentProgress = 0;    // marks which keyword the parser is now in
 
     public Parser(Tokenizer tokenizer) {
@@ -35,7 +35,7 @@ public class Parser {
         includes_ingr = false;
         includes_titl = false;
         includes_like = false;
-        includes_collect = false;
+        includes_view = false;
     }
 
     /**
@@ -55,7 +55,7 @@ public class Parser {
                     // no duplicated query keyword allowed
                     if(includes_ingr)
                         return new QueryObject("Invalid search: Keyword \"ingredients\" duplicated.");
-                    else if(includes_titl || includes_like || includes_collect)
+                    else if(includes_titl || includes_like || includes_view)
                         return new QueryObject("Invalid search: Incorrect position for keyword \"ingredients\".");
                     includes_ingr = true;
                     // check format correctness
@@ -77,7 +77,7 @@ public class Parser {
                     // no duplicated query keyword allowed
                     if(includes_titl)
                         return new QueryObject("Invalid search: Keyword \"title\" duplicated.");
-                    else if(includes_like || includes_collect)
+                    else if(includes_like || includes_view)
                         return new QueryObject("Invalid search: Incorrect position for keyword \"title\".");
                     includes_titl = true;
                     // check format correctness
@@ -99,7 +99,7 @@ public class Parser {
                     // no duplicated query keyword allowed
                     if(includes_like)
                         return new QueryObject("Invalid search: Keyword \"like\" duplicated.");
-                    else if(includes_collect)
+                    else if(includes_view)
                         return new QueryObject("Invalid search: Incorrect position for keyword \"like\".");
                     includes_like = true;
                     tokenizer.next();
@@ -114,21 +114,21 @@ public class Parser {
                         result.like_range = ArrayUtils.toPrimitive(array);
                     }
                 }
-                case COLLECT -> {
+                case VIEW -> {
                     // no duplicated query keyword allowed
-                    if(includes_collect)
-                        return new QueryObject("Invalid search: Keyword \"collect\" duplicated.");
-                    includes_collect = true;
+                    if(includes_view)
+                        return new QueryObject("Invalid search: Keyword \"view\" duplicated.");
+                    includes_view = true;
                     tokenizer.next();
                     // parse
-                    ArrayList<Integer> collect_range = parseStat();
-                    if(collect_range.size() == 0){
-                        return new QueryObject("Invalid search: invalid range for keyword \"collect\" or missing semicolon at the end.");
+                    ArrayList<Integer> view_range = parseStat();
+                    if(view_range.size() == 0){
+                        return new QueryObject("Invalid search: invalid range for keyword \"view\" or missing semicolon at the end.");
                     }
                     else{
-                        Integer[] array = new Integer[collect_range.size()];
-                        collect_range.toArray(array);
-                        result.collect_range = ArrayUtils.toPrimitive(array);
+                        Integer[] array = new Integer[view_range.size()];
+                        view_range.toArray(array);
+                        result.view_range = ArrayUtils.toPrimitive(array);
                     }
                 }
                 default ->{

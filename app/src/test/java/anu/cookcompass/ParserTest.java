@@ -40,7 +40,7 @@ public class ParserTest {
         QueryObject parseResult3 = parseQuery(simple_query3);
         assertFalse(parseResult3.queryInvalid);
         assertArrayEquals(new int[]{3,-1}, parseResult3.like_range);
-        assertArrayEquals(new int[]{0,10}, parseResult3.collect_range);
+        assertArrayEquals(new int[]{0,10}, parseResult3.view_range);
 
         QueryObject parseResult4 = parseQuery(simple_query4);
         assertFalse(parseResult.queryInvalid);

@@ -53,8 +53,8 @@ public class Tokenizer {
         // statistic keywords
         else if (buffer.startsWith("like"))
             currentToken = new Token("like", Token.Type.LIKE);
-        else if (buffer.startsWith("collect"))
-            currentToken = new Token("collect", Token.Type.COLLECT);
+        else if (buffer.startsWith("view"))
+            currentToken = new Token("view", Token.Type.VIEW);
         // integers
         else if (Character.isDigit(firstChar)){
             StringBuilder result = new StringBuilder();

@@ -1,12 +1,14 @@
 package anu.cookcompass;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * @author u7759982,Jiangbei Zhang
+ * This function defines the bottomBarActivity
+ */
 public class BottomBarActivity extends AppCompatActivity {
-//    private TextView bottomNavTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

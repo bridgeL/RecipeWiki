@@ -31,9 +31,15 @@ public class RecipeAdapter extends ArrayAdapter<Recipe> {
 
         TextView listName = convertView.findViewById(R.id.listName);
         ImageView listImage = convertView.findViewById(R.id.listImage);
+        TextView likeCount = convertView.findViewById(R.id.likeCount);
+        TextView viewCount = convertView.findViewById(R.id.viewCount);
+        ImageView likeIcon = convertView.findViewById(R.id.likeIcon);
+        ImageView viewIcon = convertView.findViewById(R.id.viewIcon);
 
         Recipe recipe = getItem(position);
-        listName.setText(recipe.title + " (like: " + recipe.like + " view: " + recipe.view + ")");
+        listName.setText(recipe.title);
+        likeCount.setText(String.valueOf(recipe.like));
+        viewCount.setText(String.valueOf(recipe.view));
 
         Bitmap bitmap = getImageFromAssetsFile("Food Images/" + recipe.imageName + ".jpg");
         if (bitmap != null) {

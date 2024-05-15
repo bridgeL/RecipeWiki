@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 
 import anu.cookcompass.Utils;
 import anu.cookcompass.pattern.Observer;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.recipe.RecipeManager;
 
 public class SearchService implements Subject<List<Recipe>> {
-    static SearchService instance = null;
     List<Recipe> lastRecipes = new ArrayList<>();
     List<Observer<List<Recipe>>> observers = new ArrayList<>();
     public String query = "";
@@ -30,8 +30,7 @@ public class SearchService implements Subject<List<Recipe>> {
     }
 
     public static SearchService getInstance() {
-        if (instance == null) instance = new SearchService();
-        return instance;
+        return SingletonFactory.getInstance(SearchService.class);
     }
 
     static QueryObject parseQuery(String query) {
@@ -49,7 +48,10 @@ public class SearchService implements Subject<List<Recipe>> {
         }
 
         // sort
-        Recipe[] recipes2 = recipes.toArray(new Recipe[0]);
+        Recipe[] recipes2 = new Recipe[recipes.size()];
+        for (int i = 0; i < recipes.size(); i++) {
+            recipes2[i] = recipes.get(i);
+        }
         SearchFilter.heapSortByName(recipes2, sortType);
         recipes.clear();
         recipes.addAll(Arrays.asList(recipes2));
@@ -87,13 +89,13 @@ public class SearchService implements Subject<List<Recipe>> {
         List<Recipe> searchResults = recipes.stream().filter(r -> {
             // search title
             for (String keyword : queryObject.title_keywords) {
-                if (!r.title.contains(keyword)) return false;
+                if (!r.title.toLowerCase().contains(keyword.toLowerCase())) return false;
             }
 
             // search ingredients
-            String ingredientsString = String.join(" ", r.ingredients);
+            String ingredientsString = String.join(" ", r.ingredients).toLowerCase();
             for (String keyword : queryObject.ingredient_keywords) {
-                if (!ingredientsString.contains(keyword)) return false;
+                if (!ingredientsString.contains(keyword.toLowerCase())) return false;
             }
 
             // like range limit
@@ -101,7 +103,14 @@ public class SearchService implements Subject<List<Recipe>> {
             int b = queryObject.like_range[1];
             if (a < 0) a = 0;
             if (b < 0) b = Integer.MAX_VALUE;
-            return r.like > a && r.like < b;
+            if (r.like <= a || r.like >= b) return false;
+
+            // view range limit
+            a = queryObject.view_range[0];
+            b = queryObject.view_range[1];
+            if (a < 0) a = 0;
+            if (b < 0) b = Integer.MAX_VALUE;
+            return r.view > a && r.view < b;
         }).collect(Collectors.toList());
 
         // show number of results

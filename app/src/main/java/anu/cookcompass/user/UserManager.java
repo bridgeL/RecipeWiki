@@ -13,7 +13,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import anu.cookcompass.Utils;
 import anu.cookcompass.firebase.CloudData;
+import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.popmsg.PopMsg;
 import anu.cookcompass.popmsg.PopMsgType;
 import anu.cookcompass.recipe.Recipe;
@@ -23,7 +25,6 @@ import anu.cookcompass.popmsg.PopMsgManager;
 
 public class UserManager implements Subject<User> {
     String TAG = "UserManager";
-    static UserManager instance = null;
     public User user = new User();
     public CloudData<User> cloudUser;
     List<Observer<User>> observers = new ArrayList<>();
@@ -37,8 +38,12 @@ public class UserManager implements Subject<User> {
     }
 
     public static UserManager getInstance() {
-        if (instance == null) instance = new UserManager();
-        return instance;
+        return SingletonFactory.getInstance(UserManager.class);
+    }
+
+    public boolean hasLiked(Recipe recipe){
+        int rid = recipe.rid;
+        return user.likes.contains(rid);
     }
 
     /**
@@ -49,29 +54,32 @@ public class UserManager implements Subject<User> {
      * @return like flag
      */
     public boolean toggleLike(Recipe recipe, String location) {
-        PopMsg popMsg = new PopMsg();
-        popMsg.uid = user.uid;
-        popMsg.username = user.username;
-        popMsg.rid = recipe.rid;
-        popMsg.title = recipe.title;
-        popMsg.location = location;
-
         Integer rid = (Integer) recipe.rid;
         boolean like;
+        PopMsgType type;
 
         if (user.likes.contains(rid)) {
             user.likes.remove(rid);
-            popMsg.type = PopMsgType.UNLIKE;
+            type = PopMsgType.UNLIKE;
             recipe.like -= 1;
             like = false;
         } else {
             user.likes.add(rid);
-            popMsg.type = PopMsgType.LIKE;
+            type = PopMsgType.LIKE;
             recipe.like += 1;
             like = true;
         }
-
         uploadUser();
+
+        PopMsg popMsg = new PopMsg(
+                user.uid,
+                user.username,
+                recipe.rid,
+                recipe.title,
+                location,
+                type,
+                Utils.getTimestamp()
+        );
         PopMsgManager.getInstance().pushPopMsg(popMsg);
 
         return like;
@@ -121,8 +129,7 @@ public class UserManager implements Subject<User> {
                 Log.d(TAG, "synchronize user data successfully!");
                 notifyAllObservers(user);
             });
-        }
-        else{
+        } else {
             cloudUser.stopListen();
             cloudUser = null;
             initCloudUser(uid);
