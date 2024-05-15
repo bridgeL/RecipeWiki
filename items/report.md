@@ -267,37 +267,51 @@ By using a tokenizer and parser, it is easier to parse search inputs, enabling a
 *List all features you have completed in their separate categories with their featureId. THe features must be one of the basic/custom features, or an approved feature from Voice Four Feature.*
 
 ### Basic Features
-1. [LogIn]. Description of the feature ... (easy)
-   * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-   * Description of feature: ... <br>
+1.[LogIn]. Users must be able to log in (not necessarily sign up). (easy)
+   * Code: [Login](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/f5a80187285f728941cf73ea7fdfb282a9a991f3/app/src/main/java/anu/cookcompass/login/Login.java) and Class Y, ...
+   * Description of feature:  <br>
    * Description of your implementation: ... <br>
 
-2. [DataFiles]. Description  ... ... (...)
+2. [DataFiles]. Create a dataset with at least 2,500 valid data instances, each representing a meaningful
+   piece of information in your app. The data should be represented and stored in a structured format
+   taught in the course. (easy)
    * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
    * Link to the Firebase repo: ...
-
-3. ...
+3. [LoadShowData]] Load and display data instances from your dataset. Choose an appropriate format
+   to present the different types of data. (easy)
    <br>
+4. [DataStream]
+
+5. [Search]
 
 ### Custom Features
 Feature Category: Privacy <br>
-1. [Privacy-Request]. Description of the feature  (easy)
+
+[//]: # (1. [Privacy-Request]. Description of the feature  &#40;easy&#41;)
+
+[//]: # (   * Code: [Class X, methods Z, Y]&#40;https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43&#41; and Class Y, ...)
+
+[//]: # (   * Description of your implementation: ... <br>)
+
+[//]: # (     <br>)
+
+Feature Category: Search-related features<br>
+6.[Search-Invalid]On top of giving search results from valid inputs, search functionality can process
+   and correctly handle partially invalid search queries and give meaningful results. (medium)
+    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Description of your implementation: ... <br>
+      <br>
+7.[Search-Filter] Sort and filter a list of items returned from searches, with the use of suitable UI
+      components. (easy)
    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
    * Description of your implementation: ... <br>
      <br>
-
-2. [Privacy-Block]. Description ... ... (medium)
-   ... ...
-   <br><br>
-
-Feature Category: Firebase Integration <br>
-3. [FB-Auth] Description of the feature (easy)
-   * Code: [Class X, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-   * [Class B](../src/path/to/class/file.java#L30-85): methods A, B, C, lines of code: 30 to 85
-   * Description of your implementation: ... <br>
-
-Feature Category: Greater Data Usage, Handling and Sophistication <br>
-9. [Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image,
+Feature Category:Greater Data Usage, Handling and Sophistication <br>
+8.[Data-Formats] Read data from local files in at least 2 different formats (JSON, XML, etc.). (easy)
+    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Description of your implementation: ... <br>
+      <br>
+9.[Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image,
    animation (e.g., gif), video). (easy) 
    * Code: [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
    * This is a fragment to show profile data from the firebase, and can synchronized with the firebase.
@@ -307,6 +321,19 @@ Feature Category: Greater Data Usage, Handling and Sophistication <br>
    * After clicking the image, the image picker will start which enables you to choose the image 
    * from phone local storage. At the same time, the image will be also be uploaded to the firebase.
    * Next time when you login this user, the image will be loaded automatically from the firebase.
+10.[Data-GPS] Use GPS information based on location data in your App. (easy)
+     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+     * Description of your implementation: ... <br>
+     <br>
+Feature Category:Firebase Integration
+11.[FB-Auth] Use Firebase to implement User Authentication/Authorisation. (easy)
+     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+     * Description of your implementation: ... <br>
+     <br> 
+12.[FB-Persist-extension] Use Firebase to persist all data used in your app. (medium)
+     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+     * Description of your implementation: ... <br>
+       <br>
 
 <hr>
 
