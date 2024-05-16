@@ -20,9 +20,17 @@ import anu.cookcompass.recipe.Recipe;
 /**
  * @author u7693070, Changlai Sun
  * @feature LoadShowData
+ * Custom ArrayAdapter for displaying Recipe objects in a ListView.
+ * This adapter inflates the list item layout and sets the recipe data to the views.
  */
 public class RecipeAdapter extends ArrayAdapter<Recipe> {
-    public RecipeAdapter(Context context, List<Recipe> recipes) {
+
+    /**
+     * Constructor for RecipeAdapter.
+     *
+     * @param context The current context.
+     * @param recipes The list of Recipe objects to display.
+     */public RecipeAdapter(Context context, List<Recipe> recipes) {
         super(context, R.layout.list_item, recipes);
     }
 
@@ -40,11 +48,15 @@ public class RecipeAdapter extends ArrayAdapter<Recipe> {
         ImageView likeIcon = convertView.findViewById(R.id.likeIcon);
         ImageView viewIcon = convertView.findViewById(R.id.viewIcon);
 
+        // Get the data item for this position
         Recipe recipe = getItem(position);
+
+        // Populate the data into the template view using the data object
         listName.setText(recipe.title);
         likeCount.setText(String.valueOf(recipe.like));
         viewCount.setText(String.valueOf(recipe.view));
 
+        // Load the image from assets
         Bitmap bitmap = getImageFromAssetsFile("Food Images/" + recipe.imageName + ".jpg");
         if (bitmap != null) {
             listImage.setImageBitmap(bitmap);
