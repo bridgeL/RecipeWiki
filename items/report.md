@@ -555,6 +555,7 @@ Four existing code smells:
 - [Team Meeting 5](meeting/05-05.md)
 - [Team Meeting 6](meeting/05-06.md)
 - [Team Meeting 7](meeting/05-08.md)
+- [Team Meeting 7](meeting/05-12.md)
 
 <hr>
 
