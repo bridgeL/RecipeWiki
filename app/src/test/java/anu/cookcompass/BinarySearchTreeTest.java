@@ -9,6 +9,10 @@ import java.util.List;
 
 import anu.cookcompass.model.BinarySearchTree;
 
+/**
+ * @author u7760022, Xinyang Li
+ * The class contains tests for BinarySearchTree
+ */
 public class BinarySearchTreeTest {
 
     @Test

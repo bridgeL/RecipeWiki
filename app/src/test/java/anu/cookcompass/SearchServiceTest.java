@@ -12,6 +12,11 @@ import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.search.SearchService;
 
 
+/**
+ * @author u7760022, Xinyang Li
+ * @feature Search, Search-invalid, Search-filter
+ * The class contains tests for SearchService
+ */
 public class SearchServiceTest {
 
     private SearchService searchService;

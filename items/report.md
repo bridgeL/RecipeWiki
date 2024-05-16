@@ -89,7 +89,7 @@ The key area(s) of responsibilities for each member
         - Singleton & Factory
             - [SingletonFactory.java](app/src/main/java/anu/cookcompass/pattern/SingletonFactory.java)
         - Facade
-            - [SearchService.java search()](app/src/main/java/anu/cookcompass/search/SearchService.java#L59)
+            - [SearchService.java search()](app/src/main/java/anu/cookcompass/search/SearchService.java#L63)
         - Observer
             - interface: 
                 - [Observer.java](app/src/main/java/anu/cookcompass/pattern/Observer.java)
@@ -101,9 +101,15 @@ The key area(s) of responsibilities for each member
             - [BinarySearchTree.java](app/src/main/java/anu/cookcompass/model/BinarySearchTree.java)
 
 - **Code and App Design**
-    - UI design for the recipe page: [activity_recipe.xml](app/src/main/res/layout/activity_recipe.xml)
-    - UI design for rounded background:[rounded_background.xml](app/src/main/res/drawable/rounded_background.xml)
-    - UI design for rounded card:[rounded_card.xml](app/src/main/res/drawable/rounded_card.xml)
+    - UI Design
+        - UI design for the recipe page: [activity_recipe.xml](app/src/main/res/layout/activity_recipe.xml)
+        - UI design for rounded background:[rounded_background.xml](app/src/main/res/drawable/rounded_background.xml)
+        - UI design for rounded card:[rounded_card.xml](app/src/main/res/drawable/rounded_card.xml)
+    - Unit Test
+        - [ParserTest](app/src/test/java/anu/cookcompass/ParserTest.java)
+        - [SearchServiceTest](app/src/test/java/anu/cookcompass/SearchServiceTest.java)
+        - [TokenizerTest](app/src/test/java/anu/cookcompass/TokenizerTest.java)
+        - [BinarySearchTreeTest](app/src/test/java/anu/cookcompass/BinarySearchTreeTest.java)
 
 2. **U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: 
 - **Code Contribution in the final App**
@@ -258,10 +264,10 @@ This is an important section of your report and should include all technical dec
 *I used the following data structures in my project:*
 
 1. *BinearySearchTree*
-   * *Objective: used for *
-   * *Code Locations: defined in [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
+   * *Objective: used for Data Instance Storage*
+   * *Code Locations: defined in [BinarySearchTree.java](app/src/main/java/anu/cookcompass/model/BinarySearchTree.java)
    * *Reasons:*
-      * *It is more efficient than Arraylist for insertion with a time complexity O(1)*
+      * *It is more efficient than Arraylist for insertion with a time complexity O(logn)*
       * *We don't need to access the item by index for xxx feature because...*
       * For the (part), the data ... (characteristics) ...
 
@@ -272,24 +278,47 @@ This is an important section of your report and should include all technical dec
 *[What design patterns did your team utilise? Where and why?]*
 
 1. Singleton
-    * Objective: used for implementation of Sing of a lot of classes
-    * Code Locations: defined in [Class Singleton Factory](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
-    * Reasons: avoid writing a lot of code to impletent singleton
+    * Objective: used for implementation of Singleton of a lot of classes
+    * Code Locations: defined in [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java), [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java) and [PopMsgManager.java](app/src/main/java/anu/cookcompass/popmsg/PopMsgManager.java)
+    * Reasons: 
+        * RecipeManager: this class stores all recipes when the app start. When frnot-end page switches, we don't need to use intent to pass big data, just visit RecipeManager can get all data. Obviously, all recipes data could only have one instance without any copy.
+        * UserManager: this class stores current user when user logged in successfully. Then we open profile page, the front-end could easily access the user property from UserManager. Obviously, current user could only have one instance without any copy.
+        * PopMsgManager: this class stores all pop messages when the app start. When frnot-end page switches, we don't need to use intent to pass big data, just visit PopMsgManager can get all data. Obviously, all pop messages data could only have one instance without any copy.
 
 2. SingletonFactory
     * Objective: used for implementation of Sing of a lot of classes
     * Code Locations: defined in [Class Singleton Factory](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
-    * Reasons: avoid writing a lot of code to impletent singleton
+    * Reasons: avoid writing a lot of code to implement singleton
 
 3. Observer
     * Objective: used for implementation of Sing of a lot of classes
-    * Code Locations: defined in [Class Singleton Factory](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
-    * Reasons: avoid writing a lot of code to impletent singleton
+    * Code Locations:
+        * interface defined in [Observer.java](app/src/main/java/anu/cookcompass/pattern/Observer.java) and [Subject.java](app/src/main/java/anu/cookcompass/pattern/Subject.java)
+        * implementation defined in [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java), [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java) and [PopMsgManager.java](app/src/main/java/anu/cookcompass/popmsg/PopMsgManager.java)
+    * Reasons: 
+        * interface: avoid writing a lot of code to implement Observer
+        * RecipeManager: when recipes update, the search page will be notified and update its content.
+        * PopMsgManager: when pop messages update, the notification page will be notified and update its content.
+        * UserManager: when current user data updates, the user profile page will be notified and update the content.
+    * Advantages:
+        * Decoupling: The Observer pattern promotes loose coupling between the subject and the observers. The subject does not need to know the specifics about the observers; it only knows that they implement a certain interface. This decoupling allows both subjects and observers to be developed and modified independently.
+        * Flexibility and Extensibility: Adding new observers is easy and does not require changes to the subject. This makes the system more flexible and easier to extend with new functionality.
+        * Reusability: Observers can be reused across different subjects, enhancing the reusability of components. Similarly, subjects can work with different observers without requiring changes to the subject's code.
+        * Event Handling: The Observer pattern is ideal for implementing event handling systems. When an event occurs, the subject notifies all registered observers, which can then handle the event appropriately. This makes it easier to manage and respond to events in a clean and organized manner.
+        * Dynamic Relationships: Relationships between subjects and observers can be established at runtime, allowing for dynamic and flexible interactions. Observers can be added or removed on the fly without affecting the overall system.
+        * Consistency: The Observer pattern ensures consistency across observers. When the subject's state changes, all observers are notified and updated automatically, ensuring that all parts of the system remain in sync. 
 
 4. Facade
     * Objective: used for implementation of Sing of a lot of classes
-    * Code Locations: defined in [Class Singleton Factory](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
-    * Reasons: avoid writing a lot of code to impletent singleton
+    * Code Locations: defined in [SearchService.java search()](app/src/main/java/anu/cookcompass/search/SearchService.java#L63)
+    * Reasons: 
+        * To aggregate three modules (search, search-invalid, search-filter) so that the front end can call a unified interface without worrying about the implementation details, you can use the Facade pattern. 
+    * Advantage:
+        * Simplified Interface: The Facade pattern hides the complexities of the subsystem by providing a straightforward and easy-to-use interface, making client code simpler and more intuitive. 
+        * Loose Coupling: By decoupling the client from the complex subsystem, the Facade pattern reduces dependencies. This means that if the subsystem changes, only the Facade needs to be updated, not the client code.
+        * Improved Readability and Maintainability: With a simpler and clearer interface provided by the Facade, code becomes more readable and maintainable. Developers do not need to understand the intricate details of the subsystem; they only interact with the Facade.
+        * Better Layered Structure: The Facade pattern helps define a clear structure within the system, clarifying the dependencies between different layers. It can act as a middle layer that coordinates interactions between various parts of the system.
+        * Enhanced Security: By using the Facade pattern, access to the subsystem can be controlled and restricted. Only the Facade is used to access the subsystem, protecting the subsystem from direct access and potential misuse.
 
 
 <hr>
@@ -410,7 +439,7 @@ Following images show how the branches stem and merge:
 
 ### Custom Features
 
-Feature Category: Search-related features
+**Feature Category: Search-related features**
 
 6. [Search-Invalid] On top of giving search results from valid inputs, search functionality can process and correctly handle partially invalid search queries and give meaningful results. (medium)
     * Code: [SearchService.java searchByInformalQuery()](app/src/main/java/anu/cookcompass/search/SearchService.java)
@@ -423,7 +452,7 @@ Feature Category: Search-related features
     * Description of your implementation: ... 
 
 
-Feature Category:Greater Data Usage, Handling and Sophistication 
+**Feature Category:Greater Data Usage, Handling and Sophistication** 
 
 
 8. [Data-Formats] Read data from local files in at least 2 different formats (JSON, XML, etc.). (easy)
@@ -450,7 +479,7 @@ Feature Category:Greater Data Usage, Handling and Sophistication
      <br>
 
 
-Feature Category:Firebase Integration
+**Feature Category:Firebase Integration**
 
 
 
@@ -492,6 +521,7 @@ Four existing code smells:
 - Solution outline: First, create a main activity to store the navigation bar and fragments. Then change the type of needed activyty,
 - at first, search activity was changed to fragment. Later, new fragment of profile, notification were added.
 
+2. 
  <hr>
 
 ## Summary of Known Errors and Bugs

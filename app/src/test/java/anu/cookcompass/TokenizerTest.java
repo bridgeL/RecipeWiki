@@ -7,7 +7,11 @@ import static org.junit.Assert.*;
 import anu.cookcompass.search.Token;
 import anu.cookcompass.search.Tokenizer;
 
-
+/**
+ * @author u7760022, Xinyang Li
+ * @feature Search
+ * The class contains tests for Tokenizer
+ */
 public class TokenizerTest {
 
     @Test

@@ -9,7 +9,11 @@ import anu.cookcompass.search.Parser;
 import anu.cookcompass.search.QueryObject;
 import anu.cookcompass.search.Tokenizer;
 
-
+/**
+ * @author u7760022, Xinyang Li
+ * @feature Search
+ * The class contains tests for Parser
+ */
 public class ParserTest {
 
     @Test
