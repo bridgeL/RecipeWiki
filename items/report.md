@@ -129,14 +129,14 @@ The key area(s) of responsibilities for each member
 3. **U7752874, Xinlei Wen** I have 20% contribution, as follows:
 - **Code Contribution in the final App**
     - Basic Feature 5a: Grammar, tokenizer and parser
-        - class Token [Token.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/search/Token.java)
-        - class Tokenizer [Tokenizer.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/search/Tokenizer.java)
-        - class Parser [Parser.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/search/Parser.java)
-        - class QueryObject [QueryObject.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/search/QueryObject.java)
+        - class Token [Token.java](app/src/main/java/anu/cookcompass/search/Token.java)
+        - class Tokenizer [Tokenizer.java](app/src/main/java/anu/cookcompass/search/Tokenizer.java)
+        - class Parser [Parser.java](app/src/main/java/anu/cookcompass/search/Parser.java)
+        - class QueryObject [QueryObject.java](app/src/main/java/anu/cookcompass/search/QueryObject.java)
     - Custom Feature: Data-Formats (using txt and csv files)
-        - class ThemeColor [ThemeColor.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/theme/ThemeColor.java)
-        - class ThemeUpdateEvent [ThemeUpdateEvent.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/theme/ThemeUpdateEvent.java)
-        - functions for switching theme (`onMessage` and `updateTheme`) in view model classes, including [ProfileFragment.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/user/ProfileFragment.java), [LoginActivity.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/login/LoginActivity.java), [RegisterActivity.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/login/RegisterActivity.java), [SearchFragment.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/search/SearchFragment.java), [RecipeActivity.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/recipe/RecipeActivity.java) and [MainActivity.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/MainActivity.java)
+        - class ThemeColor [ThemeColor.java](app/src/main/java/anu/cookcompass/theme/ThemeColor.java)
+        - class ThemeUpdateEvent [ThemeUpdateEvent.java](app/src/main/java/anu/cookcompass/theme/ThemeUpdateEvent.java)
+        - functions for switching theme (`onMessage` and `updateTheme`) in view model classes, including [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java), [LoginActivity.java](app/src/main/java/anu/cookcompass/login/LoginActivity.java), [RegisterActivity.java](app/src/main/java/anu/cookcompass/login/RegisterActivity.java), [SearchFragment.java](app/src/main/java/anu/cookcompass/search/SearchFragment.java), [RecipeActivity.java](app/src/main/java/anu/cookcompass/recipe/RecipeActivity.java) and [MainActivity.java](app/src/main/java/anu/cookcompass/MainActivity.java)
 - **Code and App Design** 
     - Design Pattern: Singleton (used in class `ThemeColor`)
 
