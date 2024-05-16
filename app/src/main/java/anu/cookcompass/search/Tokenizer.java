@@ -61,7 +61,8 @@ public class Tokenizer {
                 result.append(buffer.charAt(idx));
                 idx++;
             }
-            currentToken = new Token(result.toString(), Token.Type.STRING);
+
+            currentToken = new Token(result.toString().trim(), Token.Type.STRING);
         }
 
         // Remove the extracted token from buffer
