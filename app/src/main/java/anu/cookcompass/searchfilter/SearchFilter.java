@@ -66,6 +66,7 @@ public class SearchFilter {
         if (criterionName.equals("view")) comparatorType = new RecipeViewComparator();
         if (criterionName.equals("like")) comparatorType = new RecipeLikeComparator();
 
+        //If isAscending is false, the order is descending
         if (!isAscending && comparatorType != null) {
             comparatorType = comparatorType.reversed();
         }
