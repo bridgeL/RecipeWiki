@@ -21,7 +21,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.io.File;
-import java.util.List;
 
 import anu.cookcompass.R;
 import anu.cookcompass.Utils;

@@ -6,7 +6,6 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 
 import anu.cookcompass.pattern.Observer;
 import anu.cookcompass.pattern.SingletonFactory;

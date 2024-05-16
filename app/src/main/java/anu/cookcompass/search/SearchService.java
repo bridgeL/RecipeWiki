@@ -1,10 +1,5 @@
 package anu.cookcompass.search;
 
-import android.content.Context;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +7,6 @@ import java.util.stream.Collectors;
 
 import anu.cookcompass.Utils;
 import anu.cookcompass.pattern.Observer;
-import anu.cookcompass.pattern.SingletonFactory;
 import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.recipe.Recipe;
 import anu.cookcompass.recipe.RecipeManager;
@@ -52,7 +46,6 @@ public class SearchService implements Subject<List<Recipe>> {
 
     public void searchAndShow() {
         List<Recipe> recipes = search(query, sortType, isDescending, RecipeManager.getInstance().getRecipes());
-        lastRecipes = recipes;
         notifyAllObservers(recipes);
     }
 
@@ -61,7 +54,12 @@ public class SearchService implements Subject<List<Recipe>> {
         List<Recipe> recipes1 = searchByInformalQuery(query, recipes, lastRecipes);
 
         // sort
-        return recipeSort(sortType, isDescending, recipes1);
+        List<Recipe> recipes2 = recipeSort(sortType, isDescending, recipes1);
+
+        // store
+        lastRecipes = recipes2;
+
+        return recipes2;
     }
 
     public List<Recipe> recipeSort(String sortType, boolean isDescending, List<Recipe> recipes1) {
@@ -76,7 +74,6 @@ public class SearchService implements Subject<List<Recipe>> {
         }
         return Arrays.asList(recipes2);
     }
-
     public List<Recipe> searchByInformalQuery(String query, List<Recipe> recipes, List<Recipe> lastRecipes) {
         // trim
         query = query.trim();
@@ -99,9 +96,7 @@ public class SearchService implements Subject<List<Recipe>> {
             query = "title=" + query;
             return searchByQuery(query, recipes);
         } catch (Exception e) {
-
             // if it is still wrong, return last results
-            Log.w("query", e.getMessage());
             Utils.showShortToast(e.getMessage());
             return lastRecipes;
         }
@@ -114,7 +109,6 @@ public class SearchService implements Subject<List<Recipe>> {
         if (queryObject.queryInvalid) {
             throw new Exception(queryObject.errorMessage);
         }
-
         // get search results
         List<Recipe> searchResults = recipes.stream().filter(r -> {
             // search title
@@ -123,7 +117,9 @@ public class SearchService implements Subject<List<Recipe>> {
             }
 
             // search ingredients
-            String ingredientsString = String.join(" ", r.ingredients).toLowerCase();
+            String ingredientsString;
+            if (r.ingredients == null || r.ingredients.size() == 0) ingredientsString = "";
+            else ingredientsString = String.join(" ", r.ingredients).toLowerCase();
             for (String keyword : queryObject.ingredient_keywords) {
                 if (!ingredientsString.contains(keyword.toLowerCase())) return false;
             }
