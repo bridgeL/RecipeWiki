@@ -361,6 +361,11 @@ Once a sufficient number of features have been completed and merged into the `de
 
 We aim to guarantee that every checkout from the `main` branch results in a usable app.
 
+Following images show how the branches stem and merge:
+
+![](media/Git/1.png)
+![](media/Git/2.png)
+
 ### Others
 
 *[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
