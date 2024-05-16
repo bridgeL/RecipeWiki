@@ -132,10 +132,11 @@ The key area(s) of responsibilities for each member
       - UI design for register back arrow icon:[round_arrow_back_24.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/drawable/round_arrow_back_24.xml)
     - 
     - External resources of my UI part
-      - ![account_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Faccount_icon.png) free for non-commercial use, CC BY "best_leeyang"
-      - ![lock_image.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Flock_image.png) free for non-commercial use, CC BY "逍剑"
-      - ![notification_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Fnotification_icon.png) free for non-commercial use, CC BY "best_leeyang"
-      - ![search_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Fsearch_icon.png) free for non-commercial use, CC BY "best_leeyang"
+      - ![account_icon.png](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/drawable/account_icon.png) free for non-commercial use, CC BY "best_leeyang"
+      - ![lock_image.png](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/drawable/lock_image.png){width=20%}{height=20%} free for non-commercial use, CC BY "逍剑"
+      - ![notification_icon.png](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/drawable/notification_icon.png) free for non-commercial use, CC BY "best_leeyang"
+      - ![search_icon.png](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/drawable/search_icon.png) free for non-commercial use, CC BY "best_leeyang"
+      - ![login_photo.png](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/mipmap-xxhdpi/login_photo.png) Public Domain,free to use
 
 3. **U7752874, Xinlei Wen** I have 20% contribution, as follows:
 - **Code Contribution in the final App**
