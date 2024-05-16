@@ -66,15 +66,25 @@ The key area(s) of responsibilities for each member
 
 1. **U7760022, Xinyang Li**  I have 20% contribution, as follows: 
 - **Code Contribution in the final App**
-    - Feature Feat 1 login, Feat 2 dataFiles, Feat 3 LoadShowData, Feat 4 DataStream, Feat 6 search-invalid, Feat 11 fb-auth, Feat 12 fb-persist-extension
-        - [UserSimulator.java](app/src/main/java/anu/cookcompass/datastream/UserSimulator.java)
-        - [CloudData.java](app/src/main/java/anu/cookcompass/firebase/CloudData.java)
-        - [Login.java](app/src/main/java/anu/cookcompass/login/Login.java)
-        - [Register.java](app/src/main/java/anu/cookcompass/login/Register.java)
-        - [PopMsgManager.java](app/src/main/java/anu/cookcompass/popmsg/PopMsgManager.java)
-        - [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java)
-        - [SearchService.java](app/src/main/java/anu/cookcompass/search/SearchService.java)
-        - [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java)
+    - Feature
+        - Feature 1 Login, Feature 11 fb-auth
+            - [Login.java](app/src/main/java/anu/cookcompass/login/Login.java)
+            - [Register.java](app/src/main/java/anu/cookcompass/login/Register.java)
+            - [Response.java](app/src/main/java/anu/cookcompass/login/Response.java)
+        - Feature 2 dataFiles, Feature 12 fb-persist-extension
+            - [CloudData.java](app/src/main/java/anu/cookcompass/firebase/CloudData.java)
+        - Feature 3 LoadShowData
+            - [Recipe.java](app/src/main/java/anu/cookcompass/recipe/Recipe.java)
+            - [RecipeActivity.java](app/src/main/java/anu/cookcompass/recipe/RecipeActivity.java)
+            - [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java)
+            - [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java)
+        - Feature 4 DataStream
+            - [PopMsg.java](app/src/main/java/anu/cookcompass/popmsg/PopMsg.java)
+            - [PopMsgType.java](app/src/main/java/anu/cookcompass/popmsg/PopMsgType.java)
+            - [PopMsgManager.java](app/src/main/java/anu/cookcompass/popmsg/PopMsgManager.java)
+            - [UserSimulator.java](app/src/main/java/anu/cookcompass/datastream/UserSimulator.java)
+        - Feature 6 search-invalid
+            - [SearchService.java](app/src/main/java/anu/cookcompass/search/SearchService.java)
     - Design Pattern 
         - Singleton & Factory
             - [SingletonFactory.java](app/src/main/java/anu/cookcompass/pattern/SingletonFactory.java)
@@ -90,9 +100,10 @@ The key area(s) of responsibilities for each member
         - Binary Search Tree 
             - [BinarySearchTree.java](app/src/main/java/anu/cookcompass/model/BinarySearchTree.java)
 
-- **Code and App Design** 
-    - [What design patterns, data structures, did the involved member propose?]*
-    - [UI Design. Specify what design did the involved member propose? What tools were used for the design?]* 
+- **Code and App Design**
+    - UI design for the recipe page: [activity_recipe.xml](app/src/main/res/layout/activity_recipe.xml)
+    - UI design for rounded background:[rounded_background.xml](app/src/main/res/drawable/rounded_background.xml)
+    - UI design for rounded card:[rounded_card.xml](app/src/main/res/drawable/rounded_card.xml)
 
 2. **U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: 
 - **Code Contribution in the final App**
@@ -157,16 +168,16 @@ The key area(s) of responsibilities for each member
 
 CookCompass is a recipe application targeted towards people are interested in cooking. It provides thousands of recipes featuring lots of different ingredients. Users can sort the recipes based on their id number, title, likes, and views. They can also look for recipes of a certain level of popularity, for example recipes with at least 100 likes or views. 
 
-![](media/Screenshots/1.jpg)
+![](media/Screenshots/1.jpg){width=50%}
 
 <details>
-<summary>more screenshot</summary>
+<summary style="font-size:20px;">more screenshot</summary>
 
-![](media/Screenshots/2.jpg)
-![](media/Screenshots/3.jpg)
-![](media/Screenshots/4.jpg)
-![](media/Screenshots/5.jpg)
-![](media/Screenshots/6.jpg)
+![](media/Screenshots/2.jpg){width=50%}
+![](media/Screenshots/3.jpg){width=50%}
+![](media/Screenshots/4.jpg){width=50%}
+![](media/Screenshots/5.jpg){width=50%}
+![](media/Screenshots/6.jpg){width=50%}
 </details>
 
 ### Application Use Cases and or Examples
@@ -206,7 +217,7 @@ Home cooks / People interested in cooking
 ![uml](media/UMLDiagrams/uml.png)
 
 <details> 
-<summary>UML Subdiagrams (Based on Package)</summary>
+<summary style="font-size:20px;">UML Subdiagrams (Based on Package)</summary>
 
 ![cookcompass-uml-diagram](media/UMLDiagrams/cookcompass/cookcompass-uml-diagram.png)
 ![datastream-uml-diagram](media/UMLDiagrams/cookcompass/datastream/datastream-uml-diagram.png) 
@@ -323,6 +334,32 @@ By using a tokenizer and parser, it is easier to parse search inputs, enabling a
 
 <hr>
 
+### Git Commit Regulation
+
+**We make a [git commit regulation](items/git.md) to help make git commit more clean and readable.**
+
+every commit should start with a [git-emoji](https://gitmoji.dev/) and the label name, followed with the description of what you do.
+
+`:emoji: [type name] what I do`
+
+| git-emoji                       | label name  | description example                                        |
+|---------------------------------|-------------|------------------------------------------------------------|
+| :sparkles: `:sparkles:`         | feat        | user login                                                 |
+| :memo: `:memo:`                 | docs        | team meeting                                               |
+| :bug: `:bug:`                   | fix         | fix the bug: certain usernames will cause the app to crash |
+| :recycle: `:recycle:`           | refactor    | refactor user login module for better performance          |
+| :construction: `:construction:` | going       | working on the feature: user login                         |
+
+**We also work on different branches when we develop our app, so that our work won't make bad effect on others'.**
+
+Every developer creating a new feature should create a new branch from the `dev` branch. The branch name should be brief and directly related to the feature. All code changes must be committed to this branch.
+
+When the feature has been completed, the developer could require to merge feature branch into the `dev` branch.
+
+Once a sufficient number of features have been completed and merged into the `dev` branch, we may consider pushing a release of our project. Following thorough and careful testing, we can then merge the `dev` branch into the `main` branch.
+
+We aim to guarantee that every checkout from the `main` branch results in a usable app.
+
 ### Others
 
 *[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
@@ -335,58 +372,60 @@ By using a tokenizer and parser, it is easier to parse search inputs, enabling a
 *List all features you have completed in their separate categories with their featureId. THe features must be one of the basic/custom features, or an approved feature from Voice Four Feature.*
 
 ### Basic Features
-1.[LogIn]. Users must be able to log in (not necessarily sign up). (easy)
-   * Code: [Login](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/login/Login.java) and Class Y, ...
-   * Description of feature:  <br>
-   * Description of your implementation: ... <br>
 
-2. [DataFiles]. Create a dataset with at least 2,500 valid data instances, each representing a meaningful
-   piece of information in your app. The data should be represented and stored in a structured format
-   taught in the course. (easy)
-   * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
-   * Link to the Firebase repo: ...
-3. [LoadShowData]] Load and display data instances from your dataset. Choose an appropriate format
-   to present the different types of data. (easy)
-   <br>
-4. [DataStream] Create data instances to simulate users’ actions and interactions, which are then used
-   to feed the app so that when a user is logged in, these data are loaded at regular time intervals and
-   visualised on the app. (medium)
+1.[LogIn]. Users must be able to log in. (easy)
+   * Code: [Login(old version)](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/f4a9ac18c03bcb232bced4ddc4b56c7be3abf51f/app/src/main/java/anu/cookcompass/login/Login.java)
+   * Description of feature: User can log in our app.
+   * Description of your implementation: Every time user open our app, the first page of the app will be the login page, and after they input their username and password and then click the login button, the app will check its authority via a local data file.
+   * But with the development of our project, this code has been replaced. Because we implemented Feature fb-auth and don't store users in local file.
 
-5. [Search]Users must be able to search for information on your app. (medium)
-   Given the user's input based on pre-defined grammar(s), a query processor "understands" and
-   retrieves the information that meets the user's query. The usag is dependent on your app theme.
+2. [DataFiles]. Create a dataset with at least 2,500 valid data instances, each representing a meaningful piece of information in your app. The data should be represented and stored in a structured format taught in the course. (easy)
+   * Link to the Firebase repo: [realtime database](https://console.firebase.google.com/project/cookcompass-4eed7/database/cookcompass-4eed7-default-rtdb/data)
+   * What I do: pre-process recipe dataset (I get it from kaggle) into json format and upload it into firebase realtime database. 
+
+    
 3. [LoadShowData] Load and display data instances from your dataset. Choose an appropriate format to present the different types of data. (easy)
-    * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
-    * Link to the Firebase repo: ...
+   * Link to the Firebase repo: [realtime database](https://console.firebase.google.com/project/cookcompass-4eed7/database/cookcompass-4eed7-default-rtdb/data)
+    * What I do: implement the data synchronization between cloud and memory. When the cloud data updated, app would update. And the same things will happen on another direction; implement like action, so user can like or unlike a recipe; implement pop message and its manager, when user click "like", other users will receive a pop message that someone liked a recipe.
+    * implement the data synchronization between cloud and memory. When the cloud data updated, app would update. And the same things will happen on another direction; implement like action, so user can like or unlike a recipe; implement pop message and its manager, when user click "like", other users will receive a pop message that someone liked a recipe.
+
 
 4. [DataStream] Create data instances to simulate users’ actions and interactions, which are then used to feed the app so that when a user is logged in, these data are loaded at regular time intervals and visualised on the app. (medium)
     * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
     * Link to the Firebase repo: ...
+    * What I do: implement user simulator to create fake pop message instance per 10 seconds, so that when user log in the app and open the profile page, click the "start data stream" button, this app will start to receive fake user operations we create, for example, Bernardo like the recipe xxxx.
+
 
 5. [Search] Users must be able to search for information on your app. (medium)
     * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
     * Link to the Firebase repo: ...
 
+
 ### Custom Features
 
 Feature Category: Search-related features
 
-6. [Search-Invalid]On top of giving search results from valid inputs, search functionality can process and correctly handle partially invalid search queries and give meaningful results. (medium)
-    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-    * Description of your implementation: ... 
+6. [Search-Invalid] On top of giving search results from valid inputs, search functionality can process and correctly handle partially invalid search queries and give meaningful results. (medium)
+    * Code: [SearchService.java searchByInformalQuery()](app/src/main/java/anu/cookcompass/search/SearchService.java)
+    * Description of your implementation: make code to improve search function so that it can handle informal search query or partially incorrect query. When user forget to type ";" in their query, the search function will correct it and return relevant results. When user are lazy to type the whole query and only type title_keywords, such like "apple, orange", the search function will auto handle it as "title=apple, orange;" and return relevant results.
+
+
 
 7. [Search-Filter] Sort and filter a list of items returned from searches, with the use of suitable UI components. (easy)
     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
     * Description of your implementation: ... 
 
+
 Feature Category:Greater Data Usage, Handling and Sophistication 
+
 
 8. [Data-Formats] Read data from local files in at least 2 different formats (JSON, XML, etc.). (easy)
     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
     * Description of your implementation: ... <br>
       <br>
-9.[Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image,
-   animation (e.g., gif), video). (easy) 
+
+
+9.[Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image, animation (e.g., gif), video). (easy) 
    * Code: [ProfileFragment.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
    * This is a fragment to show profile data from the firebase, and can synchronized with the firebase.
    * By clicking the profile button in the navigation bar, the application will jump to the profile fragment.
@@ -395,19 +434,29 @@ Feature Category:Greater Data Usage, Handling and Sophistication
    * After clicking the image, the image picker will start which enables you to choose the image 
    * from phone local storage. At the same time, the image will be also be uploaded to the firebase.
    * Next time when you login this user, the image will be loaded automatically from the firebase.
+
+
+
 10.[Data-GPS] Use GPS information based on location data in your App. (easy)
      * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
      * Description of your implementation: ... <br>
      <br>
+
+
 Feature Category:Firebase Integration
+
+
 
 11. [FB-Auth] Use Firebase to implement User Authentication/Authorisation. (easy)
     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-    * Description of your implementation: ... 
+    * Description of your implementation: configure firebase and use the api to connect its authority service.
 
-12. [FB-Persist-extension] Use Firebase to persist all data used in your app. (medium)
+
+
+12. [FB-Persist-extension] Use Firebase to persist all data used in your app. (hard)
     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-    * Description of your implementation: ... 
+    * Description of your implementation: Every time user click "like" or "unlike" the recipe, the recipe data in cloud will update.
+
 
 13. [FB-Register] Users are able to sign up, and the relevant user instance will be created in firebase
     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
