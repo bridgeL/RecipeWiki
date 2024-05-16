@@ -1,6 +1,5 @@
 package anu.cookcompass.recipe;
 
-
 import android.content.Context;
 import android.util.Log;
 
@@ -19,15 +18,25 @@ import anu.cookcompass.pattern.Subject;
 import anu.cookcompass.model.BinarySearchTree;
 
 /**
- * @author u7760022, Xinyang Li
+ * Manages the loading, displaying, and updating of recipe data.
+ * Implements the Subject pattern to notify observers of changes to the recipe data.
+ *
+ * @autor u7760022, Xinyang Li
  * @feature LoadShowData
- * The class is back-end of LoadShowData
  */
 public class RecipeManager implements Subject<List<Recipe>> {
-    String TAG = getClass().getSimpleName();
-    CloudData<List<Recipe>> cloudRecipesRef;
-    BinarySearchTree<Recipe> recipeBST = new BinarySearchTree<>();
-    List<Observer<List<Recipe>>> observers = new ArrayList<>();
+    private static final String TAG = "RecipeManager";
+
+    // Reference to recipe data in the cloud
+    private CloudData<List<Recipe>> cloudRecipesRef;
+
+    // Binary search tree to store recipes
+    private BinarySearchTree<Recipe> recipeBST = new BinarySearchTree<>();
+
+    // List of observers to notify on recipe data changes
+    private List<Observer<List<Recipe>>> observers = new ArrayList<>();
+
+    // Currently selected recipe
     public Recipe currentRecipe = null;
 
     @Override
@@ -35,71 +44,96 @@ public class RecipeManager implements Subject<List<Recipe>> {
         return observers;
     }
 
+    /**
+     * Sets the current recipe and increments its view count.
+     * Also updates the recipe data in the cloud.
+     *
+     * @param recipe the recipe to set as current
+     */
     public void setCurrentRecipe(Recipe recipe) {
         currentRecipe = recipe;
         currentRecipe.view += 1;
         cloudRecipesRef.setValue(getRecipes());
     }
 
+    /**
+     * Private constructor to prevent instantiation.
+     * Initializes the CloudData reference for recipes.
+     */
     private RecipeManager() {
         cloudRecipesRef = new CloudData<>(
                 "v2/recipe",
-                new GenericTypeIndicator<List<Recipe>>() {
-                },
+                new GenericTypeIndicator<List<Recipe>>() {},
                 false
         );
     }
 
+    /**
+     * Returns the singleton instance of RecipeManager.
+     * If the instance is null, a new instance is created.
+     *
+     * @return the singleton instance of RecipeManager
+     */
     public static RecipeManager getInstance() {
         return SingletonFactory.getInstance(RecipeManager.class);
     }
 
     /**
-     * download recipes from cloud and save it into a local file,
-     * so next time the app don't need to re-download it, and save the bandwidth
+     * Downloads recipes from the cloud and saves them into a local file.
+     * Notifies observers when the download is complete.
      *
-     * @param storageFile data will be stored in this file
+     * @param storageFile the file to save the downloaded recipes
      */
     public void downloadRecipes(File storageFile) {
         cloudRecipesRef.getOnce(recipes -> {
             recipeBST.insertAll(recipes);
-            Log.d(TAG, "download recipes successfully!");
+            Log.d(TAG, "Download recipes successfully!");
 
-            // because its an async function and will cost time,
-            // when download completes, it should notify other modules (like front-end viewer) to update their status
+            // Notify observers that the recipes have been downloaded and updated
             notifyAllObservers(getRecipes());
 
-            // save it into given file
+            // Save recipes to the specified local file
             Utils.saveJson(storageFile, recipes);
         });
     }
 
+    /**
+     * Loads recipes from a local file if it exists.
+     * If the file does not exist, downloads the recipes from the cloud.
+     *
+     * @param context the context to get the local file directory
+     */
     public void loadRecipes(Context context) {
         File file = new File(context.getFilesDir(), "recipe/recipe.json");
 
-        // if there is not a local file
+        // If there is no local file, download recipes from the cloud
         if (!file.exists()) {
-
-            // make sure parent dir exists
+            // Ensure the parent directory exists
             File parentDir = file.getParentFile();
-            if (parentDir != null && !parentDir.exists()) parentDir.mkdirs();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
+            }
 
-            // download recipes from cloud
+            // Download recipes from the cloud
             downloadRecipes(file);
             return;
         }
 
-        // load it from local file
-        List<Recipe> recipes = Utils.readJson(file, new TypeToken<List<Recipe>>() {
-        });
+        // Load recipes from the local file
+        List<Recipe> recipes = Utils.readJson(file, new TypeToken<List<Recipe>>() {});
         if (recipes != null) {
             recipeBST.insertAll(recipes);
-            Log.d(TAG, "load recipes from local file successfully!");
+            Log.d(TAG, "Load recipes from local file successfully!");
         } else {
-            Log.d(TAG, "NO results for recipes");
+            Log.d(TAG, "No results for recipes");
         }
     }
 
+    /**
+     * Returns the list of recipes in sorted order.
+     *
+     * @return the sorted list of recipes
+     */
     public List<Recipe> getRecipes() {
         return recipeBST.inOrderTraversal();
     }

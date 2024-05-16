@@ -139,7 +139,7 @@ public class ProfileFragment extends Fragment {
         });
 
         userManager.addObserver(user -> {
-            Log.e("JUSTDEBUG", user.imageUrl);
+//            Log.e("JUSTDEBUG", user.imageUrl);
             setImageView(Uri.parse(user.imageUrl));
             emailAddressTextView.setText(userManager.user.username);
         });

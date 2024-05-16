@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -29,6 +30,7 @@ import anu.cookcompass.pattern.SingletonFactory;
  * The class is a GPS manager
  */
 public class UserLocationManager implements LocationService {
+    String TAG = "UserLocationManager";
     LocationManager locationManager;
     LocationListener locationListener;
     public String location = "unknown";
@@ -101,7 +103,14 @@ public class UserLocationManager implements LocationService {
     }
 
     public String decodeLocation(Context context, Location location) {
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        Geocoder geocoder;
+        try {
+            geocoder = new Geocoder(context, Locale.getDefault());
+        }catch (Exception e){
+            Log.e(TAG, e.getMessage());
+            return "";
+        }
+
         try {
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             assert addresses != null;
