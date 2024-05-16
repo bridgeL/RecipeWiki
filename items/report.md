@@ -365,6 +365,7 @@ Following images show how the branches stem and merge:
 
 ![](media/Git/1.png)
 ![](media/Git/2.png)
+![](media/Git/3.png)
 
 ### Others
 
