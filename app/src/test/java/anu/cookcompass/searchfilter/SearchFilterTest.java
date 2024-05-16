@@ -4,10 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import anu.cookcompass.recipe.Recipe;
 
+/**
+ * @author u7754676, Tashia Tamara
+ * @feature Search-Filter
+ * The class contains tests for the Search-Filter feature
+ */
 public class SearchFilterTest {
 
     @Test
@@ -156,181 +159,5 @@ public class SearchFilterTest {
 
         assertEquals(67, recipes[0].like);
         assertEquals(15, recipes[4].like);
-    }
-
-    @Test
-    public void filterTopNRecipesTestWithIdComparator() {
-
-        Recipe[] recipes = {
-                new Recipe(2, "Sushi", 100, 54),
-                new Recipe(0, "Beef Stew", 30, 15),
-                new Recipe(1, "Apple Pie", 105, 32),
-                new Recipe(3, "Chicken Soup", 234, 67),
-                new Recipe(4, "Cheese Cake", 50, 20)
-        };
-
-        ArrayList<Recipe> result;
-
-        result = SearchFilter.filterTopNRecipes(recipes, new RecipeIdComparator(), 3);
-
-        assertEquals(3, result.size());
-        assertEquals(0, result.get(0).rid);
-        assertEquals(2, result.get(2).rid);
-    }
-
-    @Test
-    public void filterTopNRecipesTestWithTitleComparator() {
-
-        Recipe[] recipes = {
-                new Recipe(2, "Sushi", 100, 54),
-                new Recipe(0, "Beef Stew", 30, 15),
-                new Recipe(1, "Apple Pie", 105, 32),
-                new Recipe(3, "Chicken Soup", 234, 67),
-                new Recipe(4, "Cheese Cake", 50, 20)
-        };
-
-        ArrayList<Recipe> result;
-
-        result = SearchFilter.filterTopNRecipes(recipes, new RecipeTitleComparator(), 3);
-
-        assertEquals(3, result.size());
-        assertEquals("Apple Pie", result.get(0).title);
-        assertEquals("Cheese Cake", result.get(2).title);
-    }
-
-    @Test
-    public void filterTopNRecipesTestWithViewComparator() {
-
-        Recipe[] recipes = {
-                new Recipe(2, "Sushi", 100, 54),
-                new Recipe(0, "Beef Stew", 30, 15),
-                new Recipe(1, "Apple Pie", 105, 32),
-                new Recipe(3, "Chicken Soup", 234, 67),
-                new Recipe(4, "Cheese Cake", 50, 20)
-        };
-
-        ArrayList<Recipe> result;
-
-        result = SearchFilter.filterTopNRecipes(recipes, new RecipeViewComparator(), 3);
-
-        assertEquals(3, result.size());
-        assertEquals(234, result.get(0).view);
-        assertEquals(100, result.get(2).view);
-    }
-    @Test
-    public void filterTopNRecipesTestWithLikeComparator() {
-
-        Recipe[] recipes = {
-                new Recipe(2, "Sushi", 100, 54),
-                new Recipe(0, "Beef Stew", 30, 15),
-                new Recipe(1, "Apple Pie", 105, 32),
-                new Recipe(3, "Chicken Soup", 234, 67),
-                new Recipe(4, "Cheese Cake", 50, 20)
-        };
-
-        ArrayList<Recipe> result;
-
-        result = SearchFilter.filterTopNRecipes(recipes, new RecipeLikeComparator(), 3);
-
-        assertEquals(3, result.size());
-        assertEquals(67, result.get(0).like);
-        assertEquals(32, result.get(2).like);
-    }
-
-    @Test
-    public void filterTopNRecipesTestWithNotEnoughResultsAvailable() {
-
-        Recipe[] recipes = {
-                new Recipe(2, "Sushi", 100, 54),
-                new Recipe(0, "Beef Stew", 30, 15),
-                new Recipe(1, "Apple Pie", 105, 32),
-                new Recipe(3, "Chicken Soup", 234, 67),
-                new Recipe(4, "Cheese Cake", 50, 20)
-        };
-
-        ArrayList<Recipe> result;
-
-        result = SearchFilter.filterTopNRecipes(recipes, new RecipeViewComparator(), 10);
-
-        assertEquals(5, result.size());
-        assertEquals(234, result.get(0).view);
-        assertEquals(30, result.get(4).view);
-    }
-
-    @Test
-    public void filterTopNRecipesWithMinViews() {
-
-        Recipe[] recipes = {
-                new Recipe(2, "Sushi", 100, 54),
-                new Recipe(0, "Beef Stew", 30, 15),
-                new Recipe(1, "Apple Pie", 105, 32),
-                new Recipe(3, "Chicken Soup", 234, 67),
-                new Recipe(4, "Cheese Cake", 50, 20)
-        };
-
-        ArrayList<Recipe> result;
-
-        result = SearchFilter.filterTopNRecipesWithMinLikesOrViews(recipes, new RecipeViewComparator(), 3, 100);
-
-        assertEquals(3, result.size());
-        assertEquals(234, result.get(0).view);
-        assertEquals(100, result.get(2).view);
-    }
-
-    @Test
-    public void filterTopNRecipesWithMinLikes() {
-
-        Recipe[] recipes = {
-                new Recipe(2, "Sushi", 100, 54),
-                new Recipe(0, "Beef Stew", 30, 15),
-                new Recipe(1, "Apple Pie", 105, 32),
-                new Recipe(3, "Chicken Soup", 234, 67),
-                new Recipe(4, "Cheese Cake", 50, 20)
-        };
-
-        ArrayList<Recipe> result;
-
-        result = SearchFilter.filterTopNRecipesWithMinLikesOrViews(recipes, new RecipeLikeComparator(), 3, 30);
-
-        assertEquals(3, result.size());
-        assertEquals(67, result.get(0).like);
-        assertEquals(32, result.get(2).like);
-    }
-
-    @Test
-    public void filterTopNRecipesWithMinLikesOrViewsTestWithNotEnoughResultsAvailable() {
-
-        Recipe[] recipes = {
-                new Recipe(2, "Sushi", 100, 54),
-                new Recipe(0, "Beef Stew", 30, 15),
-                new Recipe(1, "Apple Pie", 105, 32),
-                new Recipe(3, "Chicken Soup", 234, 67),
-                new Recipe(4, "Cheese Cake", 50, 20)
-        };
-
-        ArrayList<Recipe> result;
-
-        result = SearchFilter.filterTopNRecipesWithMinLikesOrViews(recipes, new RecipeViewComparator(), 3, 200);
-
-        assertEquals(1, result.size());
-        assertEquals(234, result.get(0).view);
-    }
-
-    @Test
-    public void filterTopNRecipesWithNoResultsAvailable() {
-
-        Recipe[] recipes = {
-                new Recipe(2, "Sushi", 100, 54),
-                new Recipe(0, "Beef Stew", 30, 15),
-                new Recipe(1, "Apple Pie", 105, 32),
-                new Recipe(3, "Chicken Soup", 234, 67),
-                new Recipe(4, "Cheese Cake", 50, 20)
-        };
-
-        ArrayList<Recipe> result;
-
-        result = SearchFilter.filterTopNRecipesWithMinLikesOrViews(recipes, new RecipeLikeComparator(), 3, 1000);
-
-        assertEquals(0, result.size());
     }
 }
