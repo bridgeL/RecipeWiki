@@ -16,16 +16,32 @@ Note that you should have removed ALL TEMPLATE/INSTRUCTION textes in your submis
 
 ## Table of Contents
 
-1. [Team Members and Roles](#team-members-and-roles)
-2. [Summary of Individual Contributions](#summary-of-individual-contributions)
-3. [Application Description](#application-description)
-4. [Application UML](#application-uml)
-5. [Application Design and Decisions](#application-design-and-decisions)
-6. [Summary of Known Errors and Bugs](#summary-of-known-errors-and-bugs)
-7. [Testing Summary](#testing-summary)
-8. [Implemented Features](#implemented-features)
-9. [Team Meetings](#team-meetings)
-10. [Conflict Resolution Protocol](#conflict-resolution-protocol)
+- [\[G0 - Team Name\] Report](#g0---team-name-report)
+  - [Table of Contents](#table-of-contents)
+  - [Administrative](#administrative)
+  - [Team Members and Roles](#team-members-and-roles)
+  - [Summary of Individual Contributions](#summary-of-individual-contributions)
+  - [Application Description](#application-description)
+    - [Application Use Cases and or Examples](#application-use-cases-and-or-examples)
+      - [Target users](#target-users)
+      - [Use cases](#use-cases)
+    - [Application UML](#application-uml)
+  - [Code Design and Decisions](#code-design-and-decisions)
+    - [Data Structures](#data-structures)
+    - [Design Patterns](#design-patterns)
+    - [Parser](#parser)
+    - [Grammar(s)](#grammars)
+    - [Tokenizers and Parsers](#tokenizers-and-parsers)
+    - [Others](#others)
+  - [Implemented Features](#implemented-features)
+    - [Basic Features](#basic-features)
+    - [Custom Features](#custom-features)
+    - [Surprise Features](#surprise-features)
+  - [Summary of Known Errors and Bugs](#summary-of-known-errors-and-bugs)
+  - [Testing Summary](#testing-summary)
+  - [Team Management](#team-management)
+    - [Meetings Records](#meetings-records)
+    - [Conflict Resolution Protocol](#conflict-resolution-protocol)
 
 ## Administrative
 - Firebase Repository Link: <insert-link-to-firebase-repository>
@@ -38,7 +54,7 @@ Note that you should have removed ALL TEMPLATE/INSTRUCTION textes in your submis
 The key area(s) of responsibilities for each member
 
 | UID      |      Name      |                                                                                                                                                                                                                                      Role |
-|:---------|:--------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| :------- | :------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | u7760022 |   Xinyang Li   |                                                                                                                             Backend (Login, DataFiles, LoadShowData, DataStream, Search-Invalid, FB-Auth, FB-Persist-extension, Register) |
 | u7752874 |   Xinlei Wen   |                                                                                    Backend (LoadShowData, Search, Data-Formats)                                                                                                    [role] |
 | u7754676 | Tashia Tamara  |                                                                                                                                                                                                  Backend (Login, Search-Filter, Data-GPS) |
@@ -48,42 +64,40 @@ The key area(s) of responsibilities for each member
 
 ## Summary of Individual Contributions
 
-Specific details of individual contribution of each member to the project.
+1. **U7760022, Xinyang Li**  I have 20% contribution, as follows: 
+- **Code Contribution in the final App**
+    - Feature Feat 1 login, Feat 2 dataFiles, Feat 3 LoadShowData, Feat 4 DataStream, Feat 6 search-invalid, Feat 11 fb-auth, Feat 12 fb-persist-extension
+        - [UserSimulator.java](app/src/main/java/anu/cookcompass/datastream/UserSimulator.java)
+        - [CloudData.java](app/src/main/java/anu/cookcompass/firebase/CloudData.java)
+        - [Login.java](app/src/main/java/anu/cookcompass/login/Login.java)
+        - [Register.java](app/src/main/java/anu/cookcompass/login/Register.java)
+        - [PopMsgManager.java](app/src/main/java/anu/cookcompass/popmsg/PopMsgManager.java)
+        - [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java)
+        - [SearchService.java](app/src/main/java/anu/cookcompass/search/SearchService.java)
+        - [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java)
+    - Design Pattern 
+        - Singleton & Factory
+            - [SingletonFactory.java](app/src/main/java/anu/cookcompass/pattern/SingletonFactory.java)
+        - Facade
+            - [SearchService.java search()](app/src/main/java/anu/cookcompass/search/SearchService.java#L59)
+        - Observer
+            - interface: 
+                - [Observer.java](app/src/main/java/anu/cookcompass/pattern/Observer.java)
+                - [Subject.java](app/src/main/java/anu/cookcompass/pattern/Subject.java)
+            - implementation:
+                - [CloudData.java](app/src/main/java/anu/cookcompass/firebase/CloudData.java)
+    - Data Structure
+        - Binary Search Tree 
+            - [BinarySearchTree.java](app/src/main/java/anu/cookcompass/model/BinarySearchTree.java)
 
-Each team member is responsible for writing **their own subsection**.
-
-A generic summary will not be acceptable and may result in a significant lose of marks.
-
-*[Summarise the contributions made by each member to the project, e.g. code implementation, code design, UI design, report writing, etc.]*
-
-*[Code Implementation. Which features did you implement? Which classes or methods was each member involved in? Provide an approximate proportion in pecentage of the contribution of each member to the whole code implementation, e.g. 30%.]*
-
-*you should ALSO provide links to the specified classes and/or functions*
-Note that the core criteria of contribution is based on `code contribution` (the technical developing of the App).
-
-*Here is an example: (Note that you should remove the entire section (e.g. "others") if it is not applicable)*
-
-1. **UID1, Name1**  I have 30% contribution, as follows: <br>
-  - **Code Contribution in the final App**
-    - Feature A1, A2, A3 - class Dummy: [Dummy.java](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java)
-    - XYZ Design Pattern -  class AnotherClass: [functionOne()](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43), [function2()](the-URL)
-    - ... (any other contribution in the code, including UI and data files) ... [Student class](../src/path/to/class/Student.java), ..., etc.*, [LanguageTranslator class](../src/path/to/class/LanguageTranslator.java): function1(), function2(), ... <br><br>
-
-  - **Code and App Design** 
+- **Code and App Design** 
     - [What design patterns, data structures, did the involved member propose?]*
-    - [UI Design. Specify what design did the involved member propose? What tools were used for the design?]* <br><br>
+    - [UI Design. Specify what design did the involved member propose? What tools were used for the design?]* 
 
-  - **Others**: (only if significant and significantly different from an "average contribution") 
-    - [Report Writing?] [Slides preparation?]*
-    - [You are welcome to provide anything that you consider as a contribution to the project or team.] e.g., APK, setups, firebase* <br><br>
-
-2. **UID2, Name2**  I have 20% contribution, as follows: <br>
-  - ...
-
-3**U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: <br>
+2. **U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: 
 - **Code Contribution in the final App**
     - Feature Feat 1 login, Feat 9 data Profile, Feat 4 data stream 
-      - class ProfileFragment: [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
+      - class ProfileFragment: [ProfileFragment.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
       - class NotificationFragment:[NotificationFragment.java](app/src/main/java/anu/cookcompass/popmsg/NotificationFragment.java)
       - class NotificationAdapter:[NotificationAdapter.java](app/src/main/java/anu/cookcompass/popmsg/NotificationAdapter.java)
     - Other UI realated java class 
@@ -92,7 +106,7 @@ Note that the core criteria of contribution is based on `code contribution` (the
       - class CircleImageView [CircleImageView.java](app/src/main/java/anu/cookcompass/theme/CircleImageView.java)
       - class RegisterActivity [RegisterActivity.java](app/src/main/java/anu/cookcompass/login/RegisterActivity.java)
       - class BottomBarActivity [BottomBarActivity.java](app/src/main/java/anu/cookcompass/BottomBarActivity.java)
-    - <br><br>
+    - 
 
 - **Code and App Design**
     - UI Design
@@ -112,62 +126,77 @@ Note that the core criteria of contribution is based on `code contribution` (the
       - ![lock_image.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Flock_image.png) free for non-commercial use, CC BY "逍剑"
       - ![notification_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Fnotification_icon.png) free for non-commercial use, CC BY "best_leeyang"
       - ![search_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Fsearch_icon.png) free for non-commercial use, CC BY "best_leeyang"
-      - <br><br>
-
 
 
 ## Application Description
 
-*[What is your application, what does it do? Include photos or diagrams if necessary]*
-
 CookCompass is a recipe application targeted towards people are interested in cooking. It provides thousands of recipes featuring lots of different ingredients. Users can sort the recipes based on their id number, title, likes, and views. They can also look for recipes of a certain level of popularity, for example recipes with at least 100 likes or views. 
+
+![](media/Screenshots/1.jpg)
+
+<details>
+<summary>more screenshot</summary>
+
+![](media/Screenshots/2.jpg)
+![](media/Screenshots/3.jpg)
+![](media/Screenshots/4.jpg)
+![](media/Screenshots/5.jpg)
+![](media/Screenshots/6.jpg)
+</details>
 
 ### Application Use Cases and or Examples
 
-*[Provide use cases and examples of people using your application. Who are the target users of your application? How do the users use your application?]*
+#### Target users 
 
-Target users: Home cooks / People interested in cooking
+Home cooks / People interested in cooking
 
 * Users can use it to look up various kinds of recipes.
 * Users can use the app's search feature to look up recipes by typing in keywords into the search bar.
 * Users can like recipes, thereby adding to the recipe's like count.
 * Every time another user of the app likes or unlikes recipes, the user will receive a notification. The user can also see which location this other user is liking/unliking the recipe from. This helps the user keep track of in which countries certain recipes are currently gaining or losing popularity. 
 * Users can sort the recipe search results according to the recipe's id number, title, likes, and views.
-* Users can filter the recipe search results by typing in how many top results they want (top N results) or typing in the number of results they want and with at least a certain number of likes or views (top N results with at least K likes/views).
 * Users can also customize their app experience by changing their profile picture and/or changing the app's theme color.
 
-(Keeping the section below for future reference in case we want to add this use case example)
+#### Use cases
 
-*Here is a pet training application example*
+- Looking Up Recipes:
+    - Alice wants to find a new dessert recipe to try out this weekend. She opens the app and types "chocolate cake" into the search bar. The app displays a list of chocolate cake recipes sorted by popularity. Alice browses through the recipes, looking at the ratings and views to decide which one to try.
 
-*Molly wants to inquiry about her cat, McPurr's recent troublesome behaviour*
-1. *Molly notices that McPurr has been hostile since...*
-2. *She makes a post about... with the tag...*
-3. *Lachlan, a vet, writes a reply to Molly's post...*
-4. ...
-5. *Molly gives Lachlan's reply a 'tick' response*
+- Liking a Recipe:
+    - Bob tries a new pasta recipe he found on the app and loves it. He decides to like the recipe, adding to its like count. Later, he receives a notification that someone in Italy has also liked the same recipe. Bob finds it interesting to see that the recipe is gaining popularity in different parts of the world.
+
+- Receiving Notifications:
+    - Catherine enjoys exploring different cuisines and likes recipes from various countries. She gets a notification that a user in Japan has liked a sushi recipe she recently discovered. She appreciates these notifications as they help her see global trends in cooking.
+
+- Sorting and Filtering Recipes:
+    - David is planning a dinner party and wants to impress his guests with a popular dish. He uses the app's search feature to look up "dinner recipes" and sorts the results by likes. He then filters the results to show the top 10 recipes with at least 100 likes. This helps him quickly find tried-and-tested recipes that are likely to be a hit at his party.
+
+- Customizing the App Experience:
+    - Emma loves personalizing her apps. She changes her profile picture to a photo of her favorite dish and updates the app's theme color to match her kitchen decor. This makes the app feel more tailored to her preferences and enhances her user experience.
 
 <hr> 
 
 ### Application UML
 
-![ClassDiagramExample](media/_examples/ClassDiagramExample.png) <br>
-*[Replace the above with a class diagram. You can look at how we have linked an image here as an example of how you can do it too.]*
+![uml](media/UMLDiagrams/uml.png)
 
-UML Subdiagrams (Based on Package):
+<details> 
+<summary>UML Subdiagrams (Based on Package)</summary>
 
-1. ![cookcompass-uml-diagram](media/UMLDiagrams/cookcompass/cookcompass-uml-diagram.png) <br>
-2. ![datastream-uml-diagram](media/UMLDiagrams/cookcompass/datastream/datastream-uml-diagram.png) <br>
-3. ![firebase-uml-diagram](media/UMLDiagrams/cookcompass/firebase/firebase-uml-diagram.png) <br>
-4. ![gps-uml-diagram](media/UMLDiagrams/cookcompass/gps/gps-uml-diagram.png) <br>
-5. ![login-uml-diagram](media/UMLDiagrams/cookcompass/login/login-uml-diagram.png) <br>
-6. ![model-uml-diagram](media/UMLDiagrams/cookcompass/model/model-uml-diagram.png) <br>
-7. ![pattern-uml-diagram](media/UMLDiagrams/cookcompass/pattern/pattern-uml-diagram.png) <br>
-8. ![popmsg-uml-diagram](media/UMLDiagrams/cookcompass/popmsg/popmsg-uml-diagram.png) <br>
-9. ![recipe-uml-diagram](media/UMLDiagrams/cookcompass/recipe/recipe-uml-diagram.png) <br>
-10. ![search-uml-diagram](media/UMLDiagrams/cookcompass/search/search-uml-diagram.png) <br>
-11. ![theme-uml-diagram](media/UMLDiagrams/cookcompass/theme/theme-uml-diagram.png) <br>
-12. ![user-uml-diagram](media/UMLDiagrams/cookcompass/user/user-uml-diagram.png) <br>
+![cookcompass-uml-diagram](media/UMLDiagrams/cookcompass/cookcompass-uml-diagram.png)
+![datastream-uml-diagram](media/UMLDiagrams/cookcompass/datastream/datastream-uml-diagram.png) 
+![firebase-uml-diagram](media/UMLDiagrams/cookcompass/firebase/firebase-uml-diagram.png)
+![gps-uml-diagram](media/UMLDiagrams/cookcompass/gps/gps-uml-diagram.png)
+![login-uml-diagram](media/UMLDiagrams/cookcompass/login/login-uml-diagram.png)
+![model-uml-diagram](media/UMLDiagrams/cookcompass/model/model-uml-diagram.png) 
+![pattern-uml-diagram](media/UMLDiagrams/cookcompass/pattern/pattern-uml-diagram.png) 
+![popmsg-uml-diagram](media/UMLDiagrams/cookcompass/popmsg/popmsg-uml-diagram.png) 
+![recipe-uml-diagram](media/UMLDiagrams/cookcompass/recipe/recipe-uml-diagram.png) 
+![search-uml-diagram](media/UMLDiagrams/cookcompass/search/search-uml-diagram.png)
+![theme-uml-diagram](media/UMLDiagrams/cookcompass/theme/theme-uml-diagram.png) 
+![user-uml-diagram](media/UMLDiagrams/cookcompass/user/user-uml-diagram.png)
+
+</details>
 
 <hr>
 
@@ -189,32 +218,42 @@ This is an important section of your report and should include all technical dec
 
 *[What data structures did your team utilise? Where and why?]*
 
-Here is a partial (short) example for the subsection `Data Structures`:*
-
 *I used the following data structures in my project:*
 
-1. *LinkedList*
-   * *Objective: used for storing xxxx for xxx feature.*
+1. *BinearySearchTree*
+   * *Objective: used for *
    * *Code Locations: defined in [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
    * *Reasons:*
       * *It is more efficient than Arraylist for insertion with a time complexity O(1)*
       * *We don't need to access the item by index for xxx feature because...*
       * For the (part), the data ... (characteristics) ...
 
-2. ...
-
-3. ...
 
 <hr>
 
 ### Design Patterns
 *[What design patterns did your team utilise? Where and why?]*
 
-1. *xxx Pattern*
-   * *Objective: used for storing xxxx for xxx feature.*
-   * *Code Locations: defined in [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
-   * *Reasons:*
-      * ...
+1. Singleton
+    * Objective: used for implementation of Sing of a lot of classes
+    * Code Locations: defined in [Class Singleton Factory](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
+    * Reasons: avoid writing a lot of code to impletent singleton
+
+2. SingletonFactory
+    * Objective: used for implementation of Sing of a lot of classes
+    * Code Locations: defined in [Class Singleton Factory](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
+    * Reasons: avoid writing a lot of code to impletent singleton
+
+3. Observer
+    * Objective: used for implementation of Sing of a lot of classes
+    * Code Locations: defined in [Class Singleton Factory](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
+    * Reasons: avoid writing a lot of code to impletent singleton
+
+4. Facade
+    * Objective: used for implementation of Sing of a lot of classes
+    * Code Locations: defined in [Class Singleton Factory](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
+    * Reasons: avoid writing a lot of code to impletent singleton
+
 
 <hr>
 
@@ -241,7 +280,7 @@ This grammar is designed to support searching certain recipe with given title or
 
 Specifically, in the actual application, a search invalid feature is implemented, allows user to search with an input that does not fully satisfies this grammar. However, this feature is not implemented in parser. For testing the parser, a fully correct input is still required.
 
-<br>
+
 
 ### <u>Tokenizers and Parsers</u>
 
@@ -259,81 +298,80 @@ By using a tokenizer and parser, it is easier to parse search inputs, enabling a
 
 *[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
 
-<br>
+
 <hr>
 
 ## Implemented Features
-*[What features have you implemented? where, how, and why?]* <br>
+*[What features have you implemented? where, how, and why?]* 
 *List all features you have completed in their separate categories with their featureId. THe features must be one of the basic/custom features, or an approved feature from Voice Four Feature.*
 
 ### Basic Features
-1.[LogIn]. Users must be able to log in (not necessarily sign up). (easy)
-   * Code: [Login](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/f5a80187285f728941cf73ea7fdfb282a9a991f3/app/src/main/java/anu/cookcompass/login/Login.java) and Class Y, ...
-   * Description of feature:  <br>
-   * Description of your implementation: ... <br>
+1. [LogIn]. Users must be able to log in (not necessarily sign up). (easy)
+    * Code: [Login](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/f5a80187285f728941cf73ea7fdfb282a9a991f3/app/src/main/java/anu/cookcompass/login/Login java) and Class Y, ...
+    * Description of feature:  
+    * Description of your implementation: ... 
 
-2. [DataFiles]. Create a dataset with at least 2,500 valid data instances, each representing a meaningful
-   piece of information in your app. The data should be represented and stored in a structured format
-   taught in the course. (easy)
-   * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
-   * Link to the Firebase repo: ...
-3. [LoadShowData]] Load and display data instances from your dataset. Choose an appropriate format
-   to present the different types of data. (easy)
-   <br>
-4. [DataStream]
+2. [DataFiles]. Create a dataset with at least 2,500 valid data instances, each representing a meaningful piece of information in your app. The data should be represented and stored in a structured format taught in the course. (easy)
+    * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
+    * Link to the Firebase repo: ...
 
-5. [Search]
+3. [LoadShowData] Load and display data instances from your dataset. Choose an appropriate format to present the different types of data. (easy)
+    * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
+    * Link to the Firebase repo: ...
+
+4. [DataStream] Create data instances to simulate users’ actions and interactions, which are then used to feed the app so that when a user is logged in, these data are loaded at regular time intervals and visualised on the app. (medium)
+    * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
+    * Link to the Firebase repo: ...
+
+5. [Search] Users must be able to search for information on your app. (medium)
+    * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
+    * Link to the Firebase repo: ...
 
 ### Custom Features
-Feature Category: Privacy <br>
 
-[//]: # (1. [Privacy-Request]. Description of the feature  &#40;easy&#41;)
+Feature Category: Search-related features
 
-[//]: # (   * Code: [Class X, methods Z, Y]&#40;https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43&#41; and Class Y, ...)
-
-[//]: # (   * Description of your implementation: ... <br>)
-
-[//]: # (     <br>)
-
-Feature Category: Search-related features<br>
-6.[Search-Invalid]On top of giving search results from valid inputs, search functionality can process
-   and correctly handle partially invalid search queries and give meaningful results. (medium)
+6. [Search-Invalid]On top of giving search results from valid inputs, search functionality can process and correctly handle partially invalid search queries and give meaningful results. (medium)
     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-    * Description of your implementation: ... <br>
-      <br>
-7.[Search-Filter] Sort and filter a list of items returned from searches, with the use of suitable UI
-      components. (easy)
-   * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-   * Description of your implementation: ... <br>
-     <br>
-Feature Category:Greater Data Usage, Handling and Sophistication <br>
-8.[Data-Formats] Read data from local files in at least 2 different formats (JSON, XML, etc.). (easy)
+    * Description of your implementation: ... 
+
+7. [Search-Filter] Sort and filter a list of items returned from searches, with the use of suitable UI components. (easy)
     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-    * Description of your implementation: ... <br>
-      <br>
-9.[Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image,
-   animation (e.g., gif), video). (easy) 
-   * Code: [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
-   * This is a fragment to show profile data from the firebase, and can synchronized with the firebase.
-   * By clicking the profile button in the navigation bar, the application will jump to the profile fragment.
-   * In the fragment, the users' email address, location, and profile image will be displayed. UserManger is 
-   * used to get instance for current user, you can also upload the profile image by click the profile image. 
-   * After clicking the image, the image picker will start which enables you to choose the image 
-   * from phone local storage. At the same time, the image will be also be uploaded to the firebase.
-   * Next time when you login this user, the image will be loaded automatically from the firebase.
-10.[Data-GPS] Use GPS information based on location data in your App. (easy)
-     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-     * Description of your implementation: ... <br>
-     <br>
+    * Description of your implementation: ... 
+
+Feature Category:Greater Data Usage, Handling and Sophistication 
+
+8. [Data-Formats] Read data from local files in at least 2 different formats (JSON, XML, etc.). (easy)
+    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Description of your implementation: ... 
+      
+9. [Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image, animation (e.g., gif), video). (easy) 
+    * Code: [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
+    * This is a fragment to show profile data from the firebase, and can synchronized with the firebase.
+    * By clicking the profile button in the navigation bar, the application will jump to the profile fragment.
+    * In the fragment, the users' email address, location, and profile image will be displayed. UserManger is 
+    * used to get instance for current user, you can also upload the profile image by click the profile image. 
+    * After clicking the image, the image picker will start which enables you to choose the image 
+    * from phone local storage. At the same time, the image will be also be uploaded to the firebase.
+    * Next time when you login this user, the image will be loaded automatically from the firebase.
+
+10. [Data-GPS] Use GPS information based on location data in your App. (easy)
+    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Description of your implementation: ... 
+
 Feature Category:Firebase Integration
-11.[FB-Auth] Use Firebase to implement User Authentication/Authorisation. (easy)
-     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-     * Description of your implementation: ... <br>
-     <br> 
-12.[FB-Persist-extension] Use Firebase to persist all data used in your app. (medium)
-     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-     * Description of your implementation: ... <br>
-       <br>
+
+11. [FB-Auth] Use Firebase to implement User Authentication/Authorisation. (easy)
+    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Description of your implementation: ... 
+
+12. [FB-Persist-extension] Use Firebase to persist all data used in your app. (medium)
+    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Description of your implementation: ... 
+
+13. [FB-Register] Users are able to sign up, and the relevant user instance will be created in firebase
+    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Description of your implementation: ... 
 
 <hr>
 
@@ -341,8 +379,11 @@ Feature Category:Firebase Integration
 
 - If implemented, explain how your solution addresses the task (any detail requirements will be released with the surprise feature specifications).
 - State that "Suprised feature is not implemented" otherwise.
+
 Four existing code smells:
+
 1. frontend design structure
+
 - description: At first, we try to implement all UI page by activity. However, in this way, it is very hard to expand the 
   - present code. Every activity need a intent to switch from one to another. The logic to switch among activities need to be 
   - take into serious consideration. Then, we refactored the UI structure by introducing navigation bar combined with fragments. 
@@ -355,7 +396,7 @@ Four existing code smells:
 - Solution outline: First, create a main activity to store the navigation bar and fragments. Then change the type of needed activyty,
 - at first, search activity was changed to fragment. Later, new fragment of profile, notification were added.
 
-<br> <hr>
+ <hr>
 
 ## Summary of Known Errors and Bugs
 
@@ -365,13 +406,14 @@ Four existing code smells:
 *Here is an example:*
 
 1. *Bug 1:*
-   - *A space bar (' ') in the sign in email will crash the application.*
-   - ...
+    - *A space bar (' ') in the sign in email will crash the application.*
+    - ...
 
 2. *Bug 2:*
+
 3. ...
 
-<br> <hr>
+ <hr>
 
 
 ## Testing Summary
@@ -382,28 +424,27 @@ Four existing code smells:
 *Here is an example:*
 
 1. Tests for Search
-   - Code: [TokenizerTest Class, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java) for the [Tokenizer Class, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43)
-   - *Number of test cases: ...*
-   - *Code coverage: ...*
-   - *Types of tests created and descriptions: ...*
+    - Code: [TokenizerTest Class, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java) for the [Tokenizer Class, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43)
+    - *Number of test cases: ...*
+    - *Code coverage: ...*
+    - *Types of tests created and descriptions: ...*
 
 2. Tests for read Data-Formats
-   - Code: [DataFormatTest.java](app/src/androidTest/java/anu/cookcompass/DataFormatTest.java) for the 
-   - [ThemeColor.java](app/src/main/java/anu/cookcompass/theme/ThemeColor.java)
-   - - *Code coverage: 100 % *
-   - * Number of test cases: 4 * 
-   - *Types of tests created and descriptions: 
-     - testReadCsv(): Tests reading theme data from a CSV file with randomly generated content. 
+    - Code: [DataFormatTest.java](app/src/androidTest/java/anu/cookcompass/DataFormatTest.java) for the 
+    - [ThemeColor.java](app/src/main/java/anu/cookcompass/theme/ThemeColor.java)
+    - - *Code coverage: 100 % *
+    - * Number of test cases: 4 * 
+    - *Types of tests created and descriptions: 
+        - testReadCsv(): Tests reading theme data from a CSV file with randomly generated content. 
       Asserts that the theme list read from the file matches the expected theme names.
-     - testReadTxt(): Tests reading the theme color from a text file with randomly generated content. 
+        - testReadTxt(): Tests reading the theme color from a text file with randomly generated content. 
       Asserts that the loaded theme color matches the content of the text file.
-     - testFixedCsvContent(): Tests reading theme data from a CSV file with fixed content. 
+        - testFixedCsvContent(): Tests reading theme data from a CSV file with fixed content. 
       Asserts that the theme list read from the file matches the expected theme names and does not match unexpected names.
-     - testFixedTxtContent(): Tests reading the theme color from a text file with fixed content. 
+        - testFixedTxtContent(): Tests reading the theme color from a text file with fixed content. 
       Asserts that the loaded theme color matches the expected color and does not match an unexpected color.*
 
-
-<br> <hr>
+<hr>
 
 
 ## Team Management

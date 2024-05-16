@@ -3,19 +3,12 @@ package anu.cookcompass;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.opencsv.CSVReader;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -29,9 +22,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Utility class providing various helper methods.
@@ -77,16 +68,7 @@ public class Utils {
      * @param message the message to be displayed
      */
     public static void showShortToast(String message) {
-        MyToast.getInstance().showToast(message, Toast.LENGTH_SHORT);
-    }
-
-    /**
-     * Displays a long toast message.
-     *
-     * @param message the message to be displayed
-     */
-    public static void showLongToast(String message) {
-        MyToast.getInstance().showToast(message, Toast.LENGTH_LONG);
+        MyToast.getInstance().showToast(message);
     }
 
     /**

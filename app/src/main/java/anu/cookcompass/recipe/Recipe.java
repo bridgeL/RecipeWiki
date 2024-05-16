@@ -2,6 +2,7 @@ package anu.cookcompass.recipe;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,9 +13,9 @@ import java.util.List;
 public class Recipe implements Comparable<Recipe> {
     public int rid;
     public String title;
-    public String imageName;
-    public List<String> ingredients;
-    public List<String> instructions;
+    public String imageName = "";
+    public List<String> ingredients = new ArrayList<>();
+    public List<String> instructions = new ArrayList<>();
     public int view;
     public int like;
 
