@@ -83,29 +83,28 @@ Note that the core criteria of contribution is based on `code contribution` (the
 3**U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: <br>
 - **Code Contribution in the final App**
     - Feature Feat 1 login, Feat 9 data Profile, Feat 4 data stream 
-      - class ProfileFragment: [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
-      - class NotificationFragment:[NotificationFragment.java](app/src/main/java/anu/cookcompass/popmsg/NotificationFragment.java)
-      - class NotificationAdapter:[NotificationAdapter.java](app/src/main/java/anu/cookcompass/popmsg/NotificationAdapter.java)
-    - Other UI realated java class 
-      - class MainActivity [MainActivity.java](app/src/main/java/anu/cookcompass/MainActivity.java)
-      - class BottomBarActivity [BotommBarActivity.java](app/src/main/java/anu/cookcompass/BottomBarActivity.java)
-      - class CircleImageView [CircleImageView.java](app/src/main/java/anu/cookcompass/theme/CircleImageView.java)
-      - class RegisterActivity [RegisterActivity.java](app/src/main/java/anu/cookcompass/login/RegisterActivity.java)
-      - class BottomBarActivity [BottomBarActivity.java](app/src/main/java/anu/cookcompass/BottomBarActivity.java)
+      - class ProfileFragment: [ProfileFragment.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
+      - class NotificationFragment:[NotificationFragment.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/popmsg/NotificationFragment.java)
+      - class NotificationAdapter:[NotificationAdapter.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/popmsg/NotificationAdapter.java)
+    - Other UI related java class 
+      - class MainActivity [MainActivity.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/MainActivity.java)
+      - class BottomBarActivity [BotommBarActivity.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/BottomBarActivity.java)
+      - class CircleImageView [CircleImageView.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/theme/CircleImageView.java)
+      - class RegisterActivity [RegisterActivity.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/login/RegisterActivity.java)
     - <br><br>
 
 - **Code and App Design**
     - UI Design
-      - UI design for the login page: [activity_login.xml](app/src/main/res/layout/activity_login.xml)
-      - UI design for the main page: [activity_main.xml](app/src/main/res/layout/activity_main.xml)
-      - UI design for the nagivation bar:[activity_navigation_bar.xml](app/src/main/res/layout/activity_navigation_bar.xml)
-      - UI design for the fragment_notification page:[fragment_notification.xml](app/src/main/res/layout/fragment_notification.xml)
-      - UI design for the fragment_profile page:[fragment_profile.xml](app/src/main/res/layout/fragment_profile.xml)
-      - UI design for the notification_item:[notification_item.xml](app/src/main/res/layout/notification_item.xml)
-      - UI design for bottom_bar_background:[bottom_bar_bg.xml](app/src/main/res/menu/bottom_bar_bg.xml)
-      - UI design for profile_text background:[profile_text_background.xml](app/src/main/res/drawable/profile_text_background.xml)
-      - UI design for login account icon:[baseline_account_box_24.xml](app/src/main/res/drawable/baseline_account_box_24.xml)
-      - UI design for register back arrow icon:[round_arrow_back_24.xml](app/src/main/res/drawable/round_arrow_back_24.xml)
+      - UI design for the login page: [activity_login.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/layout/activity_login.xml)
+      - UI design for the main page: [activity_main.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/layout/activity_main.xml)
+      - UI design for the nagivation bar:[activity_navigation_bar.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/layout/activity_navigation_bar.xml)
+      - UI design for the fragment_notification page:[fragment_notification.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/layout/activity_navigation_bar.xml)
+      - UI design for the fragment_profile page:[fragment_profile.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/layout/fragment_profile.xml)
+      - UI design for the notification_item:[notification_item.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/layout/notification_item.xml)
+      - UI design for bottom_bar_background:[bottom_bar_bg.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/menu/bottom_bar_bg.xml)
+      - UI design for profile_text background:[profile_text_background.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/drawable/profile_text_background.xml)
+      - UI design for login account icon:[baseline_account_box_24.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/drawable/baseline_account_box_24.xml)
+      - UI design for register back arrow icon:[round_arrow_back_24.xml](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/drawable/round_arrow_back_24.xml)
     - 
     - External resources of my UI part
       - ![account_icon.png](..%2Fapp%2Fsrc%2Fmain%2Fres%2Fdrawable%2Faccount_icon.png) free for non-commercial use, CC BY "best_leeyang"
@@ -268,7 +267,7 @@ By using a tokenizer and parser, it is easier to parse search inputs, enabling a
 
 ### Basic Features
 1.[LogIn]. Users must be able to log in (not necessarily sign up). (easy)
-   * Code: [Login](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/f5a80187285f728941cf73ea7fdfb282a9a991f3/app/src/main/java/anu/cookcompass/login/Login.java) and Class Y, ...
+   * Code: [Login](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/login/Login.java) and Class Y, ...
    * Description of feature:  <br>
    * Description of your implementation: ... <br>
 
@@ -280,9 +279,13 @@ By using a tokenizer and parser, it is easier to parse search inputs, enabling a
 3. [LoadShowData]] Load and display data instances from your dataset. Choose an appropriate format
    to present the different types of data. (easy)
    <br>
-4. [DataStream]
+4. [DataStream] Create data instances to simulate users’ actions and interactions, which are then used
+   to feed the app so that when a user is logged in, these data are loaded at regular time intervals and
+   visualised on the app. (medium)
 
-5. [Search]
+5. [Search]Users must be able to search for information on your app. (medium)
+   Given the user's input based on pre-defined grammar(s), a query processor "understands" and
+   retrieves the information that meets the user's query. The usag is dependent on your app theme.
 
 ### Custom Features
 Feature Category: Privacy <br>
@@ -313,7 +316,7 @@ Feature Category:Greater Data Usage, Handling and Sophistication <br>
       <br>
 9.[Data-Profile]  Create a Profile Page for Users or any Entities, which contains a media file (image,
    animation (e.g., gif), video). (easy) 
-   * Code: [ProfileFragment.java](app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
+   * Code: [ProfileFragment.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
    * This is a fragment to show profile data from the firebase, and can synchronized with the firebase.
    * By clicking the profile button in the navigation bar, the application will jump to the profile fragment.
    * In the fragment, the users' email address, location, and profile image will be displayed. UserManger is 
@@ -388,8 +391,8 @@ Four existing code smells:
    - *Types of tests created and descriptions: ...*
 
 2. Tests for read Data-Formats
-   - Code: [DataFormatTest.java](app/src/androidTest/java/anu/cookcompass/DataFormatTest.java) for the 
-   - [ThemeColor.java](app/src/main/java/anu/cookcompass/theme/ThemeColor.java)
+   - Code: [DataFormatTest.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/androidTest/java/anu/cookcompass/DataFormatTest.java) for the 
+   - [ThemeColor.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/theme/ThemeColor.java)
    - - *Code coverage: 100 % *
    - * Number of test cases: 4 * 
    - *Types of tests created and descriptions: 
