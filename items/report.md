@@ -140,6 +140,18 @@ The key area(s) of responsibilities for each member
 - **Code and App Design** 
     - Design Pattern: Singleton (used in class `ThemeColor`)
 
+5. **U7693070, Changlai Sun** I have 20% contribution, as follows:
+- **Code Contribution in the final App**
+    - Feature Feat 3 LoadShowData, Feat 5 Search, Search-Filter
+        - class RecipeAdapter [RecipeAdapter.java](app/src/main/java/anu/cookcompass/search/RecipeAdapter.java)
+        - class SearchFragment [SearchFragment.java](app/src/main/java/anu/cookcompass/search/RecipeAdapter.java)
+        - class FilterFragment [FilterFragment.java](app/src/main/java/anu/cookcompass/search/FilterFragment.java)
+- **Code and App Design**
+    - UI Design
+        - UI design for the custom listview item of search result [list_item.xml](app/src/main/res/layout/list_item.xml)
+        - UI design for the search page [fragment_search.xml](app/src/main/res/layout/fragment_search.xml)
+        - UI design for the search bar and filter button [toolbar_menu.xml](app/src/main/res/menu/toolbar_menu.xml)
+        - UI design for the filter drawer [fragment_filter.xml](app/src/main/res/layout/fragment_filter.xml)
 
 ## Application Description
 
