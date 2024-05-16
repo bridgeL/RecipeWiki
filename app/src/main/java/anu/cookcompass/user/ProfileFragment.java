@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -27,9 +29,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Objects;
 
 import anu.cookcompass.MainActivity;
@@ -41,19 +49,28 @@ import anu.cookcompass.theme.ThemeColor;
 import anu.cookcompass.theme.ThemeUpdateEvent;
 
 /**
- * @author u7759982,Jiangbei Zhang
+ * @author u7759982, Jiangbei Zhang
  * @feature Data_Profile
  * This method decides the logic in profileFragment, including display email address,
  * locaiton and profile image
  */
 public class ProfileFragment extends Fragment {
+    String TAG = "ProfileFragment";
     private View rootView;
     private Spinner colorSelector;
     private ImageView imageView;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
+    void setImageViewFromInternetUrl(String url) {
+        Glide.with(getContext())
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // Disable disk caching
+                .skipMemoryCache(true) // Skip memory caching
+                .into(imageView);
+    }
+
     void setImageView(Uri imageUri) {
-        Glide.with(this)
+        Glide.with(getContext())
                 .load(imageUri)
                 .into(imageView);
     }
@@ -139,8 +156,9 @@ public class ProfileFragment extends Fragment {
         });
 
         userManager.addObserver(user -> {
-//            Log.e("JUSTDEBUG", user.imageUrl);
-            setImageView(Uri.parse(user.imageUrl));
+            Log.e("JUSTDEBUG", user.imageUrl);
+//            setImageView(Uri.parse(user.imageUrl));
+            setImageViewFromInternetUrl(user.imageUrl);
             emailAddressTextView.setText(userManager.user.username);
         });
 
@@ -161,7 +179,7 @@ public class ProfileFragment extends Fragment {
             }
         }
 
-        setImageView(Uri.parse(UserManager.getInstance().user.imageUrl));
+        setImageViewFromInternetUrl(UserManager.getInstance().user.imageUrl);
 
         // set initial theme
         rootView.setBackgroundColor(Color.parseColor(ThemeColor.getThemeColor()));
