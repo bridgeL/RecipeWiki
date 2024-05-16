@@ -1,9 +1,9 @@
 package anu.cookcompass.searchfilter;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 import anu.cookcompass.recipe.Recipe;
+
 /**
  * @author u7754676, Tashia Tamara
  * @feature Search-filter
@@ -15,6 +15,7 @@ class RecipeIdComparator implements Comparator<Recipe> {
         return recipe1.rid - recipe2.rid; //Smaller id number appears first (Ascending)
     }
 }
+
 /**
  * @author u7754676, Tashia Tamara
  * @feature Search-filter
@@ -26,6 +27,7 @@ class RecipeTitleComparator implements Comparator<Recipe> {
         return recipe1.title.compareTo(recipe2.title); //Alphabetical order (Ascending)
     }
 }
+
 /**
  * @author u7754676, Tashia Tamara
  * @feature Search-filter
@@ -37,6 +39,7 @@ class RecipeViewComparator implements Comparator<Recipe> {
         return recipe2.view - recipe1.view; //Larger view count appears first (Descending)
     }
 }
+
 /**
  * @author u7754676, Tashia Tamara
  * @feature Search-filter
@@ -63,6 +66,7 @@ public class SearchFilter {
         if (criterionName.equals("view")) comparatorType = new RecipeViewComparator();
         if (criterionName.equals("like")) comparatorType = new RecipeLikeComparator();
 
+        //If isAscending is false, the order is descending
         if (!isAscending && comparatorType != null) {
             comparatorType = comparatorType.reversed();
         }
@@ -90,7 +94,7 @@ public class SearchFilter {
             //Rebuild max heap after extraction
             heapify(recipeArray, i, 0, comparator);
         }
-        }
+    }
 
     //Logic for building max heap [Helper method to provide heapify() in heapSort()]
     public static void heapify(Recipe[] recipeArray, int length, int parentIndex, Comparator<Recipe> comparatorType) {
@@ -117,60 +121,5 @@ public class SearchFilter {
 
             heapify(recipeArray, length, largest, comparatorType);
         }
-        }
-
-    //Return top N recipes according to order defined by id/title/view/like comparator
-    public static ArrayList<Recipe> filterTopNRecipes(Recipe[] recipeArray, Comparator<Recipe> comparatorType, int topN) {
-
-        heapSort(recipeArray, comparatorType);
-
-        ArrayList<Recipe> topRecipeArray = new ArrayList<>();
-
-        for (int i = 0; i < topN; i++) {
-            if (topRecipeArray.size() == recipeArray.length) { //Break loop if there are no more recipes available to show
-                break;
-            }
-            topRecipeArray.add(recipeArray[i]);
-        }
-
-        return topRecipeArray;
-    }
-
-    //Return top N recipes with at least K number of likes or views
-    public static ArrayList<Recipe> filterTopNRecipesWithMinLikesOrViews(Recipe[] recipeArray, Comparator<Recipe> comparatorType, int topN, int atLeastK) {
-
-        ArrayList<Recipe> topNRecipesWithMinLikesOrViews = new ArrayList<>();
-
-            heapSort(recipeArray, comparatorType);
-
-            int count = 0;
-
-            //Using like comparator
-            if (comparatorType instanceof RecipeLikeComparator) {
-                //Top N recipes with at least K likes (listed from most liked to least liked)
-                for (Recipe recipe : recipeArray) {
-                    //Break loop topN is reached or if there are no more recipes available to show
-                    if (count == topN || topNRecipesWithMinLikesOrViews.size() == recipeArray.length) {
-                        break; //Break current iteration if topN elements have been added (Early termination)
-                    }
-                    if (recipe.like >= atLeastK) {
-                        topNRecipesWithMinLikesOrViews.add(recipe);
-                        count++;
-                    }
-                }
-                //Using view comparator
-            } else if (comparatorType instanceof RecipeViewComparator) {
-                //Top N recipes with at least K views (listed from most viewed to least viewed)
-                for (Recipe recipe : recipeArray) {
-                    if (count == topN) {
-                        break; //Break current iteration if topN elements have been added (Early termination)
-                    }
-                    if (recipe.view >= atLeastK) {
-                        topNRecipesWithMinLikesOrViews.add(recipe);
-                        count++;
-                    }
-                }
-            }
-        return topNRecipesWithMinLikesOrViews;
     }
 }

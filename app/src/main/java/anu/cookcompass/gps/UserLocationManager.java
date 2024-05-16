@@ -40,20 +40,14 @@ public class UserLocationManager implements LocationService {
         return SingletonFactory.getInstance(UserLocationManager.class);
     }
 
+    //Initialize the instance variable locationManager (this.locationManager) with the provided LocationManager instance
     public void init(LocationManager locationManager) {
         this.locationManager = locationManager;
     }
 
-    //LocationManagerClass constructor taking in a LocationManager instance as a parameter
+    //Private constructor of UserLocationManager class
     private UserLocationManager() {
     }
-
-    /*
-    Example of how to inject LocationManager through the LocationManagerClass constructor in the Activity
-    that needs to access user location:
-    LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-    LocationManagerClass locationManagerClass = new LocationManagerClass(locationManager);
-     */
 
     @Override
     public void getLocation(Context context, LocationCallback callback) {
@@ -85,23 +79,24 @@ public class UserLocationManager implements LocationService {
 
             //Request permissions if any of the permissions have not been granted
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, 10);
-            return; // Return statement causes early exit from the getLocation method to prevent the rest of the code from executing
+            return; //Return statement causes early exit from the getLocation method to prevent the rest of the code from executing
         }
 
-        // GPS first
+        //Try getting location updates using GPS
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
         }
-        //internet then
+        //Try getting location updates using network
         else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
         }
-        // if both fail, last known location
+        //If both fail, get last known location
         else {
             location = lastKnownLocation;
         }
     }
 
+    //Convert longitude and latitude to country and area names
     public String decodeLocation(Context context, Location location) {
         Geocoder geocoder;
         try {
