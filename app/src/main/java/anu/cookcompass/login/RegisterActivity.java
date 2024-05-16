@@ -18,7 +18,8 @@ import anu.cookcompass.theme.ThemeColor;
 
 /**
  * @author u7759982,Jiangbei Zhang
- * This method implement reegister logic, and can create new user for the application
+ * This method implement reegister logic, and can create new user for the application,
+ * This is a backend part of register
  */
 public class RegisterActivity extends AppCompatActivity {
 

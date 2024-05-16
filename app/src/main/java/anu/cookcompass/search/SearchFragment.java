@@ -75,9 +75,6 @@ public class SearchFragment extends Fragment {
             Utils.saveJson(file, RecipeManager.getInstance().getRecipes());
             startActivity(intent);
         });
-
-        // setupSearchView
-
         // ======================================
         // other initial code
         // ======================================
@@ -96,6 +93,9 @@ public class SearchFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Sets up the toolbar for the fragment.
+     */
     private void setupToolbar() {
         Toolbar toolbar = rootView.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -131,6 +131,9 @@ public class SearchFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Displays the FilterFragment in the drawer layout.
+     */
     private void showFilterFragment() {
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -139,6 +142,9 @@ public class SearchFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+    /**
+     * Sets up the SearchView to handle query text changes and submissions.
+     */
     private void setupSearchView() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -160,6 +166,11 @@ public class SearchFragment extends Fragment {
         searchView.setQueryHint(getString(R.string.search_hint));
     }
 
+    /**
+     * Updates the search results based on the query.
+     *
+     * @param query The search query.
+     */
     private void updateSearchResults(String query) {
         SearchService.getInstance().query = query;
         SearchService.getInstance().searchAndShow();

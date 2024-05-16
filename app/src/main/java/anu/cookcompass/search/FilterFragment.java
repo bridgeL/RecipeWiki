@@ -35,6 +35,11 @@ public class FilterFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Sets up the views and attaches event listeners to the buttons.
+     *
+     * @param view The root view of the fragment's layout.
+     */
     private void setupViews(View view) {
         // ToggleButtons
         idBtn = view.findViewById(R.id.idSortBtn);
@@ -62,6 +67,7 @@ public class FilterFragment extends Fragment {
             searchService.searchAndShow();
         });
 
+        // Set click listener for sort toggle button
         sortToggle.setOnClickListener(v -> {
                 searchService.isDescending = !searchService.isDescending;
                 sortToggle.setImageResource(searchService.isDescending ? R.drawable.ic_sort_desc : R.drawable.ic_sort_asc);
@@ -69,6 +75,7 @@ public class FilterFragment extends Fragment {
                 searchService.searchAndShow();
         });
 
+        // Set the initial state of the sort toggle button and text
         sortToggle.setImageResource(searchService.isDescending ? R.drawable.ic_sort_desc : R.drawable.ic_sort_asc);
         sortToggleText.setText(searchService.isDescending ? R.string.sort_descending: R.string.sort_ascending);
     }
