@@ -111,7 +111,7 @@ The key area(s) of responsibilities for each member
         - [TokenizerTest](app/src/test/java/anu/cookcompass/TokenizerTest.java)
         - [BinarySearchTreeTest](app/src/test/java/anu/cookcompass/BinarySearchTreeTest.java)
 - Others:
-    - email: u7760022@anu.edu.au and wxlxy316@163.com
+    - git name and email: u7760022(u7760022@anu.edu.au) and bridge(wxlxy316@163.com)
     - I use these two emails for git commit, both are me
 
 2. **U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: 
