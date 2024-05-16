@@ -288,6 +288,8 @@ Production Rules:
     <Names> ::== STRING | STRING , <Names>
     <BoolOperator> ::=  > | <  | = 
 ```
+In this grammar, every part of the input could ONLY be separated by symbols, and spaces between symbols and strings will be ignored. That means, "ingredients=apple;" and "ingredients       = apple         ;" has exactly the same effect. This is to provide an approach to arrange the search input in a more reading friendly way.
+
 Note that in this grammar, query to any data type (ingredients, title, etc.) could not appear more than once, and must follow the order given by the first equation.
 
 This grammar is designed to support searching certain recipe with given title or ingredients, and do filtering on the like or view number. By applying this grammar, we could not only search keywords, but also filtering the result, which makes the filtering page clearer.
@@ -303,6 +305,8 @@ Specifically, in the actual application, a search invalid feature is implemented
 We implemented one tokenizer and one parser in our application, which is used as a supportive module of the searching functionality (see `Tokenizer.java` and `Parser.java` in package `search`). No external libraries that provides tokenizing or parsing are used, and the implementation has a simiilar format as the one provided in labs.
 
 In a searching process, user enters their need formatted in the formal grammar shown above, and the tokenizer and parser will then be called, creating an object that contains every information in the input (object `QueryObject`). The search module only handles this query object.
+
+Specifically, the token used in our project only includes symbols (e.g., '<', ',' and '=') and strings, which means the tokenizer will treat everything except the given symbols as a string (instead of consider keywords like "title" and "ingredients" as "title token" or "ingredients token"). This design ensures any word to be used as a STRING, avoiding problems when you try inputs like "title = title;" (if you do so, as this input fits the grammar, the application will not consider it as an illegal input. Instead you will get 0 results, as there are no recipies named "title", but no warning messages will be shown).
 
 By using a tokenizer and parser, it is easier to parse search inputs, enabling a clear filtering rule for the search module to perform its task. Besides, it separates the raw input from the frontend with the search interface in the backend, protects the search module from invalid inputs.
 
