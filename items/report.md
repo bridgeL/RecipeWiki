@@ -487,18 +487,18 @@ Following images show how the branches stem and merge:
 
 
 11. [FB-Auth] Use Firebase to implement User Authentication/Authorisation. (easy)
-    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Code: [Login.java](app/src/main/java/anu/cookcompass/login/Login.java)
     * Description of your implementation: configure firebase and use the api to connect its authority service.
 
 
 
 12. [FB-Persist-extension] Use Firebase to persist all data used in your app. (hard)
-    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Code: [CloudData.java](app/src/main/java/anu/cookcompass/firebase/CloudData.java)
     * Description of your implementation: Every time user click "like" or "unlike" the recipe, the recipe data in cloud will update.
 
 
 13. [FB-Register] Users are able to sign up, and the relevant user instance will be created in firebase
-    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Code: [Register.java](app/src/main/java/anu/cookcompass/login/Register.java)
     * Description of your implementation: ... 
 
 <hr>
@@ -508,7 +508,7 @@ Following images show how the branches stem and merge:
 - If implemented, explain how your solution addresses the task (any detail requirements will be released with the surprise feature specifications).
 - State that "Suprised feature is not implemented" otherwise.
 
-Four existing code smells:
+Four existing code smells (4 of 4 has been fixed):
 
 1. frontend design structure
 
@@ -524,7 +524,33 @@ Four existing code smells:
 - Solution outline: First, create a main activity to store the navigation bar and fragments. Then change the type of needed activyty,
 - at first, search activity was changed to fragment. Later, new fragment of profile, notification were added.
 
-2. 
+2. observer design pattern
+
+- description: At first, we implement Database class to help us get data from firebase. However, in this way, Every time we want to retrieve updated data from Firebase, we have to actively pull it. In the previous code I tried to design a watcher but failed. This code is bloated, unreliable, and not a best practice of the observer pattern. It is confusing, difficult to read, and hard to extend for users.
+- Previous gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/f78ba9ae5ffb54ec5079d265981e5596a4968f78
+    - related java class [Database](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/f78ba9ae5ffb54ec5079d265981e5596a4968f78/app/src/main/java/anu/cookcompass/database/Database.java)
+- Refactor gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main
+    - related java class [CloudData](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/firebase/CloudData.java), [Observer.java](app/src/main/java/anu/cookcompass/pattern/Observer.java) and [Subject.java](app/src/main/java/anu/cookcompass/pattern/Subject.java)
+- Solution outline: I designed the observer and subject interfaces, then implemented the subject interface with the CloudData class. Anyone who wants to observe the CloudData class or its methods just needs to register an observer callback to use it.
+
+3. Only one Singleton
+
+- description: At first, we implement Global class to help us implement Singleton Design Pattern. Global implements the singleton pattern, and other singleton classes achieve the singleton pattern by being set as member variables of Global. For example, the Database class itself does not implement the singleton pattern, but every time we use it, we access it through Global.getInstance().database, thereby achieving the singleton pattern. However, this usage is often confusing, unintuitive, and prone to errors. This also increases the coupling in our code. Every time we design a new singleton, we have to add it to the Global class as its member variable. Frequently modifying old code can easily introduce new bugs.
+- Previous gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/7e0c583367195a5242014ca1a0d09894664c54e1
+    - related java class [Database](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/7e0c583367195a5242014ca1a0d09894664c54e1/app/src/main/java/anu/cookcompass/database/Database.java) and [Global](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/7e0c583367195a5242014ca1a0d09894664c54e1/app/src/main/java/anu/cookcompass/model/Global.java)
+- Refactor gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main
+    - related java class [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java), [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java) and [PopMsgManager.java](app/src/main/java/anu/cookcompass/popmsg/PopMsgManager.java)
+- Solution outline: I designed the singleton pattern for each class, and to reduce coding effort, I also designed a singleton factory pattern to provide corresponding singletons for each different class.
+
+4. User data management and Recipe data management are mixed together
+
+- description: The code for user data management and recipe data management is all written in the Database class, making this class overly burdened and difficult to extend. For example, when I wanted to implement the observer pattern, I found that the Database needs to accommodate two different observers. When user data is updated, the Database has to notify the User Profile to update the page. When recipe data is updated, the Database has to notify the Recipe Page to update the page. This makes the code difficult to design.
+- Previous gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/7e0c583367195a5242014ca1a0d09894664c54e1
+    - related java class [Database](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/7e0c583367195a5242014ca1a0d09894664c54e1/app/src/main/java/anu/cookcompass/database/Database.java)
+- Refactor gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main
+    - related java class [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java) and [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java)
+- Solution outline: Finally, we designed two classes, RecipeManager and UserManager, with clearly separated responsibilities. The two different observers no longer interfere with each other. The maintainability and extensibility of the code have also been improved.
+
 <hr>
 
 ## Summary of Known Errors and Bugs
