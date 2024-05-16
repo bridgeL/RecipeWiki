@@ -1,4 +1,4 @@
-# [G0 - Team Name] Report
+# [G26 - CookCompass] Report
 
 The following is a report template to help your team successfully provide all the details necessary for your report in a structured and organised manner. Please give a straightforward and concise report that best demonstrates your project. Note that a good report will give a better impression of your project to the reviewers.
 
@@ -16,7 +16,7 @@ Note that you should have removed ALL TEMPLATE/INSTRUCTION textes in your submis
 
 ## Table of Contents
 
-- [\[G0 - Team Name\] Report](#g0---team-name-report)
+- [\[G26 - CookCompass\] Report](#g26---cookcompass-report)
   - [Table of Contents](#table-of-contents)
   - [Administrative](#administrative)
   - [Team Members and Roles](#team-members-and-roles)
@@ -110,6 +110,9 @@ The key area(s) of responsibilities for each member
         - [SearchServiceTest](app/src/test/java/anu/cookcompass/SearchServiceTest.java)
         - [TokenizerTest](app/src/test/java/anu/cookcompass/TokenizerTest.java)
         - [BinarySearchTreeTest](app/src/test/java/anu/cookcompass/BinarySearchTreeTest.java)
+- Others:
+    - email: u7760022@anu.edu.au and wxlxy316@163.com
+    - I use these two emails for git commit, both are me
 
 2. **U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: 
 - **Code Contribution in the final App**
