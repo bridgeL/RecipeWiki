@@ -59,15 +59,17 @@ class RecipeLikeComparator implements Comparator<Recipe> {
  */
 public class SearchFilter {
 
-    public static void heapSortByName(Recipe[] recipeArray, String criterionName, boolean isAscending) {
+    public static void heapSortByName(Recipe[] recipeArray, String criterionName, boolean isDefaultOrder) {
         Comparator<Recipe> comparatorType = null;
         if (criterionName.equals("id")) comparatorType = new RecipeIdComparator();
         if (criterionName.equals("title")) comparatorType = new RecipeTitleComparator();
         if (criterionName.equals("view")) comparatorType = new RecipeViewComparator();
         if (criterionName.equals("like")) comparatorType = new RecipeLikeComparator();
 
-        //If isAscending is false, the order is descending
-        if (!isAscending && comparatorType != null) {
+        //If isDefaultOrder is false, the chosen order is the opposite of the default order
+        //Default for id and title: Ascending
+        //Default for view and like: Descending
+        if (!isDefaultOrder && comparatorType != null) {
             comparatorType = comparatorType.reversed();
         }
         heapSort(recipeArray, comparatorType);
