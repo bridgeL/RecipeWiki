@@ -312,6 +312,12 @@ This is an important section of your report and should include all technical dec
        * *Heap sort is quite memory-efficient, having a space complexity of O(1). This is because it does in-place sorting, meaning the amount of space or memory used isn't directly proportional to the number of objects in the array being sorted.*
        * *Heap sort has a time complexity of O(n logn), which is the optimal time complexity for comparison-based sorting algorithms dealing with large arrays.*
 
+3. *HashMap*
+    * *Objective: used for SingletonFactory*
+    * *Code Locations: defined in [SingletonFactory.java](app/src/main/java/anu/cookcompass/pattern/SingletonFactory.java)
+    * *Reasons:*
+        * use HashMap to store different instance of different class
+        * when the class want to get its instance, it can get it from the hashmap, the key is the class type and the value is the relevant instance.
 <hr>
 
 ### Design Patterns
