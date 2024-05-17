@@ -716,41 +716,41 @@ We used to have these bugs, but now we have fixed it.
     - **testDuplicateInsert()**: Tests the insertion of duplicate elements into the binary search tree. Asserts that duplicates are not added to the tree and that the in-order traversal matches the expected order.
 
 ![](media/Test/7.png)
-4. Tests for Search-Filter
-    - Code: [SearchFilterTest.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/test/java/anu/cookcompass/searchfilter/SearchFilterTest.java) for [SearchFilter.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/searchfilter/SearchFilter.java)
-    - *Number of test cases: 23*
-    - *Code coverage: 100%*
-    - *Types of tests created and descriptions:
-      - Tests to check if the default ordering of all the comparators works as intended:
-        - recipeIdComparatorTest()
-        - recipeTitleComparatorTest()
-        - recipeViewComparatorTest()
-        - recipeLikeComparatorTest()
-      - Tests to check if the heap sort method works with different comparators:
-        - heapSortTestWithIdComparator()
-        - heapSortTestWithTitleComparator()
-        - heapSortTestWithViewComparator()
-        - heapSortTestWithLikeComparator()
-      - Tests to check if the reversing of the default order works as intended, allowing for sorting in both ascending and descending order:
-        - heapSortByTitleWithAscendingOrder()
-        - heapSortByTitleWithDescendingOrder()
-        - heapSortByLikeWithAscendingOrder()
-        - heapSortByLikeWithDescendingOrder()
-      - Tests to check if the heap sort method handles null and empty values properly:
-        - heapSortByNullComparator()
-        - heapSortByInvalidCriterionName()
-        - heapSortByNameUsingEmptyArray()
-        - heapSortByNameUsingNullArray()
-      - Tests to check if heap sort handles duplicate values properly:
-        - heapSortByViewWithDuplicateElements()
-        - heapSortByTitleWithTwoRecipesWithSameName()
-        - heapSortByLikeWithTwoRecipesWithSameName()
-      - Tests to check if heap sort handles recipes whose title starts with or contains numbers properly:
-        - heapSortByTitleUsingRecipesStartingWithNumbers()
-        - heapSortByTitleUsingRecipesThatContainNumbers()
-      - Tests to check if heap sort handles recipes whose title starts with or contains special characters properly:
-        - heapSortByTitleUsingRecipesStartingWithSpecialCharacters()
-        - heapSortByTitleUsingRecipesThatContainSpecialCharacters()
+4. Tests for Search-Filter 
+* Code: [SearchFilterTest.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/test/java/anu/cookcompass/searchfilter/SearchFilterTest.java) for [SearchFilter.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/searchfilter/SearchFilter.java)
+* *Number of test cases: 23*
+* *Code coverage: 100%*
+* **Types of tests created and descriptions:**
+  * Tests to check if the default ordering of all the comparators works as intended:
+    * recipeIdComparatorTest()
+    * recipeTitleComparatorTest()
+    * recipeViewComparatorTest()
+    * recipeLikeComparatorTest()
+  * Tests to check if the heap sort method works with different comparators:
+    * heapSortTestWithIdComparator()
+    * heapSortTestWithTitleComparator()
+    * heapSortTestWithViewComparator()
+    * heapSortTestWithLikeComparator()
+  * Tests to check if the reversing of the default order works as intended, allowing for sorting in both ascending and descending order:
+    * heapSortByTitleWithAscendingOrder()
+    * heapSortByTitleWithDescendingOrder()
+    * heapSortByLikeWithAscendingOrder()
+    * heapSortByLikeWithDescendingOrder()
+  * Tests to check if the heap sort method handles null and empty values properly:
+    * heapSortByNullComparator()
+    * heapSortByInvalidCriterionName()
+    * heapSortByNameUsingEmptyArray()
+    * heapSortByNameUsingNullArray()
+  * Tests to check if heap sort handles duplicate values properly:
+    * heapSortByViewWithDuplicateElements()
+    * heapSortByTitleWithTwoRecipesWithSameName()
+    * heapSortByLikeWithTwoRecipesWithSameName()
+  * Tests to check if heap sort handles recipes whose title starts with or contains numbers properly:
+    * heapSortByTitleUsingRecipesStartingWithNumbers()
+    * heapSortByTitleUsingRecipesThatContainNumbers()
+  * Tests to check if heap sort handles recipes whose title starts with or contains special characters properly:
+    * heapSortByTitleUsingRecipesStartingWithSpecialCharacters()
+    * heapSortByTitleUsingRecipesThatContainSpecialCharacters()
 
 ![](media/Test/1.png)
 
