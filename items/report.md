@@ -65,7 +65,7 @@ The key area(s) of responsibilities for each member
 ## Summary of Individual Contributions
 
 1. **U7760022, Xinyang Li**  I have 20% contribution, as follows: 
-- **Code Contribution in the final App**
+- **Code Contribution in the Final App**
     - Feature
         - Feature 1 Login, Feature 11 fb-auth
             - [Login.java](app/src/main/java/anu/cookcompass/login/Login.java)
@@ -112,7 +112,7 @@ The key area(s) of responsibilities for each member
         - [BinarySearchTreeTest](app/src/test/java/anu/cookcompass/BinarySearchTreeTest.java)
 
 2. **U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: 
-- **Code Contribution in the final App**
+- **Code Contribution in the Final App**
     - Feature Feat 1 login, Feat 9 data Profile, Feat 4 data stream 
       - class ProfileFragment: [ProfileFragment.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/user/ProfileFragment.java)
       - class NotificationFragment:[NotificationFragment.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/java/anu/cookcompass/popmsg/NotificationFragment.java)
@@ -145,7 +145,7 @@ The key area(s) of responsibilities for each member
       - ![login_photo.png](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/main/res/mipmap-xxhdpi/login_photo.png) Public Domain,free to use
 
 3. **U7752874, Xinlei Wen** I have 20% contribution, as follows:
-- **Code Contribution in the final App**
+- **Code Contribution in the Final App**
     - Basic Feature 5a: Grammar, tokenizer and parser
         - class Token [Token.java](app/src/main/java/anu/cookcompass/search/Token.java)
         - class Tokenizer [Tokenizer.java](app/src/main/java/anu/cookcompass/search/Tokenizer.java)
@@ -158,8 +158,8 @@ The key area(s) of responsibilities for each member
 - **Code and App Design** 
     - Design Pattern: Singleton (used in class `ThemeColor`)
 
-5. **U7693070, Changlai Sun** I have 20% contribution, as follows:
-- **Code Contribution in the final App**
+4. **U7693070, Changlai Sun** I have 20% contribution, as follows:
+- **Code Contribution in the Final App**
     - Feature Feat 3 LoadShowData, Feat 5 Search, Search-Filter
         - class RecipeAdapter [RecipeAdapter.java](app/src/main/java/anu/cookcompass/search/RecipeAdapter.java)
         - class SearchFragment [SearchFragment.java](app/src/main/java/anu/cookcompass/search/RecipeAdapter.java)
@@ -170,6 +170,32 @@ The key area(s) of responsibilities for each member
         - UI design for the search page [fragment_search.xml](app/src/main/res/layout/fragment_search.xml)
         - UI design for the search bar and filter button [toolbar_menu.xml](app/src/main/res/menu/toolbar_menu.xml)
         - UI design for the filter drawer [fragment_filter.xml](app/src/main/res/layout/fragment_filter.xml)
+
+5**U7754676, Tashia Tamara** I have 20% contribution, as follows:
+- **Code Contribution in the Final App**
+    - Features: LogIn (Basic), Search-Filter (Custom), Data-GPS (Custom)
+    - Classes in the Final App:
+        - class Login [Login.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/login/Login.java)
+        - class Register [Register.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/login/Register.java)
+        - class SearchFilter [SearchFilter.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/searchfilter/SearchFilter.java)
+        - interface LocationService [LocationService.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/gps/LocationService.java)
+        - class UserLocationManager [UserLocationManager.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/gps/UserLocationManager.java)
+    - Old Version of Classes (Modified, improved, and refactored into the classes in the final app):
+        - class Login (Split into Login.java and Register.java in the final app) [Login.java (Old)](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/f4a9ac18c03bcb232bced4ddc4b56c7be3abf51f/app/src/main/java/anu/cookcompass/login/Login.java)
+        - class LocationManagerClass + LocationService interface (Split into LocationService.java and UserLocationManager.java in the final app) [LocationService.java (Old)](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/f9c37abe999dde22c894cf92370a3518f58cd2c6/app/src/main/java/anu/cookcompass/gps/LocationService.java)
+- **Code and App Design**
+    - Data Structure: Heap (Binary tree-based data structure) (Used in class `SearchFilter`)
+- **Others**
+    - Contributed to the report (outside of my personal contribution subsection) by writing the following sections:
+        - Team Members and Roles
+        - Application Description
+        - Target Users (In section: Application Use Cases and or Examples)
+        - (Generated) UML Subdiagrams (In section: Application UML)
+        - Meeting Records and Conflict Resolution Protocol (In section: Team Management)
+    - Wrote and committed all meeting minutes
+    - Helped create the app demo video
+    - Created the PPT slides for Minute Madness
+    - Presented the group presentation during Minute Madness
 
 ## Application Description
 
@@ -261,7 +287,7 @@ This is an important section of your report and should include all technical dec
 
 *[What data structures did your team utilise? Where and why?]*
 
-*I used the following data structures in my project:*
+*We used the following data structures in our project:*
 
 1. *BinearySearchTree*
    * *Objective: used for Data Instance Storage*
@@ -271,6 +297,12 @@ This is an important section of your report and should include all technical dec
       * *We don't need to access the item by index for xxx feature because...*
       * For the (part), the data ... (characteristics) ...
 
+2. *Heap*
+   * *Objective: used for sorting the Recipe array as part of the Search Filter feature (heapSort)*
+   * *Code Locations: Defined in [SearchFilter.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/searchfilter/SearchFilter.java)
+   * *Reasons:*
+       * *Heap sort is quite memory-efficient, having a space complexity of O(1). This is because it does in-place sorting, meaning the amount of space or memory used isn't directly proportional to the number of objects in the array being sorted.*
+       * *Heap sort has a time complexity of O(n logn), which is the optimal time complexity for comparison-based sorting algorithms dealing with large arrays.*
 
 <hr>
 
@@ -445,11 +477,24 @@ Following images show how the branches stem and merge:
     * Code: [SearchService.java searchByInformalQuery()](app/src/main/java/anu/cookcompass/search/SearchService.java)
     * Description of your implementation: make code to improve search function so that it can handle informal search query or partially incorrect query. When user forget to type ";" in their query, the search function will correct it and return relevant results. When user are lazy to type the whole query and only type title_keywords, such like "apple, orange", the search function will auto handle it as "title=apple, orange;" and return relevant results.
 
-
-
+    
 7. [Search-Filter] Sort and filter a list of items returned from searches, with the use of suitable UI components. (easy)
-    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-    * Description of your implementation: ... 
+    * Code: [Class: SearchFilter.java, Methods: heapSortByName(), heapSort(), heapify()](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/searchfilter/SearchFilter.java)
+      * There are also four more classes in the same file that implements Comparator<Recipe>, which with its own compare() method:
+        * RecipeIdComparator class
+        * RecipeTitleComparator class
+        * RecipeViewComparator class
+        * RecipeLikeComparator class
+    * Description of your implementation:
+      * Logic for building max heap is defined in heapify().
+      * Max heap is built according to the order defined by the chosen comparator. 
+      * The default order for the id and title comparators is ascending, while the default order for the view and like comparators is descending.
+      * In heapSort(), we call heapify() to actually build the max heap.
+      * Then, we sort the array by extracting the largest element and placing it at the end of the array.
+      * After each extraction, we rebuild the max heap. We repeat this until the entire array has been sorted.
+      * Finally, heapSortByName() is the method that allows the front-end to use this back-end code.
+      * It matches the criterionName String parameter to the corresponding comparator.
+      * The boolean isDefaultOrder gives users the option to reverse the default sorting order.
 
 
 **Feature Category:Greater Data Usage, Handling and Sophistication** 
@@ -472,11 +517,32 @@ Following images show how the branches stem and merge:
    * Next time when you login this user, the image will be loaded automatically from the firebase.
 
 
+10. [Data-GPS] Use GPS information based on location data in your App. (easy)
+    * Code:
+      * [Interface: LocationService, Method: getLocation()](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/gps/LocationService.java)
+        * Nested interface inside the LocationService interface: LocationCallback interface with locationRetrieved() method
+      * [Class: UserLocationManager, Methods: getInstance(), init(), getLocation(), onLocationChanged(), onProviderDisabled(), decodeLocation()](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/gps/UserLocationManager.java)
+    * Description of your implementation:
+      * The LocationService interface facilitates an asynchronous location retrieval.
+        * When getLocation() is called, it starts the process of location retrieval.
+        * The calling code continues its execution without waiting for this process to finish.
+        * Once finished, the location is passed to the locationRetrieved() method of the LocationCallback interface.
+        * This lets the calling code receive and handle the obtained location.
+      * The UserLocationManager class implements the LocationService interface to manage user location.
+      * It gets the single instance of the UserLocationManager class using getInstance().
+      * It initializes the instance variable locationManager with the provided LocationManager instance using init().
+      * It overrides the getLocation() method as part of the LocationService implementation.
+      * Inside getLocation():
+        * A new instance of the LocationListener interface is created.
+        * Two methods from the LocationListener interface: onLocationChanged() and onProviderDisabled() are overridden.
+          * onLocationChanged() passes a location to the locationRetrieved() method and lets the caller receive the updated location.
+          * onProviderDisabled() launches location settings if location services are disabled
+        * Internet and location service permissions are checked.
+        * First, it tries to get location updates using GPS. If that fails, use network services. If that also fails, get last known location.
+      * decodeLocation() uses the Android Geocoder class to convert the location's latitude and longitude into country and area names.
 
-10.[Data-GPS] Use GPS information based on location data in your App. (easy)
-     * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-     * Description of your implementation: ... <br>
-     <br>
+
+<br>
 
 
 **Feature Category:Firebase Integration**
@@ -570,9 +636,44 @@ Four existing code smells:
      - testFixedTxtContent(): Tests reading the theme color from a text file with fixed content. 
       Asserts that the loaded theme color matches the expected color and does not match an unexpected color.*
 
+3. Tests for Search-Filter
+   ![search-filter-test-summary](media/Test/1.png)
+    - Code: [SearchFilterTest.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/test/java/anu/cookcompass/searchfilter/SearchFilterTest.java) for [SearchFilter.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/searchfilter/SearchFilter.java)
+    - *Number of test cases: 23*
+    - *Code coverage: 100%*
+    - *Types of tests created and descriptions:
+      - Tests to check if the default ordering of all the comparators works as intended:
+        - recipeIdComparatorTest()
+        - recipeTitleComparatorTest()
+        - recipeViewComparatorTest()
+        - recipeLikeComparatorTest()
+      - Tests to check if the heap sort method works with different comparators:
+        - heapSortTestWithIdComparator()
+        - heapSortTestWithTitleComparator()
+        - heapSortTestWithViewComparator()
+        - heapSortTestWithLikeComparator()
+      - Tests to check if the reversing of the default order works as intended, allowing for sorting in both ascending and descending order:
+        - heapSortByTitleWithAscendingOrder()
+        - heapSortByTitleWithDescendingOrder()
+        - heapSortByLikeWithAscendingOrder()
+        - heapSortByLikeWithDescendingOrder()
+      - Tests to check if the heap sort method handles null and empty values properly:
+        - heapSortByNullComparator()
+        - heapSortByInvalidCriterionName()
+        - heapSortByNameUsingEmptyArray()
+        - heapSortByNameUsingNullArray()
+      - Tests to check if heap sort handles duplicate values properly:
+        - heapSortByViewWithDuplicateElements()
+        - heapSortByTitleWithTwoRecipesWithSameName()
+        - heapSortByLikeWithTwoRecipesWithSameName()
+      - Tests to check if heap sort handles recipes whose title starts with or contains numbers properly:
+        - heapSortByTitleUsingRecipesStartingWithNumbers()
+        - heapSortByTitleUsingRecipesThatContainNumbers()
+      - Tests to check if heap sort handles recipes whose title starts with or contains special characters properly:
+        - heapSortByTitleUsingRecipesStartingWithSpecialCharacters()
+        - heapSortByTitleUsingRecipesThatContainSpecialCharacters()
 
 <br> <hr>
-
 
 ## Team Management
 
@@ -586,7 +687,7 @@ Four existing code smells:
 - [Team Meeting 5](meeting/05-05.md)
 - [Team Meeting 6](meeting/05-06.md)
 - [Team Meeting 7](meeting/05-08.md)
-- [Team Meeting 7](meeting/05-12.md)
+- [Team Meeting 8](meeting/05-12.md)
 
 <hr>
 
