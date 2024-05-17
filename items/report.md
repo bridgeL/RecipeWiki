@@ -290,17 +290,17 @@ This is an important section of your report and should include all technical dec
 
 ### Data Structures
 
-*[What data structures did your team utilise? Where and why?]*
-
 *We used the following data structures in our project:*
 
 1. *BinearySearchTree*
    * *Objective: used for Data Instance Storage*
    * *Code Locations: defined in [BinarySearchTree.java](app/src/main/java/anu/cookcompass/model/BinarySearchTree.java) and [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java)
    * *Reasons:*
-      * *It is more efficient than Arraylist for insertion with a time complexity O(logn)*
-      * *We don't need to access the item by index for xxx feature because...*
-      * For the (part), the data ... (characteristics) ...
+        * *Efficient Data Retrieval*: The binary search tree structure allows for quick data retrieval operations, reducing the time complexity to O(log n) for search, insert, and delete operations.
+        * *Dynamic Data Management*: The binary search tree can dynamically handle data instances, allowing for efficient insertion and deletion without the need for reorganization of the entire data structure.
+        * *Ordered Data Storage*: It maintains data in a sorted order, which simplifies the process of implementing sorted traversals and other operations that require ordered data.
+        * *Scalability*: The tree structure is highly scalable and can efficiently manage a large number of data instances, making it suitable for applications with extensive datasets.
+        * *Memory Efficiency*: Binary search trees utilize memory efficiently by dynamically allocating space only when needed, avoiding the need for pre-allocated fixed-size arrays.
 
 2. *Heap*
    * *Objective: used for sorting the Recipe array as part of the Search Filter feature (heapSort)*
@@ -455,8 +455,7 @@ Following images show how the branches stem and merge:
 
 2. [DataFiles]. Create a dataset with at least 2,500 valid data instances, each representing a meaningful piece of information in your app. The data should be represented and stored in a structured format taught in the course. (easy)
    * Link to the Firebase repo: [realtime database](https://console.firebase.google.com/project/cookcompass-4eed7/database/cookcompass-4eed7-default-rtdb/data)
-   * What I do: pre-process recipe dataset (I get it from kaggle) into json format and upload it into firebase realtime database. 
-
+   * What I do: I pre-processed the recipe dataset (obtained from Kaggle) into JSON format and uploaded it to Firebase Realtime Database. I wrote a Python script to process the raw dataset and transform it into structured JSON data.
     
 3. [LoadShowData] Load and display data instances from your dataset. Choose an appropriate format to present the different types of data. (easy)
    * Link to the Firebase repo: [realtime database](https://console.firebase.google.com/project/cookcompass-4eed7/database/cookcompass-4eed7-default-rtdb/data)
@@ -558,18 +557,17 @@ Following images show how the branches stem and merge:
 
 11. [FB-Auth] Use Firebase to implement User Authentication/Authorisation. (easy)
     * Code: [Login.java](app/src/main/java/anu/cookcompass/login/Login.java)
-    * Description of your implementation: configure firebase and use the api to connect its authority service.
+    * Description of your implementation: I registered an account on Firebase and then enabled the Authentication module. Next, I created a new user on the platform. I configured the google-services.json file locally and connected it to Firebase. I modified the local project's gradle file and installed the relevant dependencies: google-services and the Firebase SDK. Then, I wrote code to call Firebase's API, submitting the account credentials sent from the front end to Firebase. I awaited its response to determine if the submission was successful or to identify the reason for any failure, and then I forwarded this information to the front end to display to the user.
 
 
 
 12. [FB-Persist-extension] Use Firebase to persist all data used in your app. (hard)
     * Code: [CloudData.java](app/src/main/java/anu/cookcompass/firebase/CloudData.java)
-    * Description of your implementation: Every time user click "like" or "unlike" the recipe, the recipe data in cloud will update.
-
+    * Description of your implementation: I enabled the Realtime Database module on Firebase and configured the project permissions for read and write access. Then, I uploaded the JSON file generated from Feature 2 to this database. I then wrote a CloudData class, which calls Firebase's API to persistently listen to data at a specified address in the cloud. When the cloud data updates, CloudData will also be updated. CloudData also implements the observer pattern and acts as a subject being observed by other modules, such as RecipeManager, UserManager, and PopMsgManager. Specifically, when the user data in the cloud updates (for example, if the user avatar link is changed in the Firebase console), the local CloudData will update and notify UserProfilePage to update the user avatar. The app will then automatically download the image based on the new avatar URL. The images are also stored on Firebase, located in its Storage module. After a user uploads an image, it will be available in the Storage module and assigned a URL for the user to download.
 
 13. [FB-Register] Users are able to sign up, and the relevant user instance will be created in firebase
     * Code: [Register.java](app/src/main/java/anu/cookcompass/login/Register.java)
-    * Description of your implementation: ... 
+    * Description of your implementation: I wrote code to call Firebase's API, submitting the account credentials sent from the front end to Firebase and waiting for its response to see if the registration was successful. Once registration is successful, a new account is created in the cloud, and the user can log in.
 
 <hr>
 
@@ -716,7 +714,7 @@ We used to have these bugs, but now we have fixed it.
     - **testEmptyTree()**: Tests the behavior of the binary search tree when it is empty. Asserts that the in-order traversal returns an empty list and that searching for any element returns `false`.
     - **testDuplicateInsert()**: Tests the insertion of duplicate elements into the binary search tree. Asserts that duplicates are not added to the tree and that the in-order traversal matches the expected order.
 
-![](media/Test/7.png)
+![](media/Test/2.png)
 4. Tests for Search-Filter 
 * Code: [SearchFilterTest.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/test/java/anu/cookcompass/searchfilter/SearchFilterTest.java) for [SearchFilter.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/searchfilter/SearchFilter.java)
 * *Number of test cases: 23*
