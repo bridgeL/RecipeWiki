@@ -42,9 +42,9 @@ code:
 # (or remove it altogether if you haven't used any external assets)
 assets:
   # NOTE: "Bliss" is just here as an example, you SHOULD REMOVE IT
-  - comment: "_Bliss_ by Charles O'Rear"
-    url: https://en.wikipedia.org/wiki/Bliss_(image)
-    licence: fair use
+  - comment: "'Food Ingredients and Recipes Dataset with Images from the Epicurious Website' by Sakshi Goel, Amogh Desai, and Tanvi"
+    url: https://www.kaggle.com/datasets/pes12017000148/food-ingredients-and-recipe-dataset-with-images/data
+    licence: CC BY-SA 3.0
   - comment: "account_icon.png"
     url:  https://www.iconfont.cn/collections/detail?spm=a313x.search_index.0.da5a778a4.77e73a81BfxbFM&cid=15266
     licence: free for non-commercial use, CC BY "best_leeyang"
@@ -82,8 +82,8 @@ members:
     uid: u7760022
   - name:
     uid:
-  - name:
-    uid:
+  - name: Tashia Tamara
+    uid: u7754676
   - name: Jiangbei Zhang
     uid: u7759982
   - name: Changlai Sun
