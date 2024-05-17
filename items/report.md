@@ -717,7 +717,6 @@ We used to have these bugs, but now we have fixed it.
 
 ![](media/Test/7.png)
 4. Tests for Search-Filter
-   ![search-filter-test-summary](media/Test/1.png)
     - Code: [SearchFilterTest.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/test/java/anu/cookcompass/searchfilter/SearchFilterTest.java) for [SearchFilter.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/searchfilter/SearchFilter.java)
     - *Number of test cases: 23*
     - *Code coverage: 100%*
@@ -752,6 +751,8 @@ We used to have these bugs, but now we have fixed it.
       - Tests to check if heap sort handles recipes whose title starts with or contains special characters properly:
         - heapSortByTitleUsingRecipesStartingWithSpecialCharacters()
         - heapSortByTitleUsingRecipesThatContainSpecialCharacters()
+
+![](media/Test/1.png)
 
 <br> <hr>
 
