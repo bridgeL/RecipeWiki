@@ -471,8 +471,9 @@ Following images show how the branches stem and merge:
 
 
 5. [Search] Users must be able to search for information on your app. (medium)
-    * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
-    * Link to the Firebase repo: ...
+    * Link to the Firebase repo: [realtime database](https://console.firebase.google.com/project/cookcompass-4eed7/database/cookcompass-4eed7-default-rtdb/data)
+    * What I do: implement a search functionality with a tokenizer and a parser to deal with input, and Firebase handler to provide data from the cloud. When users enter their requirements in search page, the tokenizer and parser handles the input and generate query object, which is then given to search service for matching results. The result will then be displayed as a list, in which users could sort the result as their wish.
+    * Note that the application contains no local data files. As we migrated the data source of our project to Firebase in the early stage of our development, we didn't create local files that stores recipies. Instead, the app will download required data from Firebase in the first launch after install, and store everything within the cache of this app.
 
 
 ### Custom Features
@@ -507,8 +508,8 @@ Following images show how the branches stem and merge:
 
 
 8. [Data-Formats] Read data from local files in at least 2 different formats (JSON, XML, etc.). (easy)
-    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-    * Description of your implementation: ... <br>
+    * Code: [ThemeColor.java](app/src/main/java/anu/cookcompass/theme/ThemeColor.java) and corresponding theme code in every Activity class.
+    * Description of your implementation: Manages available themes (i.e., the background color of UI) of the application. In singleton class `ThemeColor`, themes stored in a csv file `themeList.csv` will be read or created (if no such file exists, e.g. the first launch after install) into this class, which could be used in the profile page for setting the theme. Current selected theme will be stored in a txt file `theme.txt` for persistence, which will also be loaded when the app is launched for retrieving and setting the theme of the application.
       <br>
 
 
