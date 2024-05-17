@@ -1,4 +1,4 @@
-# [G0 - Team Name] Report
+# [G26 - CookCompass] Report
 
 The following is a report template to help your team successfully provide all the details necessary for your report in a structured and organised manner. Please give a straightforward and concise report that best demonstrates your project. Note that a good report will give a better impression of your project to the reviewers.
 
@@ -16,7 +16,7 @@ Note that you should have removed ALL TEMPLATE/INSTRUCTION textes in your submis
 
 ## Table of Contents
 
-- [\[G0 - Team Name\] Report](#g0---team-name-report)
+- [\[G26 - CookCompass\] Report](#g26---cookcompass-report)
   - [Table of Contents](#table-of-contents)
   - [Administrative](#administrative)
   - [Team Members and Roles](#team-members-and-roles)
@@ -110,6 +110,9 @@ The key area(s) of responsibilities for each member
         - [SearchServiceTest](app/src/test/java/anu/cookcompass/SearchServiceTest.java)
         - [TokenizerTest](app/src/test/java/anu/cookcompass/TokenizerTest.java)
         - [BinarySearchTreeTest](app/src/test/java/anu/cookcompass/BinarySearchTreeTest.java)
+- Others:
+    - git name and email: u7760022(u7760022@anu.edu.au) and bridge(wxlxy316@163.com)
+    - I use these two emails for git commit, both are me
 
 2. **U7759982, Jiangbei Zhang**  I have 20% contribution, as follows: 
 - **Code Contribution in the Final App**
@@ -211,6 +214,8 @@ CookCompass is a recipe application targeted towards people are interested in co
 ![](media/Screenshots/4.jpg){width=50%}
 ![](media/Screenshots/5.jpg){width=50%}
 ![](media/Screenshots/6.jpg){width=50%}
+![](media/Screenshots/7.jpg){width=50%}
+![](media/Screenshots/8.jpg){width=50%}
 </details>
 
 ### Application Use Cases and or Examples
@@ -291,7 +296,7 @@ This is an important section of your report and should include all technical dec
 
 1. *BinearySearchTree*
    * *Objective: used for Data Instance Storage*
-   * *Code Locations: defined in [BinarySearchTree.java](app/src/main/java/anu/cookcompass/model/BinarySearchTree.java)
+   * *Code Locations: defined in [BinarySearchTree.java](app/src/main/java/anu/cookcompass/model/BinarySearchTree.java) and [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java)
    * *Reasons:*
       * *It is more efficient than Arraylist for insertion with a time complexity O(logn)*
       * *We don't need to access the item by index for xxx feature because...*
@@ -326,12 +331,13 @@ This is an important section of your report and should include all technical dec
     * Objective: used for implementation of Sing of a lot of classes
     * Code Locations:
         * interface defined in [Observer.java](app/src/main/java/anu/cookcompass/pattern/Observer.java) and [Subject.java](app/src/main/java/anu/cookcompass/pattern/Subject.java)
-        * implementation defined in [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java), [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java) and [PopMsgManager.java](app/src/main/java/anu/cookcompass/popmsg/PopMsgManager.java)
+        * implementation defined in [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java), [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java), [PopMsgManager.java](app/src/main/java/anu/cookcompass/popmsg/PopMsgManager.java) and [CloudData.java](app/src/main/java/anu/cookcompass/firebase/CloudData.java)
     * Reasons: 
         * interface: avoid writing a lot of code to implement Observer
-        * RecipeManager: when recipes update, the search page will be notified and update its content.
-        * PopMsgManager: when pop messages update, the notification page will be notified and update its content.
-        * UserManager: when current user data updates, the user profile page will be notified and update the content.
+        * RecipeManager: When recipes update, the search page will be notified and update its content.
+        * PopMsgManager: When pop messages update, the notification page will be notified and update its content.
+        * UserManager: When current user data updates, the user profile page will be notified and update the content.
+        * CloudData: When cloud data updates, this class will be updated, and then its observers will be notified. This design can help us easily implement data synchronization (Feature 12 fb-persist-extension).
     * Advantages:
         * Decoupling: The Observer pattern promotes loose coupling between the subject and the observers. The subject does not need to know the specifics about the observers; it only knows that they implement a certain interface. This decoupling allows both subjects and observers to be developed and modified independently.
         * Flexibility and Extensibility: Adding new observers is easy and does not require changes to the subject. This makes the system more flexible and easier to extend with new functionality.
@@ -550,18 +556,18 @@ Following images show how the branches stem and merge:
 
 
 11. [FB-Auth] Use Firebase to implement User Authentication/Authorisation. (easy)
-    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Code: [Login.java](app/src/main/java/anu/cookcompass/login/Login.java)
     * Description of your implementation: configure firebase and use the api to connect its authority service.
 
 
 
 12. [FB-Persist-extension] Use Firebase to persist all data used in your app. (hard)
-    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Code: [CloudData.java](app/src/main/java/anu/cookcompass/firebase/CloudData.java)
     * Description of your implementation: Every time user click "like" or "unlike" the recipe, the recipe data in cloud will update.
 
 
 13. [FB-Register] Users are able to sign up, and the relevant user instance will be created in firebase
-    * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
+    * Code: [Register.java](app/src/main/java/anu/cookcompass/login/Register.java)
     * Description of your implementation: ... 
 
 <hr>
@@ -571,7 +577,7 @@ Following images show how the branches stem and merge:
 - If implemented, explain how your solution addresses the task (any detail requirements will be released with the surprise feature specifications).
 - State that "Suprised feature is not implemented" otherwise.
 
-Four existing code smells:
+Four existing code smells (4 of 4 has been fixed):
 
 1. frontend design structure
 
@@ -587,39 +593,97 @@ Four existing code smells:
 - Solution outline: First, create a main activity to store the navigation bar and fragments. Then change the type of needed activyty,
 - at first, search activity was changed to fragment. Later, new fragment of profile, notification were added.
 
-2. 
- <hr>
+2. observer design pattern
+
+- description: At first, we implement Database class to help us get data from firebase. However, in this way, Every time we want to retrieve updated data from Firebase, we have to actively pull it. In the previous code I tried to design a watcher but failed. This code is bloated, unreliable, and not a best practice of the observer pattern. It is confusing, difficult to read, and hard to extend for users.
+- Previous gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/f78ba9ae5ffb54ec5079d265981e5596a4968f78
+    - related java class [Database](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/f78ba9ae5ffb54ec5079d265981e5596a4968f78/app/src/main/java/anu/cookcompass/database/Database.java)
+- Refactor gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main
+    - related java class [CloudData](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/firebase/CloudData.java), [Observer.java](app/src/main/java/anu/cookcompass/pattern/Observer.java) and [Subject.java](app/src/main/java/anu/cookcompass/pattern/Subject.java)
+- Solution outline: I designed the observer and subject interfaces, then implemented the subject interface with the CloudData class. Anyone who wants to observe the CloudData class or its methods just needs to register an observer callback to use it.
+
+3. Only one Singleton
+
+- description: At first, we implement Global class to help us implement Singleton Design Pattern. Global implements the singleton pattern, and other singleton classes achieve the singleton pattern by being set as member variables of Global. For example, the Database class itself does not implement the singleton pattern, but every time we use it, we access it through Global.getInstance().database, thereby achieving the singleton pattern. However, this usage is often confusing, unintuitive, and prone to errors. This also increases the coupling in our code. Every time we design a new singleton, we have to add it to the Global class as its member variable. Frequently modifying old code can easily introduce new bugs.
+- Previous gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/7e0c583367195a5242014ca1a0d09894664c54e1
+    - related java class [Database](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/7e0c583367195a5242014ca1a0d09894664c54e1/app/src/main/java/anu/cookcompass/database/Database.java) and [Global](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/7e0c583367195a5242014ca1a0d09894664c54e1/app/src/main/java/anu/cookcompass/model/Global.java)
+- Refactor gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main
+    - related java class [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java), [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java) and [PopMsgManager.java](app/src/main/java/anu/cookcompass/popmsg/PopMsgManager.java)
+- Solution outline: I designed the singleton pattern for each class, and to reduce coding effort, I also designed a singleton factory pattern to provide corresponding singletons for each different class.
+
+4. User data management and Recipe data management are mixed together
+
+- description: The code for user data management and recipe data management is all written in the Database class, making this class overly burdened and difficult to extend. For example, when I wanted to implement the observer pattern, I found that the Database needs to accommodate two different observers. When user data is updated, the Database has to notify the User Profile to update the page. When recipe data is updated, the Database has to notify the Recipe Page to update the page. This makes the code difficult to design.
+- Previous gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/7e0c583367195a5242014ca1a0d09894664c54e1
+    - related java class [Database](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/7e0c583367195a5242014ca1a0d09894664c54e1/app/src/main/java/anu/cookcompass/database/Database.java)
+- Refactor gits: https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main
+    - related java class [RecipeManager.java](app/src/main/java/anu/cookcompass/recipe/RecipeManager.java) and [UserManager.java](app/src/main/java/anu/cookcompass/user/UserManager.java)
+- Solution outline: Finally, we designed two classes, RecipeManager and UserManager, with clearly separated responsibilities. The two different observers no longer interfere with each other. The maintainability and extensibility of the code have also been improved.
+
+<hr>
 
 ## Summary of Known Errors and Bugs
 
-*[Where are the known errors and bugs? What consequences might they lead to?]*
-*List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
+We used to have these bugs, but now we have fixed it.
 
-*Here is an example:*
+![](media/Git/4.png)
 
-1. *Bug 1:*
-    - *A space bar (' ') in the sign in email will crash the application.*
-    - ...
+[issue-4](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/issues/4)
 
-2. *Bug 2:*
-
-3. ...
-
- <hr>
+<hr>
 
 
 ## Testing Summary
 
-*[What features have you tested? What is your testing coverage?]*
-*Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*
-
-*Here is an example:*
-
 1. Tests for Search
-    - Code: [TokenizerTest Class, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java) for the [Tokenizer Class, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43)
-    - *Number of test cases: ...*
-    - *Code coverage: ...*
-    - *Types of tests created and descriptions: ...*
+- Code: [ParserTest](app/src/test/java/anu/cookcompass/ParserTest.java) for the [Parser.java](app/src/main/java/anu/cookcompass/search/Parser.java)
+- *Number of test cases: 12*
+  - - *Code coverage: 100 % *
+- **Types of tests created and descriptions:**
+    - **testEmptyInput()**: Tests parsing an empty input string. Asserts that the `QueryObject` indicates an invalid query with an appropriate error message.
+    - **testInvalidStartToken()**: Tests parsing a query string starting with an invalid token. Asserts that the `QueryObject` indicates an invalid query with an appropriate error message.
+    - **testDuplicateIngredientsKeyword()**: Tests parsing a query string with duplicate `ingredients` keywords. Asserts that the `QueryObject` indicates an invalid query.
+    - **testIncorrectPositionOfIngredientsKeyword()**: Tests parsing a query string where the `ingredients` keyword is in an incorrect position. Asserts that the `QueryObject` indicates an invalid query.
+    - **testValidIngredientsQuery()**: Tests parsing a valid `ingredients` query string. Asserts that the `QueryObject` is valid and that the ingredient keywords match the expected values.
+    - **testValidTitleQuery()**: Tests parsing a valid `title` query string. Asserts that the `QueryObject` is valid and that the title keywords match the expected values.
+    - **testDuplicateTitleKeyword()**: Tests parsing a query string with duplicate `title` keywords. Asserts that the `QueryObject` indicates an invalid query.
+    - **testValidLikeQuery()**: Tests parsing a valid `like` query string. Asserts that the `QueryObject` is valid and that the like range matches the expected values.
+    - **testInvalidLikeQuery()**: Tests parsing an invalid `like` query string with a non-numeric value. Asserts that the `QueryObject` indicates an invalid query.
+    - **testValidViewQuery()**: Tests parsing a valid `view` query string. Asserts that the `QueryObject` is valid and that the view range matches the expected values.
+    - **testInvalidViewQuery()**: Tests parsing an invalid `view` query string with an incomplete value. Asserts that the `QueryObject` indicates an invalid query.
+    - **testUnexpectedKeyword()**: Tests parsing a query string with an unexpected keyword. Asserts that the `QueryObject` indicates an invalid query with an appropriate error message.
+
+![](media/Test/3.png)
+
+- Code: [TokenizerTest](app/src/test/java/anu/cookcompass/TokenizerTest.java) for the [Tokenizer.java](app/src/main/java/anu/cookcompass/search/Tokenizer.java)
+- *Number of test cases: 5*
+- - *Code coverage: 100 % *
+- *Types of tests created and descriptions:*
+    - **testInitialization()**: Tests the initialization of the `Tokenizer` with a simple input string. Asserts that the tokenizer's current token is correctly set to the initial token and matches the expected token.
+    - **testNextToken()**: Tests the tokenization process for a complex input string containing multiple tokens, including strings, commas, semicolons, and boolean operators. Asserts that each subsequent token is correctly identified and matches the expected token.
+    - **testHasNext()**: Tests the `hasNext` method of the `Tokenizer`. Asserts that the tokenizer correctly indicates the presence of more tokens until the end of the input string is reached.
+    - **testEmptyInput()**: Tests the behavior of the `Tokenizer` when initialized with an empty input string. Asserts that the tokenizer correctly indicates no tokens are available and the current token is null.
+    - **testWhitespaceHandling()**: Tests the `Tokenizer`'s ability to handle input strings with varying amounts of whitespace around tokens. Asserts that the tokenizer correctly ignores the whitespace and identifies the tokens accurately.
+
+![](media/Test/5.png)
+
+- Code: [SearchServiceTest](app/src/test/java/anu/cookcompass/SearchServiceTest.java) for the [SearchService.java](app/src/main/java/anu/cookcompass/search/SearchService.java)
+- *Number of test cases: 10*
+- - *Code coverage: 100 % *
+- **Types of tests created and descriptions:**
+    - **testSearchByTitle()**: Tests searching for recipes by title. Asserts that the search results include only the recipe with the specified title.
+    - **testSearchByIngredients()**: Tests searching for recipes by ingredients. Asserts that the search results include only the recipe with the specified ingredients.
+    - **testSearchByLikeRange()**: Tests searching for recipes by a range of likes. Asserts that the search results include only the recipes with likes greater than the specified value.
+    - **testSearchByViewRange()**: Tests searching for recipes by a range of views. Asserts that the search results include only the recipes with views less than the specified value.
+    - **testSearchWithMultipleCriteria()**: Tests searching for recipes using multiple criteria (title, likes, and views). Asserts that the search results include only the recipes that match all the specified criteria.
+    - **testSearchWithInvalidQuery()**: Tests searching with an invalid query string. Asserts that the search results are empty.
+    - **testSearchWithEmptyQuery()**: Tests searching with an empty query string. Asserts that all recipes are included in the search results.
+    - **testSearchSortAscending()**: Tests searching with sorting in ascending order. Asserts that the search results are sorted by the specified field (likes) in ascending order.
+    - **testSearchSortDescending()**: Tests searching with sorting in descending order. Asserts that the search results are sorted by the specified field (likes) in descending order.
+    - **test_simple_case()**: Tests various search scenarios including searching by partial title, invalid queries, empty queries, and non-matching queries. Asserts that the search results match the expected recipe IDs for each scenario.
+
+![](media/Test/4.png)
+
 
 2. Tests for read Data-Formats
    - Code: [DataFormatTest.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/blob/main/app/src/androidTest/java/anu/cookcompass/DataFormatTest.java) for the 
@@ -636,7 +700,23 @@ Four existing code smells:
      - testFixedTxtContent(): Tests reading the theme color from a text file with fixed content. 
       Asserts that the loaded theme color matches the expected color and does not match an unexpected color.*
 
-3. Tests for Search-Filter
+![](media/Test/6.png)
+
+3. Tests for Binary Search Tree
+- Code: [BinarySearchTreeTest](app/src/test/java/anu/cookcompass/BinarySearchTreeTest.java) for the [BinarySearchTree.java](app/src/main/java/anu/cookcompass/model/BinarySearchTree.java)
+- *Number of test cases: 7*
+    - - *Code coverage: 100 % *
+- **Types of tests created and descriptions:**
+    - **testInsert()**: Tests the insertion of elements into the binary search tree. Asserts that the in-order traversal of the tree matches the expected order after the insertions.
+    - **testInsertAll()**: Tests the insertion of a list of elements into the binary search tree. Asserts that the in-order traversal of the tree matches the expected order after the insertions.
+    - **testSearchFound()**: Tests searching for elements that are present in the binary search tree. Asserts that the search function returns `true` for all present elements.
+    - **testSearchNotFound()**: Tests searching for elements that are not present in the binary search tree. Asserts that the search function returns `false` for all absent elements.
+    - **testInOrderTraversal()**: Tests the in-order traversal of the binary search tree. Asserts that the traversal matches the expected order after inserting a list of elements.
+    - **testEmptyTree()**: Tests the behavior of the binary search tree when it is empty. Asserts that the in-order traversal returns an empty list and that searching for any element returns `false`.
+    - **testDuplicateInsert()**: Tests the insertion of duplicate elements into the binary search tree. Asserts that duplicates are not added to the tree and that the in-order traversal matches the expected order.
+
+![](media/Test/7.png)
+4. Tests for Search-Filter
    ![search-filter-test-summary](media/Test/1.png)
     - Code: [SearchFilterTest.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/test/java/anu/cookcompass/searchfilter/SearchFilterTest.java) for [SearchFilter.java](https://gitlab.cecs.anu.edu.au/u7760022/gp-24s1/-/blob/main/app/src/main/java/anu/cookcompass/searchfilter/SearchFilter.java)
     - *Number of test cases: 23*
