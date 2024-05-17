@@ -174,7 +174,7 @@ The key area(s) of responsibilities for each member
         - UI design for the search bar and filter button [toolbar_menu.xml](app/src/main/res/menu/toolbar_menu.xml)
         - UI design for the filter drawer [fragment_filter.xml](app/src/main/res/layout/fragment_filter.xml)
 
-5**U7754676, Tashia Tamara** I have 20% contribution, as follows:
+5. **U7754676, Tashia Tamara** I have 20% contribution, as follows:
 - **Code Contribution in the Final App**
     - Features: LogIn (Basic), Search-Filter (Custom), Data-GPS (Custom)
     - Classes in the Final App:
