@@ -206,8 +206,9 @@ CookCompass is a recipe application targeted towards people are interested in co
 
 ![](media/Screenshots/1.jpg){width=50%}
 
+**more screenshot**
 <details>
-<summary style="font-size:20px;">more screenshot</summary>
+<summary>more screenshot</summary>
 
 ![](media/Screenshots/2.jpg){width=50%}
 ![](media/Screenshots/3.jpg){width=50%}
@@ -253,6 +254,8 @@ Home cooks / People interested in cooking
 ### Application UML
 
 ![uml](media/UMLDiagrams/uml.png)
+
+**UML Subdiagrams (Based on Package)**
 
 <details> 
 <summary style="font-size:20px;">UML Subdiagrams (Based on Package)</summary>
